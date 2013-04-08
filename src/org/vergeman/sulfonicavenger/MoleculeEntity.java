@@ -2,14 +2,31 @@ package org.vergeman.sulfonicavenger;
 
 public class MoleculeEntity extends Entity {
 
-	int lives = 2;
+	int lives;
 	boolean remove = false;
-
-	protected MoleculeEntity(Sprite sprite, int x, int y) {
+	int score;
+	
+	protected MoleculeEntity(Sprite sprite,  int type, int x, int y) {
 		super(sprite, x, y);
+		
+		//Molecule Type M+C / B / AGC
+		switch (type) {
+		case 3: //AGC
+			lives = 20;
+			score = 500;
+			break;
+		default:
+			score = 50;
+			lives = 10;
+			break;
+		
+		}
 		// TODO Auto-generated constructor stub
 	}
 
+	public int getScore() {
+		return score;
+	}
 	@Override
 	public void collidedWith(Entity other) {
 		// TODO Auto-generated method stub

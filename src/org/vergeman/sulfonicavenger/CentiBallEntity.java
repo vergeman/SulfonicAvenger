@@ -121,7 +121,7 @@ public class CentiBallEntity extends Entity {
 	public void reposition(int x, int y, float scale_rel) {
 		// TODO Auto-generated method stub
 		this.updateBounds(0, x - this.sprite.getWidth(), 0,
-				y - this.sprite.getHeight());
+				y + this.sprite.getHeight());
 
 	}
 	

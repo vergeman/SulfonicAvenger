@@ -19,16 +19,19 @@ public class NH3Entity extends Entity {
 	private long NH3Interval = 4000; // ms
 	private long lastNH3 = Sys.getTime();
 	
-
+	int score = 250;
+	
 	protected NH3Entity(GameContainer container, Sprite sprite, int x, int y) {
 		super(sprite, x, y);
 		this.container = container;
 		setHorizontalMovement(0);
 		setVerticalMovement(0);
 		resize(container.getWidth(), container.getHeight(), 1.0f, 1.0f);
-
 	}
 
+	public int getScore() {
+		return score;
+	}
 	public void move(int delta, ArrayList<MoleculeEntity> molecules) {
 
 		if ((dx < 0) && (x < this.BOUNDS_LEFT)) {

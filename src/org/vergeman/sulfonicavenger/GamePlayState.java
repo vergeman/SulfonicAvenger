@@ -63,7 +63,8 @@ public class GamePlayState extends BasicGameState {
 
 	int score;
 	int high_score = 0;
-
+	int last_life_score = 0;
+	
 	public GamePlayState(int id) {
 		super();
 		this.stateID = id;
@@ -95,7 +96,8 @@ public class GamePlayState extends BasicGameState {
 				(int) (windowManager.getCenterY() + windowManager.getCenterY() / 2));
 
 		score = 0;
-
+		last_life_score = 0;
+		
 		/* // MOLECULES */
 		molecules = new ArrayList<MoleculeEntity>();
 		Random r = new Random();
@@ -120,15 +122,16 @@ public class GamePlayState extends BasicGameState {
 																				// cast
 			h = ((int) (r.nextDouble() * (container.getHeight() - container
 					.getHeight() / 3)) / s_h) * s_h;
+			
 			if (!(h == 0 && w < 5 * s_w)) {
 				molecule_pos.put(w + "-" + h, true);
 			}
 		}
 
+		int type;
 		for (String pos : molecule_pos.keySet()) {
-
-			molecules.add(new MoleculeEntity(sprite_molecules[(int) (r
-					.nextDouble() * 3 - .1)],
+			type = (int) (r.nextDouble() * 3 - .1);
+			molecules.add(new MoleculeEntity(sprite_molecules[type], type+1, 
 					Integer.valueOf(pos.split("-")[0]), Integer.valueOf(pos
 							.split("-")[1])));
 		}
@@ -236,8 +239,10 @@ public class GamePlayState extends BasicGameState {
 			if (n.collidesWith(player)) {
 				n.collidedWith(player);
 				player.collidedWith(n);
-				assetManager.getSound("hit").play();
-				currentState = STATES.GAME_OVER_STATE;
+
+				if (player.isGameOver()) {
+					currentState = STATES.GAME_OVER_STATE;
+				}
 			}
 
 		}
@@ -246,9 +251,10 @@ public class GamePlayState extends BasicGameState {
 		for (Centipede c : centipedes) {
 			c.move(delta, molecules);
 			if (c.checkCollisions(player)) {
-				currentState = STATES.GAME_OVER_STATE;
-				assetManager.getSound("hit").play();
-
+				
+				if (player.isGameOver()) {	
+					currentState = STATES.GAME_OVER_STATE;
+				}
 			}
 		}
 		/* cheap smoooth */
@@ -262,12 +268,10 @@ public class GamePlayState extends BasicGameState {
 				if (s.collidesWith(m)) {
 					s.collidedWith(m);
 					m.collidedWith(s);
-					updateScore(25);
 					assetManager.getSound("hit").play();
-
 				}
 				if (m.remove) {
-					updateScore(100);
+					updateScore(m.getScore());
 					i.remove();
 				}
 			}
@@ -277,7 +281,7 @@ public class GamePlayState extends BasicGameState {
 				if (n.display && s.collidesWith(n)) {
 					s.collidedWith(n);
 					n.collidedWith(s);
-					updateScore(600);
+					updateScore(n.getScore());
 					assetManager.getSound("hit").play();
 				}
 
@@ -333,8 +337,10 @@ public class GamePlayState extends BasicGameState {
 			}
 		}
 
-		player.draw();
-
+		if(!player.isGameOver()) {
+			player.draw();
+		}
+		
 		for (ShotEntity s : shots) {
 			if (s.isDisplay()) {
 				s.draw();
@@ -353,7 +359,11 @@ public class GamePlayState extends BasicGameState {
 		textDrawManager.draw("high_score", HIGH_SCORE_MSG + high_score,
 				Color.blue, container.getWidth(), container.getHeight(), -1,
 				-2, -20, 0);
-
+		
+		textDrawManager.draw("score", "LIFE " + player.lives, Color.red, 
+				20+textDrawManager.getWidth("score"),
+				container.getHeight(), 0, -2, 40, 0);
+		
 	}
 
 	@Override
@@ -376,8 +386,16 @@ public class GamePlayState extends BasicGameState {
 	}
 
 	public void updateScore(int up) {
+
 		if (currentState == STATES.PLAY_GAME_STATE) {
 			score += up;
+			
+			if( score - last_life_score >= 1000) {
+				player.lives += 1;
+				last_life_score +=1000;
+				//System.out.println("Lives:" + player.lives);
+			}
+			
 		}
 		high_score = Math.max(score, high_score);
 	}

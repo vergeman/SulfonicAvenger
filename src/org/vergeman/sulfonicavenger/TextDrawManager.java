@@ -12,6 +12,7 @@ public class TextDrawManager {
 	WindowManager windowManager;
 	Graphics g;
 	
+	
 	public TextDrawManager(Graphics g, WindowManager windowManager, AssetManager assetManager) {
 		this.assetManager = assetManager;
 		this.windowManager = windowManager;
@@ -31,7 +32,15 @@ public class TextDrawManager {
 		return text_drawer_map.get(message);
 	}
 	
-
+	public int getWidth(String message) {
+		String mesage = text_drawer_map.get(message).last_message;
+		return text_drawer_map.get(message).gameFont.getWidth(mesage);
+	}
+	public int getHeight(String message) {
+		String mesage = text_drawer_map.get(message).last_message;
+		return text_drawer_map.get(message).gameFont.getHeight(mesage);
+	}
+	
 	public void draw(String key, String message, Color text_color,
 			int x, int y, double w_offset_coef, double h_offset_coef, double w_offset, double h_offset) {
 		

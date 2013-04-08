@@ -15,6 +15,8 @@ public class TextDrawer {
 	int width;
 	int draw_x, draw_y;
 	Color bg; 
+
+	String last_message;
 	
 	//drawing vars
 	int x,y;
@@ -61,8 +63,9 @@ public class TextDrawer {
 				y= (int) (windowManager.getCenterY() - gameFont.getHeight() / 2);
 			}
 				//g.fillRect(x,y, width, height);
-				gameFont.drawString(draw_x, draw_y, message, text_color);
-
+			last_message = message;
+			
+			gameFont.drawString(draw_x, draw_y, message, text_color);
 		}
 	}
 	

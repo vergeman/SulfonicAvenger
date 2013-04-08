@@ -86,25 +86,28 @@ public class Centipede {
 			if (s.collidesWith(c)) {
 				s.collidedWith(c);
 				c.collidedWith(s);
-				centi_score += 50;
+				centi_score += 25;
 
 				// replace centibody w/ molecule
+				int type;
 				if (!c.isDisplay()) {
-					molecules.add(new MoleculeEntity(sprite_molecules[(int) (r.nextDouble() *3 -.01)], c.getX(),
+					type =(int) (r.nextDouble() *3 -.01);
+					molecules.add(new MoleculeEntity(sprite_molecules[type], type+1, c.getX(),
 							c.getY()));
+
 					i.remove();
+					--lives;
 				}
 
-				--lives;
 				if (lives <= 0) {
 					isAlive = false;
-					centi_score += 4000;
+					centi_score += 0;
 				}
 
 				if (c.getY() > container.getHeight()) {
 					i.remove();
 					--lives;
-					centi_score -= 50;
+					//centi_score -= 50;
 				}
 			}
 

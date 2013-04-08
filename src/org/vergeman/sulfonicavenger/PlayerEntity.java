@@ -7,17 +7,32 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
 
 public class PlayerEntity extends Entity implements KeyListener {
-	boolean alive;
+	boolean alive, can_collide;
+	boolean game_over;
+	int lives = 3;
+	int spawn_x, spawn_y;
 
 	protected int move_speed = 300;
 
 	protected ShotEntity[] shots;
 	protected int shot_index = 0;
-	
+
+	int PAUSE_SPEED = 1000;
+	int pause_counter = 0;
+
 	AssetManager assetManager;
-	
-	protected PlayerEntity(GameContainer container, AssetManager assetManager, Sprite sprite, int x, int y) {
+
+	protected PlayerEntity(GameContainer container, AssetManager assetManager,
+			Sprite sprite, int x, int y) {
 		super(sprite, x, y);
+		this.spawn_x = x;
+		this.spawn_y = y;
+
+		this.alive = true;
+		this.can_collide = true;
+		this.game_over = false;
+		this.pause_counter = 0;
+
 		setVerticalMovement(0);
 		setHorizontalMovement(0);
 		resize(container.getWidth(), container.getHeight(), 1.0f, 1.0f);
@@ -42,11 +57,33 @@ public class PlayerEntity extends Entity implements KeyListener {
 		if ((dy > 0) && (y > this.BOUNDS_BOTTOM)) {
 			dy = 0;
 		}
-		super.move(delta);
 
-		if (!calculateValidMove(molecules)) {
-			super.unmove(delta);
+		// System.out.println("alive: " + alive);
+		// System.out.println("can_collide: " + can_collide);
+		// System.out.println("lives: " + lives);
+
+		if (alive) {
+
+			super.move(delta);
+
+			if (!calculateValidMove(molecules)) {
+				super.unmove(delta);
+			}
 		}
+
+		if (pause_counter >= 0) {
+			pause_counter -= delta;
+		}
+
+		if (!alive && pause_counter < 0) {
+			reinitialize(); // respawn, set to alive (moveable) but not
+							// collidable
+			pause_counter = PAUSE_SPEED + 500; // repause to give user time to
+												// orient
+		} else if (alive && pause_counter <= 0) {
+			can_collide = true;
+		}
+
 	}
 
 	public boolean calculateValidMove(ArrayList<MoleculeEntity> molecules) {
@@ -71,10 +108,61 @@ public class PlayerEntity extends Entity implements KeyListener {
 
 	}
 
+	public boolean isAlive() {
+		return alive;
+	}
+
+	public boolean isGameOver() {
+		return game_over;
+	}
+
+	public int paused() {
+		return pause_counter;
+	}
+
+	@Override
+	public void draw() {
+		if (pause_counter <= 0) {
+			super.draw();
+		} else {
+			/*flash*/
+			switch ((int) (pause_counter / (PAUSE_SPEED / 4))) {
+
+			case 5:
+				break;
+			case 3:
+				break;
+			case 1:
+				break;
+			default:
+				super.draw();
+			}
+		}
+	}
+
 	@Override
 	public void collidedWith(Entity other) {
 		// TODO Auto-generated method stub
+		if (other instanceof CentiBallEntity || other instanceof NH3Entity) {
 
+			if (alive && can_collide) {
+				alive = false;
+				can_collide = false;
+				pause_counter = PAUSE_SPEED;
+				--lives;
+				assetManager.getSound("hit").play();
+
+				if (lives <= 0) {
+					game_over = true;
+				}
+			}
+		}
+	}
+
+	public void reinitialize() {
+		this.x = spawn_x;
+		this.y = spawn_y;
+		this.alive = true;
 	}
 
 	public void shoot() {

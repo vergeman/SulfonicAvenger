@@ -46,9 +46,9 @@ public class AssetManager {
 			ship = new Image("data/logo.png", false, Image.FILTER_NEAREST);
 			nh3 = new Image("data/nh3.png", false, Image.FILTER_NEAREST);
 			
-			molecule1 = new Image("data/molecule1.png", false, Image.FILTER_NEAREST);
-			molecule2 = new Image("data/molecule2.png", false, Image.FILTER_NEAREST);
-			molecule3 = new Image("data/molecule3.png", false, Image.FILTER_NEAREST);
+			molecule1 = new Image("data/molecule_b.png", false, Image.FILTER_NEAREST);
+			molecule2 = new Image("data/molecule_m+c.png", false, Image.FILTER_NEAREST);
+			molecule3 = new Image("data/molecule_agc.png", false, Image.FILTER_NEAREST);
 			
 			centihead  = new Image("data/centi.png", false, Image.FILTER_NEAREST);
 			centibody = new Image("data/centi.png", false, Image.FILTER_NEAREST);
