@@ -1,0 +1,384 @@
+package org.vergeman.sulfonicavenger;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Random;
+
+import org.lwjgl.Sys;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+
+public class GamePlayState extends BasicGameState {
+
+	private int stateID;
+
+	private static int CENTIPEDE_SIZE = 8;
+	private static int NUM_SHOTS = 10;
+	private static int NUM_MOLECULES = 20;
+	private long CentipedeInterval = 10000; // ms
+	private long lastCentipede;
+
+	private enum STATES {
+		START_GAME_STATE, PLAY_GAME_STATE, GAME_OVER_STATE
+	}
+
+	private STATES currentState = null;
+	private int pause_counter = 0;
+
+	String TITLE_MSG = "SULFONIC          AVENGER";
+	float TITLE_SZ = 30f;
+	String SCORE_MSG = "SCORE  ";
+	float SCORE_SZ = 30f;
+	String STATE_MSG;
+	float STATE_SZ = 40f;
+	String HIGH_SCORE_MSG = "HIGH   SCORE  ";
+
+	WindowManager windowManager;
+	AssetManager assetManager;
+	TextDrawManager textDrawManager;
+
+	Color background;
+	Input input;
+
+	PlayerEntity player;
+	ArrayList<MoleculeEntity> molecules;
+	ArrayList<NH3Entity> nh3s;
+	ShotEntity[] shots;
+	Sprite[] sprite_molecules;
+	Sprite sprite_molecule1;
+	Sprite sprite_molecule2;
+	Sprite sprite_molecule3;
+	Sprite sprite_centibody;
+	Sprite sprite_centihead;
+	Sprite sprite_shot;
+	Sprite sprite_nh3;
+	ArrayList<Centipede> centipedes;
+	boolean newCentipede = false;
+
+	int score;
+	int high_score = 0;
+
+	public GamePlayState(int id) {
+		super();
+		this.stateID = id;
+	}
+
+	@Override
+	public void init(GameContainer container, StateBasedGame game)
+			throws SlickException {
+
+		container.setShowFPS(false);
+		container.getGraphics().setBackground(Color.black);
+
+		windowManager = new WindowManager(container, game);
+		assetManager = new AssetManager();
+		assetManager.init();
+
+		textDrawManager = new TextDrawManager(container.getGraphics(),
+				windowManager, assetManager);
+		textDrawManager.build("state", STATE_SZ);
+		textDrawManager.build("title", TITLE_SZ);
+		textDrawManager.build("score", SCORE_SZ);
+		textDrawManager.build("high_score", SCORE_SZ);
+
+		player = new PlayerEntity(
+				container,
+				assetManager,
+				new Sprite(assetManager.getImage("ship")),
+				(int) windowManager.getCenterX(),
+				(int) (windowManager.getCenterY() + windowManager.getCenterY() / 2));
+
+		score = 0;
+
+		/* // MOLECULES */
+		molecules = new ArrayList<MoleculeEntity>();
+		Random r = new Random();
+		sprite_molecules = new Sprite[3];
+		sprite_molecule1 = new Sprite(assetManager.getImage("molecule1"));
+		sprite_molecule2 = new Sprite(assetManager.getImage("molecule2"));
+		sprite_molecule3 = new Sprite(assetManager.getImage("molecule3"));
+		sprite_molecules[0] = sprite_molecule1;
+		sprite_molecules[1] = sprite_molecule2;
+		sprite_molecules[2] = sprite_molecule3;
+
+		int w, h;
+		int s_w = sprite_molecule1.getWidth();
+		int s_h = sprite_molecule1.getHeight();
+		HashMap<String, Boolean> molecule_pos = new HashMap<String, Boolean>();
+
+		// spawn evenly on sprite dimensions
+		while (molecule_pos.size() < NUM_MOLECULES) {
+			w = ((int) (r.nextDouble() * container.getWidth()) / s_w) * s_w; // not
+																				// equivalent
+																				// on
+																				// cast
+			h = ((int) (r.nextDouble() * (container.getHeight() - container
+					.getHeight() / 3)) / s_h) * s_h;
+			if (!(h == 0 && w < 5 * s_w)) {
+				molecule_pos.put(w + "-" + h, true);
+			}
+		}
+
+		for (String pos : molecule_pos.keySet()) {
+
+			molecules.add(new MoleculeEntity(sprite_molecules[(int) (r
+					.nextDouble() * 3 - .1)],
+					Integer.valueOf(pos.split("-")[0]), Integer.valueOf(pos
+							.split("-")[1])));
+		}
+
+		/* SHOTS */
+		sprite_shot = new Sprite(assetManager.getImage("shot"));
+		shots = new ShotEntity[NUM_SHOTS];
+		for (int s = 0; s < NUM_SHOTS; s++) {
+			shots[s] = new ShotEntity(sprite_shot, -3000, -3000);
+		}
+		player.setShots(shots);
+
+		/* NH3 -SPIDERS */
+		// we'll have two, to have ability to level up later
+		sprite_nh3 = new Sprite(assetManager.getImage("nh3"));
+		nh3s = new ArrayList<NH3Entity>();
+
+		for (int j = 0; j < 2; j++) {
+			nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
+					: windowManager.get_orig_width(), (int) (windowManager
+					.get_orig_height() - 200 + (r.nextDouble() * 200))));
+
+		}
+
+		/* CENTIPEDE */
+		sprite_centibody = new Sprite(assetManager.getImage("centibody"));
+		sprite_centihead = new Sprite(assetManager.getImage("centihead"));
+
+		centipedes = new ArrayList<Centipede>();
+		centipedes.add(new Centipede(container, sprite_centihead,
+				sprite_centibody, CENTIPEDE_SIZE));
+		lastCentipede = Sys.getTime();
+
+		container.getInput().addKeyListener(player);
+	}
+
+	@Override
+	public void update(GameContainer container, StateBasedGame game, int delta)
+			throws SlickException {
+
+		if (windowManager.isResized()) {
+
+		}
+
+		/* GAME_STATE */
+
+		switch (currentState) {
+		case START_GAME_STATE:
+
+			STATE_MSG = "PRESS     ENTER     TO     PLAY";
+			player.x = -2000;
+			player.y = -2000;
+			input = container.getInput();
+
+			if (input.isKeyPressed(Input.KEY_ENTER)) {
+				init(container, game);
+				currentState = STATES.PLAY_GAME_STATE;
+				pause_counter = 3000;
+
+			}
+			break;
+
+		case PLAY_GAME_STATE:
+			STATE_MSG = null;
+			container.getInput().addKeyListener(player);
+
+			break;
+
+		case GAME_OVER_STATE:
+			container.getInput().removeKeyListener(player);
+			player.x = -2000;
+			player.y = -2000;
+
+			if (pause_counter == 3000) {
+				STATE_MSG = "GAME     OVER";
+			}
+
+			pause_counter -= delta;
+
+			if (pause_counter < 0 || input.isKeyPressed(Input.KEY_ENTER)) {
+				// game.enterState(SulfonicAvenger.MAINMENUSTATE);
+				currentState = STATES.START_GAME_STATE;
+			}
+
+			break;
+		}
+
+		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+			System.exit(0);
+		}
+		/* test collision detect */
+
+		/*
+		 * check against barries - i.e. molecules blocking our way, we undo move
+		 * here because the delta will change all the time depending on comp
+		 * speed
+		 */
+		player.move(delta, molecules);
+
+		/* move NH3's */
+		for (NH3Entity n : nh3s) {
+			n.reinitialize();
+			n.move(delta, molecules);
+
+			if (n.collidesWith(player)) {
+				n.collidedWith(player);
+				player.collidedWith(n);
+				assetManager.getSound("hit").play();
+				currentState = STATES.GAME_OVER_STATE;
+			}
+
+		}
+
+		// move centiballs & smooth
+		for (Centipede c : centipedes) {
+			c.move(delta, molecules);
+			if (c.checkCollisions(player)) {
+				currentState = STATES.GAME_OVER_STATE;
+				assetManager.getSound("hit").play();
+
+			}
+		}
+		/* cheap smoooth */
+		/* collision detection */
+		// move shots
+		for (ShotEntity s : shots) {
+
+			// shots and molecules
+			for (Iterator<MoleculeEntity> i = molecules.iterator(); i.hasNext();) {
+				MoleculeEntity m = i.next();
+				if (s.collidesWith(m)) {
+					s.collidedWith(m);
+					m.collidedWith(s);
+					updateScore(25);
+					assetManager.getSound("hit").play();
+
+				}
+				if (m.remove) {
+					updateScore(100);
+					i.remove();
+				}
+			}
+
+			// shots and NH3's
+			for (NH3Entity n : nh3s) {
+				if (n.display && s.collidesWith(n)) {
+					s.collidedWith(n);
+					n.collidedWith(s);
+					updateScore(600);
+					assetManager.getSound("hit").play();
+				}
+
+			}
+
+			// shots and centiballs
+			for (Iterator<Centipede> i = centipedes.iterator(); i.hasNext();) {
+				Centipede c = i.next();
+
+				updateScore(c.checkCollisions(s, molecules, sprite_molecules));
+
+				// no centis, toggle spawn
+				if (!c.isAlive) {
+					i.remove();
+					newCentipede = true;
+				}
+
+			}
+
+			// update only displayable shots
+			if (s.isDisplay()) {
+				s.move(delta);
+			}
+
+		}
+		// end shots
+
+		// spwan centipede
+		if (newCentipede || (Sys.getTime() - lastCentipede > CentipedeInterval)) {
+			centipedes.add(new Centipede(container, sprite_centihead,
+					sprite_centibody, CENTIPEDE_SIZE));
+			newCentipede = false;
+			lastCentipede = Sys.getTime();
+		}
+
+	}
+
+	@Override
+	public void render(GameContainer container, StateBasedGame game, Graphics g)
+			throws SlickException {
+
+		for (Centipede c : centipedes) {
+			c.draw();
+		}
+
+		for (MoleculeEntity molecule : molecules) {
+			molecule.draw();
+		}
+
+		for (NH3Entity n : nh3s) {
+			if (n.display) {
+				n.draw();
+			}
+		}
+
+		player.draw();
+
+		for (ShotEntity s : shots) {
+			if (s.isDisplay()) {
+				s.draw();
+			}
+		}
+
+		// render bottom for z-index
+		textDrawManager.draw("state", STATE_MSG, Color.white,
+				(container.getWidth() / 2), (int) windowManager.getCenterY(),
+				-0.5, 0, 0, 0);
+		textDrawManager.draw("title", TITLE_MSG, Color.white,
+				(container.getWidth() / 2), container.getHeight(), -0.5, -2, 0,
+				0);
+		textDrawManager.draw("score", SCORE_MSG + score, Color.red, 20,
+				container.getHeight(), 0, -2, 0, 0);
+		textDrawManager.draw("high_score", HIGH_SCORE_MSG + high_score,
+				Color.blue, container.getWidth(), container.getHeight(), -1,
+				-2, -20, 0);
+
+	}
+
+	@Override
+	public void enter(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		super.enter(container, game);
+		currentState = STATES.START_GAME_STATE;
+		score = 0;
+
+	}
+
+	@Override
+	public int getID() {
+		return this.stateID;
+	}
+
+	@Override
+	public void keyPressed(int key, char c) {
+		super.keyPressed(key, c);
+	}
+
+	public void updateScore(int up) {
+		if (currentState == STATES.PLAY_GAME_STATE) {
+			score += up;
+		}
+		high_score = Math.max(score, high_score);
+	}
+}
