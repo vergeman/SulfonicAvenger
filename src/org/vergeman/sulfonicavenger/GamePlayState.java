@@ -45,7 +45,9 @@ public class GamePlayState extends BasicGameState {
 
 	Color background;
 	Input input;
-
+	
+	Random r;
+	
 	PlayerEntity player;
 	ArrayList<MoleculeEntity> molecules;
 	ArrayList<NH3Entity> nh3s;
@@ -65,6 +67,9 @@ public class GamePlayState extends BasicGameState {
 	int high_score = 0;
 	int last_life_score = 0;
 	
+	int NH3SpawnInterval = 90000; // ms
+	long lastNH3;
+
 	public GamePlayState(int id) {
 		super();
 		this.stateID = id;
@@ -100,7 +105,7 @@ public class GamePlayState extends BasicGameState {
 		
 		/* // MOLECULES */
 		molecules = new ArrayList<MoleculeEntity>();
-		Random r = new Random();
+		r = new Random();
 		sprite_molecules = new Sprite[3];
 		sprite_molecule1 = new Sprite(assetManager.getImage("molecule1"));
 		sprite_molecule2 = new Sprite(assetManager.getImage("molecule2"));
@@ -145,17 +150,14 @@ public class GamePlayState extends BasicGameState {
 		player.setShots(shots);
 
 		/* NH3 -SPIDERS */
-		// we'll have two, to have ability to level up later
+		//TODO: adjust to spawn relative to 30% of the screen
 		sprite_nh3 = new Sprite(assetManager.getImage("nh3"));
 		nh3s = new ArrayList<NH3Entity>();
-
-		for (int j = 0; j < 2; j++) {
-			nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
+		nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
 					: windowManager.get_orig_width(), (int) (windowManager
 					.get_orig_height() - 200 + (r.nextDouble() * 200))));
-
-		}
-
+		lastNH3 = Sys.getTime();
+		
 		/* CENTIPEDE */
 		sprite_centibody = new Sprite(assetManager.getImage("centibody"));
 		sprite_centihead = new Sprite(assetManager.getImage("centihead"));
@@ -231,9 +233,20 @@ public class GamePlayState extends BasicGameState {
 		 */
 		player.move(delta, molecules);
 
+		/** spawn H3 */
+		if (Sys.getTime() - lastNH3 > NH3SpawnInterval) {
+			System.out.println("spawned:  " + lastNH3);
+			nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
+					: windowManager.get_orig_width(), (int) (windowManager
+					.get_orig_height() - 200 + (r.nextDouble() * 200))));
+			
+			lastNH3 = Sys.getTime();
+		}
+	
 		/* move NH3's */
-		for (NH3Entity n : nh3s) {
-			n.reinitialize();
+		for (Iterator<NH3Entity> i = nh3s.iterator(); i.hasNext();) {
+			NH3Entity n = i.next();
+				
 			n.move(delta, molecules);
 
 			if (n.collidesWith(player)) {
@@ -243,6 +256,12 @@ public class GamePlayState extends BasicGameState {
 				if (player.isGameOver()) {
 					currentState = STATES.GAME_OVER_STATE;
 				}
+			
+			}
+			
+			//remove
+			if (n.remove_me) {
+				i.remove();
 			}
 
 		}
@@ -277,12 +296,15 @@ public class GamePlayState extends BasicGameState {
 			}
 
 			// shots and NH3's
-			for (NH3Entity n : nh3s) {
+			for (Iterator<NH3Entity> i = nh3s.iterator(); i.hasNext();) {
+				NH3Entity n = i.next();
 				if (n.display && s.collidesWith(n)) {
 					s.collidedWith(n);
 					n.collidedWith(s);
 					updateScore(n.getScore());
 					assetManager.getSound("hit").play();
+				
+					i.remove();
 				}
 
 			}

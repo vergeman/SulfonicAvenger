@@ -92,6 +92,8 @@ public class Centipede {
 				int type;
 				if (!c.isDisplay()) {
 					type =(int) (r.nextDouble() *3 -.01);
+					
+					//exclude spawn point here
 					molecules.add(new MoleculeEntity(sprite_molecules[type], type+1, c.getX(),
 							c.getY()));
 
