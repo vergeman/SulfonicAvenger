@@ -116,6 +116,7 @@ public class GamePlayState extends BasicGameState {
 		sprite_molecules[2] = sprite_molecule3;
 
 		sprite_damage = new Sprite(assetManager.getImage("damage"));
+		
 		int w, h;
 		int s_w = sprite_molecule1.getWidth();
 		int s_h = sprite_molecule1.getHeight();
@@ -358,7 +359,7 @@ public class GamePlayState extends BasicGameState {
 						Integer.parseInt(coord.split("-")[1]));
 			}
 		}
-
+		
 		for (NH3Entity n : nh3s) {
 			if (n.display) {
 				n.draw();

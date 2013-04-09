@@ -30,7 +30,9 @@ public class AssetManager {
 	Image nh3;
 	Image centibody;
 	Image centihead;
-
+	
+	Image explosion;
+	
 	Sound hit, shoot;
 
 	/*hash or lists...hmm*/
@@ -52,6 +54,7 @@ public class AssetManager {
 			molecule3 = new Image("data/molecule_agc.png", false, Image.FILTER_NEAREST);
 			
 			damage = new Image("data/damage.png");
+			explosion = new Image("data/explosion.png");
 			
 			centihead  = new Image("data/centi.png", false, Image.FILTER_NEAREST);
 			centibody = new Image("data/centi.png", false, Image.FILTER_NEAREST);
@@ -68,6 +71,7 @@ public class AssetManager {
 			image_map.put("molecule2", molecule2);
 			image_map.put("molecule3", molecule3);
 			image_map.put("damage", damage);
+			image_map.put("explosion", explosion);
 			image_map.put("shot", shot);
 			image_map.put("nh3", nh3);
 			image_map.put("centihead", centihead);

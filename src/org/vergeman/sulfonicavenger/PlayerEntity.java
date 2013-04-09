@@ -124,9 +124,15 @@ public class PlayerEntity extends Entity implements KeyListener {
 
 	@Override
 	public void draw() {
+		
 		if (pause_counter <= 0) {
 			super.draw();
-		} else {
+		} 
+		else if (!isAlive()) {
+				assetManager.getImage("explosion").setAlpha( 5 * pause_counter / PAUSE_SPEED);
+				assetManager.getImage("explosion").draw(this.x, this.y);
+			}
+		else {
 			/*flash*/
 			switch ((int) (pause_counter / (PAUSE_SPEED / 4))) {
 

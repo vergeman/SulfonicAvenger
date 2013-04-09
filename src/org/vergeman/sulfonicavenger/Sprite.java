@@ -63,7 +63,12 @@ public class Sprite {
 	public void draw(int x, int y) {
 		image.draw(x, y);
 	}
-
+	
+	public void draw(int x, int y, float alpha) {
+		image.setAlpha(alpha);
+		image.draw(x,y);
+	}
+	
 	public void setHeight(int height) {
 		this.height = height;
 	}
