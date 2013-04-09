@@ -62,7 +62,7 @@ public class Centipede {
 
 	}
 
-	public boolean checkCollisions(PlayerEntity p) {
+	public boolean checkCollisions(Entity p) {
 		for (Iterator<CentiBallEntity> i = centipede.iterator(); i.hasNext();) {
 			CentiBallEntity c = i.next();
 

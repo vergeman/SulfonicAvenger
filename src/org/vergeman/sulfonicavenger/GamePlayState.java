@@ -45,9 +45,9 @@ public class GamePlayState extends BasicGameState {
 
 	Color background;
 	Input input;
-	
+
 	Random r;
-	
+
 	PlayerEntity player;
 	ArrayList<MoleculeEntity> molecules;
 	ArrayList<NH3Entity> nh3s;
@@ -67,7 +67,7 @@ public class GamePlayState extends BasicGameState {
 	int score;
 	int high_score = 0;
 	int last_life_score = 0;
-	
+
 	int NH3SpawnInterval = 90000; // ms
 	long lastNH3;
 
@@ -103,7 +103,7 @@ public class GamePlayState extends BasicGameState {
 
 		score = 0;
 		last_life_score = 0;
-		
+
 		/* // MOLECULES */
 		molecules = new ArrayList<MoleculeEntity>();
 		r = new Random();
@@ -129,7 +129,7 @@ public class GamePlayState extends BasicGameState {
 																				// cast
 			h = ((int) (r.nextDouble() * (container.getHeight() - container
 					.getHeight() / 3)) / s_h) * s_h;
-			
+
 			if (!(h == 0 && w < 5 * s_w)) {
 				molecule_pos.put(w + "-" + h, true);
 			}
@@ -138,7 +138,7 @@ public class GamePlayState extends BasicGameState {
 		int type;
 		for (String pos : molecule_pos.keySet()) {
 			type = (int) (r.nextDouble() * 3 - .1);
-			molecules.add(new MoleculeEntity(sprite_molecules[type], type+1, 
+			molecules.add(new MoleculeEntity(sprite_molecules[type], type + 1,
 					Integer.valueOf(pos.split("-")[0]), Integer.valueOf(pos
 							.split("-")[1])));
 		}
@@ -152,14 +152,14 @@ public class GamePlayState extends BasicGameState {
 		player.setShots(shots);
 
 		/* NH3 -SPIDERS */
-		//TODO: adjust to spawn relative to 30% of the screen
+		// TODO: adjust to spawn relative to 30% of the screen
 		sprite_nh3 = new Sprite(assetManager.getImage("nh3"));
 		nh3s = new ArrayList<NH3Entity>();
 		nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
-					: windowManager.get_orig_width(), (int) (windowManager
-					.get_orig_height() - 200 + (r.nextDouble() * 200))));
+				: windowManager.get_orig_width(), (int) (windowManager
+				.get_orig_height() - 200 + (r.nextDouble() * 200))));
 		lastNH3 = Sys.getTime();
-		
+
 		/* CENTIPEDE */
 		sprite_centibody = new Sprite(assetManager.getImage("centibody"));
 		sprite_centihead = new Sprite(assetManager.getImage("centihead"));
@@ -241,15 +241,15 @@ public class GamePlayState extends BasicGameState {
 			nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
 					: windowManager.get_orig_width(), (int) (windowManager
 					.get_orig_height() - 200 + (r.nextDouble() * 200))));
-			
+
 			lastNH3 = Sys.getTime();
 		}
-	
+
 		/* move NH3's */
 		for (Iterator<NH3Entity> i = nh3s.iterator(); i.hasNext();) {
 			NH3Entity n = i.next();
-				
-			n.move(delta, molecules);
+
+			n.move(delta, molecules, centipedes);
 
 			if (n.collidesWith(player)) {
 				n.collidedWith(player);
@@ -258,10 +258,10 @@ public class GamePlayState extends BasicGameState {
 				if (player.isGameOver()) {
 					currentState = STATES.GAME_OVER_STATE;
 				}
-			
+
 			}
-			
-			//remove
+
+			// remove
 			if (n.remove_me) {
 				i.remove();
 			}
@@ -272,8 +272,8 @@ public class GamePlayState extends BasicGameState {
 		for (Centipede c : centipedes) {
 			c.move(delta, molecules);
 			if (c.checkCollisions(player)) {
-				
-				if (player.isGameOver()) {	
+
+				if (player.isGameOver()) {
 					currentState = STATES.GAME_OVER_STATE;
 				}
 			}
@@ -305,7 +305,7 @@ public class GamePlayState extends BasicGameState {
 					n.collidedWith(s);
 					updateScore(n.getScore());
 					assetManager.getSound("hit").play();
-				
+
 					i.remove();
 				}
 
@@ -353,10 +353,9 @@ public class GamePlayState extends BasicGameState {
 
 		for (MoleculeEntity molecule : molecules) {
 			molecule.draw();
-			for (String coord : molecule.damages) {				
-				sprite_damage.draw(Integer.parseInt(coord.split("-")[0]), 
+			for (String coord : molecule.damages) {
+				sprite_damage.draw(Integer.parseInt(coord.split("-")[0]),
 						Integer.parseInt(coord.split("-")[1]));
-				
 			}
 		}
 
@@ -366,10 +365,10 @@ public class GamePlayState extends BasicGameState {
 			}
 		}
 
-		if(!player.isGameOver()) {
+		if (!player.isGameOver()) {
 			player.draw();
 		}
-		
+
 		for (ShotEntity s : shots) {
 			if (s.isDisplay()) {
 				s.draw();
@@ -388,11 +387,11 @@ public class GamePlayState extends BasicGameState {
 		textDrawManager.draw("high_score", HIGH_SCORE_MSG + high_score,
 				Color.blue, container.getWidth(), container.getHeight(), -1,
 				-2, -20, 0);
-		
-		textDrawManager.draw("score", "LIVES  " + player.lives, Color.red, 
-				20+textDrawManager.getWidth("score"),
-				container.getHeight(), 0, -2, 40, 0);
-		
+
+		textDrawManager.draw("score", "LIVES  " + player.lives, Color.red,
+				20 + textDrawManager.getWidth("score"), container.getHeight(),
+				0, -2, 40, 0);
+
 	}
 
 	@Override
@@ -418,13 +417,13 @@ public class GamePlayState extends BasicGameState {
 
 		if (currentState == STATES.PLAY_GAME_STATE) {
 			score += up;
-			
-			if( score - last_life_score >= 1000) {
+
+			if (score - last_life_score >= 1000) {
 				player.lives += 1;
-				last_life_score +=1000;
-				//System.out.println("Lives:" + player.lives);
+				last_life_score += 1000;
+				// System.out.println("Lives:" + player.lives);
 			}
-			
+
 		}
 		high_score = Math.max(score, high_score);
 	}

@@ -16,13 +16,12 @@ public class NH3Entity extends Entity {
 	protected Random r = new Random();
 	protected boolean move_bool = true;
 
-	
 	int score = 250;
 
 	int NH3LifeInterval = 20000;
 	long spawn_time;
 	boolean remove_me;
-	
+
 	protected NH3Entity(GameContainer container, Sprite sprite, int x, int y) {
 		super(sprite, x, y);
 		this.container = container;
@@ -42,24 +41,17 @@ public class NH3Entity extends Entity {
 	public int getScore() {
 		return score;
 	}
-	public void move(int delta, ArrayList<MoleculeEntity> molecules) {
+
+	public void move(int delta, ArrayList<MoleculeEntity> molecules,
+			ArrayList<Centipede> centipedes) {
+		// we stay on the screen for a certain period, then head
+		// back to the ether
 
 		if (Sys.getTime() - NH3LifeInterval > spawn_time ) {
-			//move out
-			dy = move_speed;
-			super.move(delta);
-
-			if (!calculateValidMove(molecules)) {
-				super.unmove(delta);
-				/* baby AI */
-				dx = -dx;
-				dy = -dy;
-			}
-			if (y > this.BOUNDS_BOTTOM) {
+			if ((y > this.BOUNDS_BOTTOM) || (y < 0) || (x > this.BOUNDS_RIGHT) || (x < 0) ) {
 				remove_me = true;
 			}
 		}
-		
 		else {
 			if ((dx < 0) && (x < this.BOUNDS_LEFT)) {
 				dx = -dx;
@@ -73,31 +65,35 @@ public class NH3Entity extends Entity {
 			if ((dy > 0) && (y > this.BOUNDS_BOTTOM)) {
 				dy = -dy;
 			}
-	
-			// if y < height - 20%, we'll switch downward - scalable invisible
-			// barieer
-			super.move(delta);
-	
-			if (!calculateValidMove(molecules)) {
-				super.unmove(delta);
-				/* baby AI */
-				move_bool = r.nextBoolean();
-				if (move_bool) {
-					dx = -dx;
-				} else {
-					dy = -dy;
-				}
-	
-			}
 		}
-	}	
+		
+		super.move(delta);
 
-	public boolean calculateValidMove(ArrayList<MoleculeEntity> molecules) {
+		if (!calculateValidMove(molecules, centipedes)) {
+			super.unmove(delta);
+			/* baby AI */
+			move_bool = r.nextBoolean();
+			if (move_bool) {
+				dx = -dx;
+			} else {
+				dy = -dy;
+			}
+
+		}
+	}
+
+	public boolean calculateValidMove(ArrayList<MoleculeEntity> molecules,
+			ArrayList<Centipede> centipedes) {
 		for (MoleculeEntity m : molecules) {
 			if (this.collidesWith(m)) {
 				return false;
 			}
 		}
+		/*
+		 * for (Centipede c : centipedes) { if(c.checkCollisions((Entity) this))
+		 * { return false; } }
+		 */
+
 		return true;
 	}
 
