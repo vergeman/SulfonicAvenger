@@ -1,8 +1,11 @@
 package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 
 import org.lwjgl.Sys;
@@ -83,6 +86,12 @@ public class GamePlayState extends BasicGameState {
 		container.setShowFPS(false);
 		container.getGraphics().setBackground(Color.black);
 
+		// container.setVSync(true);
+		// container.setTargetFrameRate(60);
+		// app.setSmoothDeltas(true);
+		// container.setMinimumLogicUpdateInterval(1);
+		// container.setMaximumLogicUpdateInterval(1);
+
 		windowManager = new WindowManager(container, game);
 		assetManager = new AssetManager();
 		assetManager.init();
@@ -116,7 +125,7 @@ public class GamePlayState extends BasicGameState {
 		sprite_molecules[2] = sprite_molecule3;
 
 		sprite_damage = new Sprite(assetManager.getImage("damage"));
-		
+
 		int w, h;
 		int s_w = sprite_molecule1.getWidth();
 		int s_h = sprite_molecule1.getHeight();
@@ -125,7 +134,7 @@ public class GamePlayState extends BasicGameState {
 		// spawn evenly on sprite dimensions
 		while (molecule_pos.size() < NUM_MOLECULES) {
 			w = ((int) (r.nextDouble() * container.getWidth()) / s_w) * s_w;
-			
+
 			h = ((int) (r.nextDouble() * (container.getHeight() - container
 					.getHeight() / 3)) / s_h) * s_h;
 
@@ -191,6 +200,7 @@ public class GamePlayState extends BasicGameState {
 
 			if (input.isKeyPressed(Input.KEY_ENTER)) {
 				init(container, game);
+				// container.reinit();
 				currentState = STATES.PLAY_GAME_STATE;
 				pause_counter = 3000;
 
@@ -310,18 +320,70 @@ public class GamePlayState extends BasicGameState {
 
 			}
 
-			// shots and centiballs
+			// shots and centiballs - toggle display
 			for (Iterator<Centipede> i = centipedes.iterator(); i.hasNext();) {
 				Centipede c = i.next();
 
 				updateScore(c.checkCollisions(s, molecules, sprite_molecules));
-
 				// no centis, toggle spawn
 				if (!c.isAlive) {
 					i.remove();
 					newCentipede = true;
 				}
 
+			}
+
+			// Verify hit and spawn new Centipede - TODO: prolly refactor this
+			ArrayList<Centipede> new_centis = new ArrayList<Centipede>();
+
+			for (int i = 0; i < centipedes.size(); i++) {
+
+				Centipede c = centipedes.get(i);
+				List<CentiBallEntity> CentipedeBallList = ((List<CentiBallEntity>) c.centipede);
+
+				boolean has_new = false;
+				ArrayList<CentiBallEntity> temp = new ArrayList<CentiBallEntity>();
+
+				int q = 0;
+				for (int j = 0; has_new == false
+						&& j < CentipedeBallList.size(); j++) {
+
+					CentiBallEntity cbe = CentipedeBallList.get(j);
+
+					if (!cbe.isDisplay()) {
+
+						List<CentiBallEntity> l = CentipedeBallList.subList(
+								q + 1, CentipedeBallList.size());
+
+						temp = new ArrayList<CentiBallEntity>(l);
+
+						l.clear();
+
+						CentipedeBallList.remove(j);
+
+						has_new = true;
+					}
+					q++;
+
+				}
+
+				if (temp.size() > 0) {
+					new_centis.add(new Centipede(container, sprite_centibody,
+							sprite_centihead, temp));
+				}
+			}
+
+			// clean ball-less centipedes
+			for (Iterator<Centipede> c = centipedes.iterator(); c.hasNext();) {
+				Centipede cs = c.next();
+
+				if (cs.centipede.size() <= 0 || cs.isAlive == false) {
+					c.remove();
+				}
+			}
+			// add new centipedes
+			if (new_centis.size() > 0) {
+				centipedes.addAll(new_centis);
 			}
 
 			// update only displayable shots
@@ -332,7 +394,7 @@ public class GamePlayState extends BasicGameState {
 		}
 		// end shots
 
-		// spwan centipede
+		// spawn centipede
 		if (newCentipede || (Sys.getTime() - lastCentipede > CentipedeInterval)) {
 			centipedes.add(new Centipede(container, sprite_centihead,
 					sprite_centibody, CENTIPEDE_SIZE));
@@ -357,7 +419,7 @@ public class GamePlayState extends BasicGameState {
 						Integer.parseInt(coord.split("-")[1]));
 			}
 		}
-		
+
 		for (NH3Entity n : nh3s) {
 			if (n.display) {
 				n.draw();

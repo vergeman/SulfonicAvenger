@@ -32,10 +32,9 @@ public class CentiBallEntity extends Entity {
 	
 	
 	public void move(long delta, ArrayList<MoleculeEntity> molecules) {
-		/*TODO: framerate problem; moving down at one delta while another moves left,
-		 * then both move left at different delta; there's a slight X gap
-		 */
-		//BOUNDS CHECK
+		
+		
+		
 		if ((dx < 0) && (x < this.BOUNDS_LEFT)) {
 			old_dx = dx;
 			goal_y =  getY() + sprite.getHeight();

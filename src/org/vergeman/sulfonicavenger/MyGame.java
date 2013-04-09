@@ -23,6 +23,10 @@ public class MyGame extends StateBasedGame {
 			app.setDisplayMode(WIDTH, HEIGHT, false);
 			app.setResizable(true);
 			// app.setFullscreen(true);
+//app.setVSync(true);
+//app.setTargetFrameRate(60);
+//app.setSmoothDeltas(true);
+//app.setMaximumLogicUpdateInterval(1);
 			app.start();
 			
 		} catch (SlickException e) {

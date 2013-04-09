@@ -18,6 +18,16 @@ public class Centipede {
 	int start_pos;
 
 	public Centipede(GameContainer container, Sprite sprite_centibody,
+			Sprite sprite_centihead, ArrayList<CentiBallEntity> centiballs) {
+		this.container = container;
+		this.sprite_centibody = sprite_centibody;
+		this.sprite_centihead = sprite_centihead;
+		this.centipede = centiballs; 
+		lives = centiballs.size();
+		isAlive = true;
+	}
+
+	public Centipede(GameContainer container, Sprite sprite_centibody,
 			Sprite sprite_centihead, int size) {
 		this.container = container;
 		this.sprite_centibody = sprite_centibody;
@@ -27,10 +37,10 @@ public class Centipede {
 		isAlive = true;
 
 	}
-
+	
 	public void makeCentipede(int size) {
 		centipede = new ArrayList<CentiBallEntity>();
-		// build centi
+		// build centiPEDE
 		boolean start_left = r.nextBoolean();
 		
 		centipede.add(new CentiBallEntity(container, sprite_centihead, 
@@ -51,9 +61,34 @@ public class Centipede {
 	}
 
 	public void move(long delta, ArrayList<MoleculeEntity> molecules) {
-		for (CentiBallEntity c : centipede) {
+		
+		centipede.get(0).move(delta, molecules);
+		
+		for (int c = centipede.size()-1; c > 0; c--) {
+			//nudge fix for deltas
+			if (centipede.get(c).y == centipede.get(0).y) {
+				
+				if (centipede.get(c).dx >= 0) {
+					centipede.get(c).x = centipede.get(0).x - c*centipede.get(c).sprite.getWidth();
+				}
+				else {
+					centipede.get(c).x = centipede.get(0).x + c*centipede.get(c).sprite.getWidth();
+				}
+			}	
+			else {
+				centipede.get(c).move(delta, molecules);
+			}
+		}
+		//off screen, toggle death
+		if (centipede.get(centipede.size() - 1).getY() > centipede.get(centipede.size()-1).BOUNDS_BOTTOM) {
+			isAlive =false;
+		}
+		/*
+		for (CentiBallEntity c: centipede) {
 			c.move(delta, molecules);
 		}
+	*/
+	 
 	}
 
 	public void draw() {
@@ -78,6 +113,8 @@ public class Centipede {
 		return false;
 	}
 
+	//centipede is this centipede
+	//centipedes is our list of centipedes
 	public int checkCollisions(ShotEntity s,
 			ArrayList<MoleculeEntity> molecules, Sprite[] sprite_molecules) {
 		
@@ -96,24 +133,21 @@ public class Centipede {
 				if (!c.isDisplay()) {
 					type =(int) (r.nextDouble() *3 -.01);
 					
-					//exclude spawn point here
 					molecules.add(new MoleculeEntity(sprite_molecules[type], type+1, c.getX(),
 							c.getY()));
 
+					--lives;
+				}
+
+				if (c.getY() > container.getHeight()) {
 					i.remove();
 					--lives;
 				}
 
 				if (lives <= 0) {
 					isAlive = false;
-					centi_score += 0;
 				}
 
-				if (c.getY() > container.getHeight()) {
-					i.remove();
-					--lives;
-					//centi_score -= 50;
-				}
 			}
 
 		}
