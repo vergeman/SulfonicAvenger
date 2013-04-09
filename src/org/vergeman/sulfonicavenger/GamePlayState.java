@@ -56,6 +56,7 @@ public class GamePlayState extends BasicGameState {
 	Sprite sprite_molecule1;
 	Sprite sprite_molecule2;
 	Sprite sprite_molecule3;
+	Sprite sprite_damage;
 	Sprite sprite_centibody;
 	Sprite sprite_centihead;
 	Sprite sprite_shot;
@@ -114,6 +115,7 @@ public class GamePlayState extends BasicGameState {
 		sprite_molecules[1] = sprite_molecule2;
 		sprite_molecules[2] = sprite_molecule3;
 
+		sprite_damage = new Sprite(assetManager.getImage("damage"));
 		int w, h;
 		int s_w = sprite_molecule1.getWidth();
 		int s_h = sprite_molecule1.getHeight();
@@ -351,6 +353,11 @@ public class GamePlayState extends BasicGameState {
 
 		for (MoleculeEntity molecule : molecules) {
 			molecule.draw();
+			for (String coord : molecule.damages) {				
+				sprite_damage.draw(Integer.parseInt(coord.split("-")[0]), 
+						Integer.parseInt(coord.split("-")[1]));
+				
+			}
 		}
 
 		for (NH3Entity n : nh3s) {
@@ -382,7 +389,7 @@ public class GamePlayState extends BasicGameState {
 				Color.blue, container.getWidth(), container.getHeight(), -1,
 				-2, -20, 0);
 		
-		textDrawManager.draw("score", "LIFE " + player.lives, Color.red, 
+		textDrawManager.draw("score", "LIVES  " + player.lives, Color.red, 
 				20+textDrawManager.getWidth("score"),
 				container.getHeight(), 0, -2, 40, 0);
 		

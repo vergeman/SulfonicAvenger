@@ -25,6 +25,7 @@ public class AssetManager {
 	Image molecule1;
 	Image molecule2;
 	Image molecule3;
+	Image damage;
 	Image shot;
 	Image nh3;
 	Image centibody;
@@ -50,6 +51,8 @@ public class AssetManager {
 			molecule2 = new Image("data/molecule_m+c.png", false, Image.FILTER_NEAREST);
 			molecule3 = new Image("data/molecule_agc.png", false, Image.FILTER_NEAREST);
 			
+			damage = new Image("data/damage.png");
+			
 			centihead  = new Image("data/centi.png", false, Image.FILTER_NEAREST);
 			centibody = new Image("data/centi.png", false, Image.FILTER_NEAREST);
 			
@@ -64,6 +67,7 @@ public class AssetManager {
 			image_map.put("molecule1", molecule1);
 			image_map.put("molecule2", molecule2);
 			image_map.put("molecule3", molecule3);
+			image_map.put("damage", damage);
 			image_map.put("shot", shot);
 			image_map.put("nh3", nh3);
 			image_map.put("centihead", centihead);

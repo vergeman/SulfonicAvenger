@@ -1,6 +1,7 @@
 package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
@@ -58,10 +59,7 @@ public class PlayerEntity extends Entity implements KeyListener {
 			dy = 0;
 		}
 
-		// System.out.println("alive: " + alive);
-		// System.out.println("can_collide: " + can_collide);
-		// System.out.println("lives: " + lives);
-
+		
 		if (alive) {
 
 			super.move(delta);
@@ -76,7 +74,7 @@ public class PlayerEntity extends Entity implements KeyListener {
 		}
 
 		if (!alive && pause_counter < 0) {
-			reinitialize(); // respawn, set to alive (moveable) but not
+			reinitialize(molecules); // respawn, set to alive (moveable) but not
 							// collidable
 			pause_counter = PAUSE_SPEED + 500; // repause to give user time to
 												// orient
@@ -87,7 +85,8 @@ public class PlayerEntity extends Entity implements KeyListener {
 	}
 
 	public boolean calculateValidMove(ArrayList<MoleculeEntity> molecules) {
-		for (MoleculeEntity m : molecules) {
+		for (Iterator<MoleculeEntity> i = molecules.iterator(); i.hasNext();) {
+			MoleculeEntity m = i.next();
 			if (this.collidesWith(m)) {
 				return false;
 			}
@@ -111,7 +110,10 @@ public class PlayerEntity extends Entity implements KeyListener {
 	public boolean isAlive() {
 		return alive;
 	}
-
+	public boolean CanCollide() {
+		return can_collide;
+	}
+	
 	public boolean isGameOver() {
 		return game_over;
 	}
@@ -159,10 +161,18 @@ public class PlayerEntity extends Entity implements KeyListener {
 		}
 	}
 
-	public void reinitialize() {
+	public void reinitialize(ArrayList<MoleculeEntity> molecules) {
+		//if we spawned into a collision
 		this.x = spawn_x;
 		this.y = spawn_y;
 		this.alive = true;
+
+		for (Iterator<MoleculeEntity> i = molecules.iterator(); i.hasNext();) {
+			MoleculeEntity m = i.next();
+			if (m.collidesWith(this)) {
+				i.remove();
+			}
+		}
 	}
 
 	public void shoot() {
