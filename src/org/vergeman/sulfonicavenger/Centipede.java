@@ -31,12 +31,15 @@ public class Centipede {
 	public void makeCentipede(int size) {
 		centipede = new ArrayList<CentiBallEntity>();
 		// build centi
-		centipede.add(new CentiBallEntity(container, sprite_centihead, -10, 0,
+		boolean start_left = r.nextBoolean();
+		
+		centipede.add(new CentiBallEntity(container, sprite_centihead, 
+				start_left ? -10 : container.getWidth() + 10, 0,
 				true));
 
 		for (int c = 1; c < size; c++) {
-			centipede.add(new CentiBallEntity(container, sprite_centibody, -c
-					* sprite_centibody.getWidth() - 10, 0, false));
+			centipede.add(new CentiBallEntity(container, sprite_centibody, 
+					start_left ? -c * sprite_centibody.getWidth() - 10 : c * sprite_centibody.getWidth() + (container.getWidth() +  10), 0, false));
 		}
 
 	}

@@ -124,10 +124,8 @@ public class GamePlayState extends BasicGameState {
 
 		// spawn evenly on sprite dimensions
 		while (molecule_pos.size() < NUM_MOLECULES) {
-			w = ((int) (r.nextDouble() * container.getWidth()) / s_w) * s_w; // not
-																				// equivalent
-																				// on
-																				// cast
+			w = ((int) (r.nextDouble() * container.getWidth()) / s_w) * s_w;
+			
 			h = ((int) (r.nextDouble() * (container.getHeight() - container
 					.getHeight() / 3)) / s_h) * s_h;
 

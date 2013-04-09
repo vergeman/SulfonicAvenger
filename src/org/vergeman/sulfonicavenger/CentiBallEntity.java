@@ -23,7 +23,7 @@ public class CentiBallEntity extends Entity {
 		this.isHead = isHead;
 		this.display = true;
 		this.container = container;
-		setHorizontalMovement(move_speed);
+		setHorizontalMovement(x < 0 ? move_speed : -move_speed);
 		setVerticalMovement(0);
 		resize(container.getWidth(), container.getHeight(), 1.0f, 1.0f);
 
@@ -90,8 +90,6 @@ public class CentiBallEntity extends Entity {
 		
 	}
 
-	//status for off screen - re-initialize
-	
 	public boolean calculateValidMove(ArrayList<MoleculeEntity> molecules) {
 		for (MoleculeEntity m : molecules) {
 			if (this.collidesWith(m)) {
