@@ -9,5 +9,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/vergeman/workspace/SulfonicAvenger/gamelib/slick.jar"/>
 	<classpathentry kind="lib" path="/home/vergeman/workspace/SulfonicAvenger/gamelib/jinput.jar"/>
+	<classpathentry kind="lib" path="/home/vergeman/workspace/SulfonicAvenger/gamelib/jorbis-0.0.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

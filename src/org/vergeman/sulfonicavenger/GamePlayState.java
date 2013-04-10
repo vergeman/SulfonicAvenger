@@ -1,11 +1,9 @@
 package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
 import org.lwjgl.Sys;
@@ -13,6 +11,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -22,8 +21,9 @@ public class GamePlayState extends BasicGameState {
 	private int stateID;
 
 	private static int CENTIPEDE_SIZE = 8;
+	private static int MAX_CENTIPEDES = 3;
 	private static int NUM_SHOTS = 10;
-	private static int NUM_MOLECULES = 20;
+	private static int NUM_MOLECULES = 10;
 	private long CentipedeInterval = 10000; // ms
 	private long lastCentipede;
 
@@ -85,13 +85,7 @@ public class GamePlayState extends BasicGameState {
 
 		container.setShowFPS(false);
 		container.getGraphics().setBackground(Color.black);
-
-		// container.setVSync(true);
-		// container.setTargetFrameRate(60);
-		// app.setSmoothDeltas(true);
-		// container.setMinimumLogicUpdateInterval(1);
-		// container.setMaximumLogicUpdateInterval(1);
-
+		
 		windowManager = new WindowManager(container, game);
 		assetManager = new AssetManager();
 		assetManager.init();
@@ -177,6 +171,9 @@ public class GamePlayState extends BasicGameState {
 				sprite_centibody, CENTIPEDE_SIZE));
 		lastCentipede = Sys.getTime();
 
+		Music theme = new Music("data/theme.ogg");
+		theme.loop();
+
 		container.getInput().addKeyListener(player);
 	}
 
@@ -201,8 +198,9 @@ public class GamePlayState extends BasicGameState {
 			if (input.isKeyPressed(Input.KEY_ENTER)) {
 				init(container, game);
 				// container.reinit();
+				player.alive = true;
 				currentState = STATES.PLAY_GAME_STATE;
-				pause_counter = 3000;
+				//pause_counter = 3000;
 
 			}
 			break;
@@ -246,7 +244,6 @@ public class GamePlayState extends BasicGameState {
 
 		/** spawn H3 */
 		if (Sys.getTime() - lastNH3 > NH3SpawnInterval) {
-			System.out.println("spawned:  " + lastNH3);
 			nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
 					: windowManager.get_orig_width(), (int) (windowManager
 					.get_orig_height() - 200 + (r.nextDouble() * 200))));
@@ -395,7 +392,7 @@ public class GamePlayState extends BasicGameState {
 		// end shots
 
 		// spawn centipede
-		if (newCentipede || (Sys.getTime() - lastCentipede > CentipedeInterval)) {
+		if ((centipedes.size() < MAX_CENTIPEDES && newCentipede) || (Sys.getTime() - lastCentipede > CentipedeInterval)) {
 			centipedes.add(new Centipede(container, sprite_centihead,
 					sprite_centibody, CENTIPEDE_SIZE));
 			newCentipede = false;
