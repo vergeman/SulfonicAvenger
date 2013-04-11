@@ -33,12 +33,12 @@ public class TextDrawManager {
 	}
 	
 	public int getWidth(String message) {
-		String mesage = text_drawer_map.get(message).last_message;
-		return text_drawer_map.get(message).gameFont.getWidth(mesage);
+		String last_message = text_drawer_map.get(message).last_message;
+		return text_drawer_map.get(message).gameFont.getWidth(last_message);
 	}
 	public int getHeight(String message) {
-		String mesage = text_drawer_map.get(message).last_message;
-		return text_drawer_map.get(message).gameFont.getHeight(mesage);
+		String last_message = text_drawer_map.get(message).last_message;
+		return text_drawer_map.get(message).gameFont.getHeight(last_message);
 	}
 	
 	public void draw(String key, String message, Color text_color,

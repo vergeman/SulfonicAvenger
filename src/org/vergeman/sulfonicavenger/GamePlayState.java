@@ -1,6 +1,7 @@
 package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -70,8 +71,12 @@ public class GamePlayState extends BasicGameState {
 	ArrayList<Centipede> centipedes;
 	boolean newCentipede = false;
 
+	
 	int score;
 	int high_score = 0;
+	boolean is_entering_score;
+	List<Score> high_scores = new ArrayList<Score>();;
+	char[] score_name;
 	int last_life_score = 0;
 
 	long lastNH3;
@@ -87,6 +92,7 @@ public class GamePlayState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 
+		
 		input = container.getInput();
 		
 		container.setShowFPS(false);
@@ -111,8 +117,9 @@ public class GamePlayState extends BasicGameState {
 				(int) (windowManager.getCenterY() + windowManager.getCenterY() / 2));
 
 		score = 0;
+		score_name = new char[3];
 		last_life_score = 0;
-
+		is_entering_score= false;
 		/* // MOLECULES */
 		molecules = new ArrayList<MoleculeEntity>();
 		r = new Random();
@@ -127,8 +134,8 @@ public class GamePlayState extends BasicGameState {
 		sprite_damage = new Sprite(assetManager.getImage("damage"));
 
 		int w, h;
-		int s_w = sprite_molecule1.getWidth();
-		int s_h = sprite_molecule1.getHeight();
+		int s_w = sprite_molecule3.getWidth();
+		int s_h = sprite_molecule3.getHeight();
 		HashMap<String, Boolean> molecule_pos = new HashMap<String, Boolean>();
 
 		// spawn evenly on sprite dimensions
@@ -188,6 +195,7 @@ public class GamePlayState extends BasicGameState {
 		input.addControllerListener(player);
 	}
 
+	/** UPDATE **/
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
@@ -208,10 +216,10 @@ public class GamePlayState extends BasicGameState {
 			if (input.isKeyPressed(Input.KEY_ENTER) 
 					|| input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER) || input.isButton3Pressed(Input.ANY_CONTROLLER)) {
 				init(container, game);
-				// container.reinit();
+		
 				player.alive = true;
 				currentState = STATES.PLAY_GAME_STATE;
-				//pause_counter = 3000;
+				//pause_counter = 2000;
 
 			}
 			break;
@@ -228,15 +236,48 @@ public class GamePlayState extends BasicGameState {
 			player.x = -2000;
 			player.y = -2000;
 
-			if (pause_counter == 3000) {
+			if (pause_counter == 2000) {
 				STATE_MSG = "GAME     OVER";
 			}
-
+			
+			
 			pause_counter -= delta;
+			
+			
+			if (!is_entering_score) {
+				//if my score is in high score list
 
-			if (pause_counter < 0 || (input.isKeyPressed(Input.KEY_ENTER) || 
-					input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER))) {
+				Collections.sort(high_scores);
+				System.out.println(high_scores.toArray().toString());
+				
+				for (int s = 0; !is_entering_score && s < high_scores.size(); s++) {
+					System.out.println(s + " " + high_scores.get(s).score);
+					if (score > high_scores.get(s).score) {
+						high_scores.add(s, new Score(score, null));
+						is_entering_score = true;
+					}
+				}
+				if (!is_entering_score && high_scores.size() <= 5) {
+					high_scores.add(new Score(score, null));
+					is_entering_score = true;
+				}
+				//keep list short
+				if (high_scores.size() > 5) {
+					high_scores.remove(high_scores.size()-1);
+				}
+				
+			}
+/*
+			if (is_entering_score) {
+				if (input.isKeyPressed(Input.KEY_LEFT)) {
+					
+				}
+			}
+*/			
+			if (!is_entering_score && (pause_counter < 0 || (input.isKeyPressed(Input.KEY_ENTER) || 
+					input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER)))) {
 				currentState = STATES.START_GAME_STATE;
+				is_entering_score =false;
 			}
 
 			break;
@@ -438,6 +479,7 @@ public class GamePlayState extends BasicGameState {
 
 	}
 
+	/** RENDER **/
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
@@ -474,7 +516,33 @@ public class GamePlayState extends BasicGameState {
 			a.draw();
 		}
 		
-		
+		if (is_entering_score) {
+			
+			
+			textDrawManager.draw("state", "HIGH   SCORES", Color.white, 
+					container.getWidth() / 2, (int) windowManager.getCenterY() / 4 ,
+					-0.5,0.5,0,0);			
+			
+			int q = 1;
+			for (Score s : high_scores) {
+				textDrawManager.draw("score", "AAA", Color.white, 
+						container.getWidth() / 2, (int) windowManager.getCenterY() / 4,
+						0,2*q,-textDrawManager.getWidth("state") /2,20);
+				
+				textDrawManager.draw("score", ""+s.score, Color.white, 
+						container.getWidth() / 2, (int) windowManager.getCenterY() / 4,
+						0,2*q,0 ,20);	
+
+				q++;
+			}
+			
+			if (input.isKeyPressed(Input.KEY_ENTER)) {
+				is_entering_score = false;
+				currentState = STATES.START_GAME_STATE;
+			}
+		}
+	
+
 		// render bottom for z-index
 		textDrawManager.draw("state", STATE_MSG, Color.white,
 				(container.getWidth() / 2), (int) windowManager.getCenterY(),
@@ -484,6 +552,7 @@ public class GamePlayState extends BasicGameState {
 				0);
 		textDrawManager.draw("score", SCORE_MSG + score, Color.red, 20,
 				container.getHeight(), 0, -2, 0, 0);
+		
 		textDrawManager.draw("high_score", HIGH_SCORE_MSG + high_score,
 				Color.blue, container.getWidth(), container.getHeight(), -1,
 				-2, -20, 0);
