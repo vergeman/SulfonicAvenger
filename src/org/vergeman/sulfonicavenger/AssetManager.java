@@ -9,6 +9,7 @@ import java.util.HashMap;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.util.ResourceLoader;
 
@@ -16,6 +17,7 @@ public class AssetManager {
 
 	HashMap<String, Image> image_map = new HashMap<String, Image>();
 	HashMap<String, Sound> sound_map = new HashMap<String, Sound>();
+	HashMap<String, SpriteSheet> spritesheet_map = new HashMap<String, SpriteSheet>();
 	
 	InputStream inputStream;
 	TrueTypeFont gameFont;
@@ -35,8 +37,7 @@ public class AssetManager {
 	
 	Sound hit, shoot;
 
-	/*hash or lists...hmm*/
-	/*sonuds as well*/
+	SpriteSheet agc_explosion, gen_explosion;
 	
 	public AssetManager() {
 		return;
@@ -82,6 +83,14 @@ public class AssetManager {
 			shoot = new Sound("data/shot.wav");
 			sound_map.put("hit", hit);
 			sound_map.put("shoot", shoot);
+
+			
+			agc_explosion = new SpriteSheet("data/explosion_molecule_agc.png", 64, 64);
+			spritesheet_map.put("agc_explosion", agc_explosion);
+			
+			gen_explosion = new SpriteSheet("data/explosion_generic.png", 32, 32);
+			spritesheet_map.put("gen_explosion", gen_explosion);
+			
 			
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
@@ -102,6 +111,9 @@ public class AssetManager {
 	}
 	public Sound getSound(String element) {
 		return sound_map.get(element);
+	}
+	public SpriteSheet getSpriteSheet(String element) {
+		return spritesheet_map.get(element);
 	}
 	
 	public void scale(float scale) {

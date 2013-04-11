@@ -47,8 +47,6 @@ public class MoleculeEntity extends Entity {
 			+ (int) (this.y + (r.nextDouble() * sprite.getHeight())));
 		}
 		
-		
-		
 	}
 
 	@Override

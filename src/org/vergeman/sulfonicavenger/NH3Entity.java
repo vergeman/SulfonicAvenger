@@ -102,8 +102,8 @@ public class NH3Entity extends Entity {
 
 		if (other instanceof ShotEntity) {
 			display = false;
-			this.x = -100;
-			this.y = -100;
+			//this.x = -100;
+			//this.y = -100;
 			dx = 0;
 			dy = 0;
 		}

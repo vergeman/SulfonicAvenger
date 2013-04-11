@@ -24,6 +24,9 @@ public class GamePlayState extends BasicGameState {
 	private static int MAX_CENTIPEDES = 3;
 	private static int NUM_SHOTS = 10;
 	private static int NUM_MOLECULES = 10;
+	private int NUM_NH3 = 2;
+	private int NH3SpawnInterval = 45000; // ms
+
 	private long CentipedeInterval = 10000; // ms
 	private long lastCentipede;
 
@@ -71,9 +74,10 @@ public class GamePlayState extends BasicGameState {
 	int high_score = 0;
 	int last_life_score = 0;
 
-	int NH3SpawnInterval = 90000; // ms
 	long lastNH3;
 
+	ArrayList<Animator> animators;
+	
 	public GamePlayState(int id) {
 		super();
 		this.stateID = id;
@@ -159,9 +163,11 @@ public class GamePlayState extends BasicGameState {
 		// TODO: adjust to spawn relative to 30% of the screen
 		sprite_nh3 = new Sprite(assetManager.getImage("nh3"));
 		nh3s = new ArrayList<NH3Entity>();
-		nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
+		for (int z = 0; z < NUM_NH3; z++) {
+			nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
 				: windowManager.get_orig_width(), (int) (windowManager
 				.get_orig_height() - 200 + (r.nextDouble() * 200))));
+		}
 		lastNH3 = Sys.getTime();
 
 		/* CENTIPEDE */
@@ -172,7 +178,9 @@ public class GamePlayState extends BasicGameState {
 		centipedes.add(new Centipede(container, sprite_centihead,
 				sprite_centibody, CENTIPEDE_SIZE));
 		lastCentipede = Sys.getTime();
-
+		
+		animators = new ArrayList<Animator>();
+		
 		Music theme = new Music("data/theme.ogg");
 		theme.loop();
 
@@ -248,11 +256,14 @@ public class GamePlayState extends BasicGameState {
 
 		/** spawn H3 */
 		if (Sys.getTime() - lastNH3 > NH3SpawnInterval) {
-			nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
+			for (int x = 0; x<NUM_NH3; x++) {
+				nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
 					: windowManager.get_orig_width(), (int) (windowManager
 					.get_orig_height() - 200 + (r.nextDouble() * 200))));
 
+			}
 			lastNH3 = Sys.getTime();
+			
 		}
 
 		/* move NH3's */
@@ -303,7 +314,18 @@ public class GamePlayState extends BasicGameState {
 				}
 				if (m.remove) {
 					updateScore(m.getScore());
+					//agc
+					if (m.sprite.equals(sprite_molecule3)) {
+						animators.add(new Animator(assetManager.getSpriteSheet("agc_explosion"), m.x, m.y,
+								0,0,3,3, true, 75, true));
+					}
+					else {
+					animators.add(new Animator(assetManager.getSpriteSheet("gen_explosion"), m.x, m.y,
+							0,0,2,2, true, 50, true));
+					}
+					
 					i.remove();
+					
 				}
 			}
 
@@ -314,8 +336,12 @@ public class GamePlayState extends BasicGameState {
 					s.collidedWith(n);
 					n.collidedWith(s);
 					updateScore(n.getScore());
+					
 					assetManager.getSound("hit").play();
-
+					
+					animators.add(new Animator(assetManager.getSpriteSheet("gen_explosion"), n.x, n.y,
+							0,0,2,2, true, 100, true));
+					
 					i.remove();
 				}
 
@@ -402,6 +428,14 @@ public class GamePlayState extends BasicGameState {
 			lastCentipede = Sys.getTime();
 		}
 
+		/*check animation states*/
+		for (Iterator<Animator> i = animators.iterator(); i.hasNext();) {
+			Animator a = i.next();
+			if (a.isStopped()) {
+				i.remove();
+			}
+		}
+
 	}
 
 	@Override
@@ -436,6 +470,11 @@ public class GamePlayState extends BasicGameState {
 			}
 		}
 
+		for (Animator a: animators) {
+			a.draw();
+		}
+		
+		
 		// render bottom for z-index
 		textDrawManager.draw("state", STATE_MSG, Color.white,
 				(container.getWidth() / 2), (int) windowManager.getCenterY(),
@@ -454,7 +493,7 @@ public class GamePlayState extends BasicGameState {
 				0, -2, 40, 0);
 
 	}
-
+	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
