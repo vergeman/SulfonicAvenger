@@ -3,11 +3,12 @@ package org.vergeman.sulfonicavenger;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.newdawn.slick.ControllerListener;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
 
-public class PlayerEntity extends Entity implements KeyListener {
+public class PlayerEntity extends Entity implements KeyListener, ControllerListener {
 	boolean alive, can_collide;
 	boolean game_over;
 	int lives = 3;
@@ -191,6 +192,7 @@ public class PlayerEntity extends Entity implements KeyListener {
 		}
 	}
 
+		
 	@Override
 	public void keyPressed(int key, char c) {
 		switch (key) {
@@ -250,5 +252,68 @@ public class PlayerEntity extends Entity implements KeyListener {
 	public void setInput(Input arg0) {
 		// TODO Auto-generated method stub
 	}
+
+/*joystick shit - need to test*/
+	
+	@Override
+	public void controllerButtonPressed(int arg0, int arg1) {
+		// TODO Auto-generated method stub
+		shoot();		
+	}
+
+	@Override
+	public void controllerButtonReleased(int arg0, int arg1) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void controllerDownPressed(int arg0) {
+		// TODO Auto-generated method stub
+		setVerticalMovement(move_speed);
+	}
+
+	@Override
+	public void controllerDownReleased(int arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void controllerLeftPressed(int arg0) {
+		// TODO Auto-generated method stub
+		setHorizontalMovement(-move_speed);
+
+	}
+
+	@Override
+	public void controllerLeftReleased(int arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void controllerRightPressed(int arg0) {
+		// TODO Auto-generated method stub
+		setHorizontalMovement(move_speed);		
+	}
+
+	@Override
+	public void controllerRightReleased(int arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void controllerUpPressed(int arg0) {
+		// TODO Auto-generated method stub
+		setVerticalMovement(-move_speed);
+	}
+
+	@Override
+	public void controllerUpReleased(int arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

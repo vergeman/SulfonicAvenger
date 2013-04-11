@@ -83,6 +83,8 @@ public class GamePlayState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 
+		input = container.getInput();
+		
 		container.setShowFPS(false);
 		container.getGraphics().setBackground(Color.black);
 		
@@ -174,7 +176,8 @@ public class GamePlayState extends BasicGameState {
 		Music theme = new Music("data/theme.ogg");
 		theme.loop();
 
-		container.getInput().addKeyListener(player);
+		input.addKeyListener(player);
+		input.addControllerListener(player);
 	}
 
 	@Override
@@ -193,9 +196,9 @@ public class GamePlayState extends BasicGameState {
 			STATE_MSG = "PRESS     ENTER     TO     PLAY";
 			player.x = -2000;
 			player.y = -2000;
-			input = container.getInput();
-
-			if (input.isKeyPressed(Input.KEY_ENTER)) {
+		
+			if (input.isKeyPressed(Input.KEY_ENTER) 
+					|| input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER) || input.isButton3Pressed(Input.ANY_CONTROLLER)) {
 				init(container, game);
 				// container.reinit();
 				player.alive = true;
@@ -207,12 +210,13 @@ public class GamePlayState extends BasicGameState {
 
 		case PLAY_GAME_STATE:
 			STATE_MSG = null;
-			container.getInput().addKeyListener(player);
-
+			input.addKeyListener(player);
+			input.addControllerListener(player);
 			break;
 
 		case GAME_OVER_STATE:
-			container.getInput().removeKeyListener(player);
+			input.removeKeyListener(player);
+			input.removeControllerListener(player);
 			player.x = -2000;
 			player.y = -2000;
 
@@ -222,8 +226,8 @@ public class GamePlayState extends BasicGameState {
 
 			pause_counter -= delta;
 
-			if (pause_counter < 0 || input.isKeyPressed(Input.KEY_ENTER)) {
-				// game.enterState(SulfonicAvenger.MAINMENUSTATE);
+			if (pause_counter < 0 || (input.isKeyPressed(Input.KEY_ENTER) || 
+					input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER))) {
 				currentState = STATES.START_GAME_STATE;
 			}
 
@@ -361,7 +365,6 @@ public class GamePlayState extends BasicGameState {
 						has_new = true;
 					}
 					q++;
-
 				}
 
 				if (temp.size() > 0) {
@@ -471,6 +474,11 @@ public class GamePlayState extends BasicGameState {
 		super.keyPressed(key, c);
 	}
 
+	@Override
+    public void controllerButtonPressed(int controller, int button) {
+        super.controllerButtonPressed(controller, button);
+    }
+    
 	public void updateScore(int up) {
 
 		if (currentState == STATES.PLAY_GAME_STATE) {
