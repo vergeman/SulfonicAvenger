@@ -21,16 +21,18 @@ public class GamePlayState extends BasicGameState {
 
 	private int stateID;
 
-	private static int CENTIPEDE_SIZE = 8;
-	private static int MAX_CENTIPEDES = 3;
-	private static int NUM_SHOTS = 10;
-	private static int NUM_MOLECULES = 10;
+	private int CENTIPEDE_SIZE = 8;
+	private int MAX_CENTIPEDES = 3;
+	private int NUM_SHOTS = 10;
+	private int NUM_MOLECULES = 10;
 	private int NUM_NH3 = 2;
 	private int NH3SpawnInterval = 45000; // ms
-
 	private long CentipedeInterval = 10000; // ms
-	private long lastCentipede;
+	
+	long lastCentipede;
+	long lastNH3;
 
+	int NUM_HIGH_SCORES = 5;
 	private enum STATES {
 		START_GAME_STATE, PLAY_GAME_STATE, GAME_OVER_STATE
 	}
@@ -71,7 +73,6 @@ public class GamePlayState extends BasicGameState {
 	ArrayList<Centipede> centipedes;
 	boolean newCentipede = false;
 
-	
 	int score;
 	Character[] score_name = {'A', 'A', 'A'};
 	int score_index;
@@ -83,7 +84,6 @@ public class GamePlayState extends BasicGameState {
 	List<Score> high_scores = new ArrayList<Score>();;
 	int last_life_score = 0;
 
-	long lastNH3;
 
 	ArrayList<Animator> animators;
 	
@@ -169,6 +169,7 @@ public class GamePlayState extends BasicGameState {
 							.split("-")[1])));
 		}
 
+
 		/* SHOTS */
 		sprite_shot = new Sprite(assetManager.getImage("shot"));
 		shots = new ShotEntity[NUM_SHOTS];
@@ -177,8 +178,8 @@ public class GamePlayState extends BasicGameState {
 		}
 		player.setShots(shots);
 
+
 		/* NH3 -SPIDERS */
-		// TODO: adjust to spawn relative to 30% of the screen
 		sprite_nh3 = new Sprite(assetManager.getImage("nh3"));
 		nh3s = new ArrayList<NH3Entity>();
 		for (int z = 0; z < NUM_NH3; z++) {
@@ -188,6 +189,7 @@ public class GamePlayState extends BasicGameState {
 		}
 		lastNH3 = Sys.getTime();
 
+		
 		/* CENTIPEDE */
 		sprite_centibody = new Sprite(assetManager.getImage("centibody"));
 		sprite_centihead = new Sprite(assetManager.getImage("centihead"));
@@ -204,17 +206,14 @@ public class GamePlayState extends BasicGameState {
 		input.addControllerListener(player);
 	}
 
+	
+	
 	/** UPDATE **/
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 
-		if (windowManager.isResized()) {
-
-		}
-
 		/* GAME_STATE */
-
 		switch (currentState) {
 		case START_GAME_STATE:
 
@@ -249,27 +248,30 @@ public class GamePlayState extends BasicGameState {
 				STATE_MSG = "GAME     OVER";
 			}
 			
-			
 			pause_counter -= delta;
 			
-			
+			//on first game over, is_entering_score = false
 			if (!is_entering_score) {
-				//if my score is in high score list
 				
 				Collections.sort(high_scores);
 				
+				/* find our score on the high score list if it qualifies
+				 * and add it
+				 */
 				for (int s = 0; !is_entering_score && s < high_scores.size(); s++) {
+			
 					if (score > high_scores.get(s).score) {
 						high_scores.add(s, new Score(score, null));
 						is_entering_score = true;
 					}
 				}
-				if (!is_entering_score && high_scores.size() <= 5) {
+				//make sure also add for size 0
+				if (!is_entering_score && high_scores.size() <= NUM_HIGH_SCORES ) {
 					high_scores.add(new Score(score, null));
 					is_entering_score = true;
 				}
-				//keep list short
-				if (high_scores.size() > 5) {
+				//truncate list 
+				if (high_scores.size() > NUM_HIGH_SCORES ) {
 					high_scores.remove(high_scores.size()-1);
 				}
 				
@@ -281,7 +283,7 @@ public class GamePlayState extends BasicGameState {
 			}
 
 			if (is_entering_score) {
-				if (input.isKeyPressed(Input.KEY_LEFT)) {
+				if (input.isKeyPressed(Input.KEY_LEFT) || input.isControllerLeft(Input.ANY_CONTROLLER)) {
 					if (score_index <= 0) {
 						score_index = score_name.length-1;
 					}
@@ -289,15 +291,15 @@ public class GamePlayState extends BasicGameState {
 						score_index = (score_index-1) % score_name.length;
 					}
 				}
-				if (input.isKeyPressed(Input.KEY_RIGHT)) {
+				if (input.isKeyPressed(Input.KEY_RIGHT) || input.isControllerRight(Input.ANY_CONTROLLER)) {
 					score_index = (score_index+1) % score_name.length;
 				}
-				if (input.isKeyPressed(Input.KEY_DOWN)) {
+				if (input.isKeyPressed(Input.KEY_DOWN) || input.isControllerDown(Input.ANY_CONTROLLER)) {
 					if (score_name[score_index] < 'Z') {
 						score_name[score_index]++;
 					}
 				}
-				if (input.isKeyPressed(Input.KEY_UP)) {
+				if (input.isKeyPressed(Input.KEY_UP) || input.isControllerUp(Input.ANY_CONTROLLER)) {
 					if (score_name[score_index] > 'A') {
 						score_name[score_index]--;
 					}
@@ -305,7 +307,7 @@ public class GamePlayState extends BasicGameState {
 			}
 			
 			if (!is_entering_score && (pause_counter < 0 || (input.isKeyPressed(Input.KEY_ENTER) || 
-					input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER)))) {
+					input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER) || input.isButton3Pressed(Input.ANY_CONTROLLER)))) {
 				currentState = STATES.START_GAME_STATE;
 				is_entering_score =false;
 			}
@@ -323,8 +325,10 @@ public class GamePlayState extends BasicGameState {
 		 * here because the delta will change all the time depending on comp
 		 * speed
 		 */
+		
 		player.move(delta, molecules);
 
+		
 		/** spawn H3 */
 		if (Sys.getTime() - lastNH3 > NH3SpawnInterval) {
 			for (int x = 0; x<NUM_NH3; x++) {
@@ -334,9 +338,9 @@ public class GamePlayState extends BasicGameState {
 
 			}
 			lastNH3 = Sys.getTime();
-			
 		}
 
+		
 		/* move NH3's */
 		for (Iterator<NH3Entity> i = nh3s.iterator(); i.hasNext();) {
 			NH3Entity n = i.next();
@@ -350,10 +354,9 @@ public class GamePlayState extends BasicGameState {
 				if (player.isGameOver()) {
 					currentState = STATES.GAME_OVER_STATE;
 				}
-
 			}
 
-			// remove
+			//remove NH3
 			if (n.remove_me) {
 				i.remove();
 			}
@@ -370,9 +373,8 @@ public class GamePlayState extends BasicGameState {
 				}
 			}
 		}
-		/* cheap smoooth */
-		/* collision detection */
-		// move shots
+		
+		/* Shots & Collisions*/
 		for (ShotEntity s : shots) {
 
 			// shots and molecules
@@ -431,6 +433,7 @@ public class GamePlayState extends BasicGameState {
 
 			}
 
+			
 			// Verify hit and spawn new Centipede - TODO: prolly refactor this
 			ArrayList<Centipede> new_centis = new ArrayList<Centipede>();
 
@@ -610,7 +613,9 @@ public class GamePlayState extends BasicGameState {
 
 			}
 
-			if (input.isKeyPressed(Input.KEY_ENTER)) {
+			if (input.isKeyPressed(Input.KEY_ENTER) || 
+					input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER) || input.isButton3Pressed(Input.ANY_CONTROLLER)) {
+				
 				is_entering_score = false;
 				if (score_pos < high_scores.size() ) {
 					high_scores.get(score_pos).name = 
