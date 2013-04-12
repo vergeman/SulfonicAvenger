@@ -1,6 +1,7 @@
 package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -73,10 +74,14 @@ public class GamePlayState extends BasicGameState {
 
 	
 	int score;
+	Character[] score_name = {'A', 'A', 'A'};
+	int score_index;
+	boolean score_flash;
+	long score_flash_time;
+	long SCORE_FLASH_INTERVAL = 500;
 	int high_score = 0;
 	boolean is_entering_score;
 	List<Score> high_scores = new ArrayList<Score>();;
-	char[] score_name;
 	int last_life_score = 0;
 
 	long lastNH3;
@@ -117,9 +122,14 @@ public class GamePlayState extends BasicGameState {
 				(int) (windowManager.getCenterY() + windowManager.getCenterY() / 2));
 
 		score = 0;
-		score_name = new char[3];
+		score_flash=false;
+		score_flash_time = Sys.getTime();
+		score_index = 0;
 		last_life_score = 0;
 		is_entering_score= false;
+		score_name = new Character[]{'A', 'A', 'A'};
+			
+		
 		/* // MOLECULES */
 		molecules = new ArrayList<MoleculeEntity>();
 		r = new Random();
@@ -248,10 +258,8 @@ public class GamePlayState extends BasicGameState {
 				//if my score is in high score list
 
 				Collections.sort(high_scores);
-				System.out.println(high_scores.toArray().toString());
 				
 				for (int s = 0; !is_entering_score && s < high_scores.size(); s++) {
-					System.out.println(s + " " + high_scores.get(s).score);
 					if (score > high_scores.get(s).score) {
 						high_scores.add(s, new Score(score, null));
 						is_entering_score = true;
@@ -267,13 +275,36 @@ public class GamePlayState extends BasicGameState {
 				}
 				
 			}
-/*
+			//flash render high score jesus
+			if (Sys.getTime() - score_flash_time > SCORE_FLASH_INTERVAL) {
+				score_flash = !score_flash;
+				score_flash_time = Sys.getTime();
+			}
+
 			if (is_entering_score) {
 				if (input.isKeyPressed(Input.KEY_LEFT)) {
-					
+					if (score_index <= 0) {
+						score_index = score_name.length-1;
+					}
+					else {
+						score_index = (score_index-1) % score_name.length;
+					}
+				}
+				if (input.isKeyPressed(Input.KEY_RIGHT)) {
+					score_index = (score_index+1) % score_name.length;
+				}
+				if (input.isKeyPressed(Input.KEY_DOWN)) {
+					if (score_name[score_index] < 'Z') {
+						score_name[score_index]++;
+					}
+				}
+				if (input.isKeyPressed(Input.KEY_UP)) {
+					if (score_name[score_index] > 'A') {
+						score_name[score_index]--;
+					}
 				}
 			}
-*/			
+			
 			if (!is_entering_score && (pause_counter < 0 || (input.isKeyPressed(Input.KEY_ENTER) || 
 					input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER)))) {
 				currentState = STATES.START_GAME_STATE;
@@ -512,36 +543,76 @@ public class GamePlayState extends BasicGameState {
 			}
 		}
 
-		for (Animator a: animators) {
+		for (Animator a : animators) {
 			a.draw();
 		}
 		
+		//WHAT ABOTU NOT A HIGH SCORE BUT WANT TO DISPLAY
 		if (is_entering_score) {
-			
-			
-			textDrawManager.draw("state", "HIGH   SCORES", Color.white, 
-					container.getWidth() / 2, (int) windowManager.getCenterY() / 4 ,
-					-0.5,0.5,0,0);			
-			
-			int q = 1;
-			for (Score s : high_scores) {
-				textDrawManager.draw("score", "AAA", Color.white, 
-						container.getWidth() / 2, (int) windowManager.getCenterY() / 4,
-						0,2*q,-textDrawManager.getWidth("state") /2,20);
-				
-				textDrawManager.draw("score", ""+s.score, Color.white, 
-						container.getWidth() / 2, (int) windowManager.getCenterY() / 4,
-						0,2*q,0 ,20);	
 
-				q++;
+			textDrawManager.draw("state", "HIGH   SCORES", Color.white,
+					container.getWidth() / 2,
+					(int) windowManager.getCenterY() / 4, -0.5, 0.5, 0, 0);
+
+			/* FLASH LETTERS */
+			int q = 1;
+			int score_pos = high_scores.size();
+
+			//multiple scores are being edited
+			for (Score s : high_scores) {
+
+				if (s.name == null) {
+					score_pos = q-1;
+					textDrawManager.draw("score", "A", Color.white,
+							container.getWidth() + 200, 0, 0, 0, 0, 0);
+
+					int w = textDrawManager.getWidth("score");
+					
+					//For each letter
+					for (int x = 0; x < score_name.length; x++) {
+						// load lastmsg size of 1
+						
+						if (x == score_index && score_flash) {
+							// time is set in update()
+
+						} 
+						else {
+							textDrawManager
+									.draw("score",
+											score_name[x].toString(),
+											Color.white,
+											container.getWidth() / 2,
+											(int) windowManager.getCenterY() / 4,
+											0, 2 * q, -textDrawManager.getWidth("state") / 2 + x * w, 20);
+						}
+					}
+				}
+				else {
+					//drawn name
+					textDrawManager.draw("score", s.name, Color.white,
+							container.getWidth() / 2,
+							(int) windowManager.getCenterY() / 4, 0, 2 * q,
+							-textDrawManager.getWidth("state") / 2, 20);
+
+				}
+				//draw score
+				textDrawManager.draw("score", "" + s.score, Color.white,
+						container.getWidth() / 2,
+						(int) windowManager.getCenterY() / 4, 0, 2 * q, 0, 20);
+
+				q++; // vert spacing
+
 			}
-			
+
 			if (input.isKeyPressed(Input.KEY_ENTER)) {
 				is_entering_score = false;
+				if (score_pos < high_scores.size() ) {
+					high_scores.get(score_pos).name = 
+							new String("" + score_name[0].charValue() + score_name[1].charValue() + score_name[2].charValue());
+				}
 				currentState = STATES.START_GAME_STATE;
 			}
 		}
-	
 
 		// render bottom for z-index
 		textDrawManager.draw("state", STATE_MSG, Color.white,
@@ -552,7 +623,7 @@ public class GamePlayState extends BasicGameState {
 				0);
 		textDrawManager.draw("score", SCORE_MSG + score, Color.red, 20,
 				container.getHeight(), 0, -2, 0, 0);
-		
+
 		textDrawManager.draw("high_score", HIGH_SCORE_MSG + high_score,
 				Color.blue, container.getWidth(), container.getHeight(), -1,
 				-2, -20, 0);
@@ -562,7 +633,7 @@ public class GamePlayState extends BasicGameState {
 				0, -2, 40, 0);
 
 	}
-	
+
 	@Override
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -595,7 +666,6 @@ public class GamePlayState extends BasicGameState {
 			if (score - last_life_score >= 1000) {
 				player.lives += 1;
 				last_life_score += 1000;
-				// System.out.println("Lives:" + player.lives);
 			}
 
 		}
