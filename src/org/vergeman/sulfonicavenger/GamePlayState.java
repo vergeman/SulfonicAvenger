@@ -95,7 +95,6 @@ public class GamePlayState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-
 		
 		input = container.getInput();
 		
@@ -232,12 +231,14 @@ public class GamePlayState extends BasicGameState {
 			}
 			break;
 
+			
 		case PLAY_GAME_STATE:
 			STATE_MSG = null;
 			input.addKeyListener(player);
 			input.addControllerListener(player);
 			break;
 
+			
 		case GAME_OVER_STATE:
 			input.removeKeyListener(player);
 			input.removeControllerListener(player);
@@ -276,7 +277,8 @@ public class GamePlayState extends BasicGameState {
 				}
 				
 			}
-			//flash render high score jesus
+			
+			//flash render high score jesus we must refactor this beast
 			if (Sys.getTime() - score_flash_time > SCORE_FLASH_INTERVAL) {
 				score_flash = !score_flash;
 				score_flash_time = Sys.getTime();
@@ -318,14 +320,9 @@ public class GamePlayState extends BasicGameState {
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			System.exit(0);
 		}
-		/* test collision detect */
 
-		/*
-		 * check against barries - i.e. molecules blocking our way, we undo move
-		 * here because the delta will change all the time depending on comp
-		 * speed
-		 */
-		
+		/* begin collision detects */
+
 		player.move(delta, molecules);
 
 		
@@ -387,24 +384,27 @@ public class GamePlayState extends BasicGameState {
 				}
 				if (m.remove) {
 					updateScore(m.getScore());
-					//agc
+					
+					//agc molecule
 					if (m.sprite.equals(sprite_molecule3)) {
 						animators.add(new Animator(assetManager.getSpriteSheet("agc_explosion"), m.x, m.y,
 								0,0,3,3, true, 75, true));
 					}
-					else {
-					animators.add(new Animator(assetManager.getSpriteSheet("gen_explosion"), m.x, m.y,
+					else 
+					{
+						animators.add(new Animator(assetManager.getSpriteSheet("gen_explosion"), m.x, m.y,
 							0,0,2,2, true, 50, true));
 					}
 					
 					i.remove();
-					
 				}
 			}
 
 			// shots and NH3's
 			for (Iterator<NH3Entity> i = nh3s.iterator(); i.hasNext();) {
+				
 				NH3Entity n = i.next();
+				
 				if (n.display && s.collidesWith(n)) {
 					s.collidedWith(n);
 					n.collidedWith(s);
@@ -422,6 +422,7 @@ public class GamePlayState extends BasicGameState {
 
 			// shots and centiballs - toggle display
 			for (Iterator<Centipede> i = centipedes.iterator(); i.hasNext();) {
+				
 				Centipede c = i.next();
 
 				updateScore(c.checkCollisions(s, molecules, sprite_molecules));
@@ -434,7 +435,7 @@ public class GamePlayState extends BasicGameState {
 			}
 
 			
-			// Verify hit and spawn new Centipede - TODO: prolly refactor this
+			// Verify hit and spawn new Centipede - TODO: refactor this monstrosity
 			ArrayList<Centipede> new_centis = new ArrayList<Centipede>();
 
 			for (int i = 0; i < centipedes.size(); i++) {
@@ -504,7 +505,9 @@ public class GamePlayState extends BasicGameState {
 
 		/*check animation states*/
 		for (Iterator<Animator> i = animators.iterator(); i.hasNext();) {
+			
 			Animator a = i.next();
+			
 			if (a.isStopped()) {
 				i.remove();
 			}
@@ -549,7 +552,7 @@ public class GamePlayState extends BasicGameState {
 			a.draw();
 		}
 		
-		//WHAT ABOTU NOT A HIGH SCORE BUT WANT TO DISPLAY
+		//Game Over, lets display / enter high scores
 		if (is_entering_score) {
 
 			g.setColor(Color.black);
@@ -579,7 +582,7 @@ public class GamePlayState extends BasicGameState {
 					
 					//For each letter
 					for (int x = 0; x < score_name.length; x++) {
-						// load lastmsg size of 1
+						// because our class sucks, we need to load a last message size of 1
 						
 						if (x == score_index && score_flash) {
 							// time is set in update()
@@ -609,7 +612,7 @@ public class GamePlayState extends BasicGameState {
 						container.getWidth() / 2,
 						(int) windowManager.getCenterY() / 4, 0, 2 * q, 0, 20);
 
-				q++; // vert spacing
+				q++; // vertical spacing of high scores increment
 
 			}
 
@@ -617,6 +620,7 @@ public class GamePlayState extends BasicGameState {
 					input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER) || input.isButton3Pressed(Input.ANY_CONTROLLER)) {
 				
 				is_entering_score = false;
+				
 				if (score_pos < high_scores.size() ) {
 					high_scores.get(score_pos).name = 
 							new String("" + score_name[0].charValue() + score_name[1].charValue() + score_name[2].charValue());
