@@ -1,7 +1,6 @@
 package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -78,7 +77,7 @@ public class GamePlayState extends BasicGameState {
 	int score_index;
 	boolean score_flash;
 	long score_flash_time;
-	long SCORE_FLASH_INTERVAL = 500;
+	long SCORE_FLASH_INTERVAL = 250;
 	int high_score = 0;
 	boolean is_entering_score;
 	List<Score> high_scores = new ArrayList<Score>();;
@@ -114,12 +113,14 @@ public class GamePlayState extends BasicGameState {
 		textDrawManager.build("score", SCORE_SZ);
 		textDrawManager.build("high_score", SCORE_SZ);
 
+		animators = new ArrayList<Animator>();
+		
 		player = new PlayerEntity(
 				container,
 				assetManager,
 				new Sprite(assetManager.getImage("ship")),
 				(int) windowManager.getCenterX(),
-				(int) (windowManager.getCenterY() + windowManager.getCenterY() / 2));
+				(int) (windowManager.getCenterY() + windowManager.getCenterY() / 2), animators);
 
 		score = 0;
 		score_flash=false;
@@ -195,8 +196,6 @@ public class GamePlayState extends BasicGameState {
 		centipedes.add(new Centipede(container, sprite_centihead,
 				sprite_centibody, CENTIPEDE_SIZE));
 		lastCentipede = Sys.getTime();
-		
-		animators = new ArrayList<Animator>();
 		
 		Music theme = new Music("data/theme.ogg");
 		theme.loop();
@@ -347,7 +346,7 @@ public class GamePlayState extends BasicGameState {
 			if (n.collidesWith(player)) {
 				n.collidedWith(player);
 				player.collidedWith(n);
-
+				
 				if (player.isGameOver()) {
 					currentState = STATES.GAME_OVER_STATE;
 				}
@@ -365,7 +364,7 @@ public class GamePlayState extends BasicGameState {
 		for (Centipede c : centipedes) {
 			c.move(delta, molecules);
 			if (c.checkCollisions(player)) {
-
+				
 				if (player.isGameOver()) {
 					currentState = STATES.GAME_OVER_STATE;
 				}

@@ -22,10 +22,11 @@ public class PlayerEntity extends Entity implements KeyListener, ControllerListe
 	int PAUSE_SPEED = 1000;
 	int pause_counter = 0;
 
+	ArrayList<Animator> animators;
 	AssetManager assetManager;
 
 	protected PlayerEntity(GameContainer container, AssetManager assetManager,
-			Sprite sprite, int x, int y) {
+			Sprite sprite, int x, int y, ArrayList<Animator> animators) {
 		super(sprite, x, y);
 		this.spawn_x = x;
 		this.spawn_y = y;
@@ -39,6 +40,7 @@ public class PlayerEntity extends Entity implements KeyListener, ControllerListe
 		setHorizontalMovement(0);
 		resize(container.getWidth(), container.getHeight(), 1.0f, 1.0f);
 		this.assetManager = assetManager;
+		this.animators = animators;
 	}
 
 	public void setShots(ShotEntity[] shots) {
@@ -130,8 +132,8 @@ public class PlayerEntity extends Entity implements KeyListener, ControllerListe
 			super.draw();
 		} 
 		else if (!isAlive()) {
-				assetManager.getImage("explosion").setAlpha( 5 * pause_counter / PAUSE_SPEED);
-				assetManager.getImage("explosion").draw(this.x, this.y);
+				//assetManager.getImage("explosion").setAlpha( 5 * pause_counter / PAUSE_SPEED);
+				//assetManager.getImage("explosion").draw(this.x, this.y);
 			}
 		else {
 			/*flash*/
@@ -160,7 +162,10 @@ public class PlayerEntity extends Entity implements KeyListener, ControllerListe
 				pause_counter = PAUSE_SPEED;
 				--lives;
 				assetManager.getSound("hit").play();
-
+			
+				animators.add(new Animator(assetManager.getSpriteSheet("player_explosion"), this.x, this.y,
+						0,0,2,2, true, 150, true));
+				
 				if (lives <= 0) {
 					game_over = true;
 				}
