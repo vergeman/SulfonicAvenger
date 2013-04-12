@@ -256,7 +256,7 @@ public class GamePlayState extends BasicGameState {
 			
 			if (!is_entering_score) {
 				//if my score is in high score list
-
+				
 				Collections.sort(high_scores);
 				
 				for (int s = 0; !is_entering_score && s < high_scores.size(); s++) {
@@ -550,6 +550,13 @@ public class GamePlayState extends BasicGameState {
 		//WHAT ABOTU NOT A HIGH SCORE BUT WANT TO DISPLAY
 		if (is_entering_score) {
 
+			g.setColor(Color.black);
+			g.fillRect(container.getWidth() / 4, 
+					(int) windowManager.getCenterY() / 8, 
+					container.getWidth() / 2, 
+					(int) windowManager.getCenterY() + (int) windowManager.getCenterY() / 4);
+			g.setColor(Color.white);
+		
 			textDrawManager.draw("state", "HIGH   SCORES", Color.white,
 					container.getWidth() / 2,
 					(int) windowManager.getCenterY() / 4, -0.5, 0.5, 0, 0);
