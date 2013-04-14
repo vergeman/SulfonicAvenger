@@ -28,11 +28,23 @@ public class GamePlayState extends BasicGameState {
 	private int NUM_NH3 = 2;
 	private int NH3SpawnInterval = 45000; // ms
 	private long CentipedeInterval = 10000; // ms
+	int NH3_SPEED = 170;
+	int CENTIPEDE_SPEED = 250;
+	
+	private int OLD_CENTIPEDE_SIZE = CENTIPEDE_SIZE;
+	private int OLD_MAX_CENTIPEDES = MAX_CENTIPEDES;
+	private int OLD_NUM_NH3 = NUM_NH3;
+	private int OLD_NH3SpawnInterval = NH3SpawnInterval; // ms
+	private long OLD_CentipedeInterval = CentipedeInterval; // ms
+	private int OLD_CENTIPEDE_SPEED = CENTIPEDE_SPEED;
+	private int OLD_NH3_SPEED = NH3_SPEED;
 	
 	long lastCentipede;
 	long lastNH3;
 
 	int NUM_HIGH_SCORES = 5;
+	int level_count = 0;
+	
 	private enum STATES {
 		START_GAME_STATE, PLAY_GAME_STATE, GAME_OVER_STATE
 	}
@@ -83,6 +95,7 @@ public class GamePlayState extends BasicGameState {
 	boolean is_entering_score;
 	List<Score> high_scores = new ArrayList<Score>();;
 	int last_life_score = 0;
+	int last_level_score = 0;
 
 
 	ArrayList<Animator> animators;
@@ -95,6 +108,17 @@ public class GamePlayState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+	
+		//reinit game params
+		CENTIPEDE_SIZE = 8;
+		MAX_CENTIPEDES = 3;
+		NUM_SHOTS = 10;
+		NUM_MOLECULES = 10;
+		NUM_NH3 = 2;
+		NH3SpawnInterval = 45000; // ms
+		CentipedeInterval = 10000; // ms
+		NH3_SPEED = 170;
+		CENTIPEDE_SPEED = 250;
 		
 		input = container.getInput();
 		
@@ -133,6 +157,7 @@ public class GamePlayState extends BasicGameState {
 		/* // MOLECULES */
 		molecules = new ArrayList<MoleculeEntity>();
 		r = new Random();
+		
 		sprite_molecules = new Sprite[3];
 		sprite_molecule1 = new Sprite(assetManager.getImage("molecule1"));
 		sprite_molecule2 = new Sprite(assetManager.getImage("molecule2"));
@@ -184,7 +209,7 @@ public class GamePlayState extends BasicGameState {
 		for (int z = 0; z < NUM_NH3; z++) {
 			nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
 				: windowManager.get_orig_width(), (int) (windowManager
-				.get_orig_height() - 200 + (r.nextDouble() * 200))));
+				.get_orig_height() - 200 + (r.nextDouble() * 200)),  NH3_SPEED));
 		}
 		lastNH3 = Sys.getTime();
 
@@ -195,7 +220,7 @@ public class GamePlayState extends BasicGameState {
 
 		centipedes = new ArrayList<Centipede>();
 		centipedes.add(new Centipede(container, sprite_centihead,
-				sprite_centibody, CENTIPEDE_SIZE));
+				sprite_centibody, CENTIPEDE_SIZE, CENTIPEDE_SPEED));
 		lastCentipede = Sys.getTime();
 		
 		Music theme = new Music("data/theme.ogg");
@@ -331,7 +356,7 @@ public class GamePlayState extends BasicGameState {
 			for (int x = 0; x<NUM_NH3; x++) {
 				nh3s.add(new NH3Entity(container, sprite_nh3, r.nextBoolean() ? 0
 					: windowManager.get_orig_width(), (int) (windowManager
-					.get_orig_height() - 200 + (r.nextDouble() * 200))));
+					.get_orig_height() - 200 + (r.nextDouble() * 200)),  NH3_SPEED));
 
 			}
 			lastNH3 = Sys.getTime();
@@ -498,7 +523,7 @@ public class GamePlayState extends BasicGameState {
 		// spawn centipede
 		if ((centipedes.size() < MAX_CENTIPEDES && newCentipede) || (Sys.getTime() - lastCentipede > CentipedeInterval)) {
 			centipedes.add(new Centipede(container, sprite_centihead,
-					sprite_centibody, CENTIPEDE_SIZE));
+					sprite_centibody, CENTIPEDE_SIZE, CENTIPEDE_SPEED));
 			newCentipede = false;
 			lastCentipede = Sys.getTime();
 		}
@@ -552,7 +577,7 @@ public class GamePlayState extends BasicGameState {
 			a.draw();
 		}
 		
-		//Game Over, lets display / enter high scores
+		//Game Over, lets display / enter high scores and then refactor this beastie
 		if (is_entering_score) {
 
 			g.setColor(Color.black);
@@ -615,7 +640,7 @@ public class GamePlayState extends BasicGameState {
 				q++; // vertical spacing of high scores increment
 
 			}
-
+			//we'll allow input logic in the render space since it's not "mission critical"
 			if (input.isKeyPressed(Input.KEY_ENTER) || 
 					input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER) || input.isButton3Pressed(Input.ANY_CONTROLLER)) {
 				
@@ -683,7 +708,59 @@ public class GamePlayState extends BasicGameState {
 				last_life_score += 1000;
 			}
 
+			if (score -  last_level_score >= 3000) {
+				LevelUp();
+				last_level_score += 3000;
+			}
 		}
 		high_score = Math.max(score, high_score);
 	}
+
+
+	public void LevelUp() {
+		System.out.println("LEVELUP");
+		//save old
+		if (level_count % 3 == 2) {
+			//we want a breather level every three...so we set these to zero
+			System.out.println("Breather");
+			MAX_CENTIPEDES = 0;
+			NH3SpawnInterval = NH3SpawnInterval * 2; // ms
+			NUM_NH3 = 2;
+			NH3_SPEED = 170;
+			
+			for (Centipede c : centipedes) {
+				c.setSpeed(200);
+			}
+			
+		}
+		
+		else {
+			//save "hardest" of old values
+			OLD_CENTIPEDE_SIZE = Math.min(14, Math.max(CENTIPEDE_SIZE, OLD_CENTIPEDE_SIZE));
+			OLD_MAX_CENTIPEDES = Math.max(MAX_CENTIPEDES, OLD_MAX_CENTIPEDES);
+			OLD_NUM_NH3 = Math.max(NUM_NH3, OLD_NUM_NH3);
+			
+			OLD_NH3SpawnInterval = Math.min(NH3SpawnInterval, OLD_NH3SpawnInterval); // ms
+			OLD_CentipedeInterval = Math.min(CentipedeInterval, OLD_CentipedeInterval); // ms
+			
+			OLD_NH3_SPEED = Math.max(NH3_SPEED, OLD_NH3_SPEED);
+			OLD_CENTIPEDE_SPEED = Math.max(CENTIPEDE_SPEED, OLD_CENTIPEDE_SPEED);
+			
+			//augment by ~15%
+			CENTIPEDE_SIZE = (int) (OLD_CENTIPEDE_SIZE + 1);
+			MAX_CENTIPEDES = (int) (MAX_CENTIPEDES + 1);
+			NUM_NH3 = (int) (OLD_NUM_NH3 + 1);
+			NH3SpawnInterval -= .15 * OLD_NH3SpawnInterval; // ms
+			CentipedeInterval -= .15 * OLD_CentipedeInterval; // ms
+					
+			//speed
+			NH3_SPEED += .10 * OLD_NH3_SPEED;
+			CENTIPEDE_SPEED += .10 * OLD_CENTIPEDE_SPEED;
+		}
+		level_count++;
+		
+	}
+
+
 }
+

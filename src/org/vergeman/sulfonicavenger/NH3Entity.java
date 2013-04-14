@@ -22,7 +22,7 @@ public class NH3Entity extends Entity {
 	long spawn_time;
 	boolean remove_me;
 
-	protected NH3Entity(GameContainer container, Sprite sprite, int x, int y) {
+	protected NH3Entity(GameContainer container, Sprite sprite, int x, int y, int move_speed) {
 		super(sprite, x, y);
 		this.container = container;
 		setHorizontalMovement(0);
@@ -31,6 +31,7 @@ public class NH3Entity extends Entity {
 		resize(container.getWidth(), container.getHeight(), 1.0f, 1.0f);
 		dx = move_speed;
 		dy = move_speed;
+		this.move_speed = move_speed;
 		display = true;
 		remove_me = false;
 		this.x = (int) (r.nextBoolean() ? 0 : container.getWidth());

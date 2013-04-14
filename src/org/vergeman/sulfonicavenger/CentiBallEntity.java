@@ -18,11 +18,12 @@ public class CentiBallEntity extends Entity {
 	protected boolean display;
 	
 	protected CentiBallEntity(GameContainer container, Sprite sprite, 
-				int x, int y, boolean isHead) {
+				int x, int y, boolean isHead, int move_speed) {
 		super(sprite, x, y);
 		this.isHead = isHead;
 		this.display = true;
 		this.container = container;
+		this.move_speed = move_speed;
 		setHorizontalMovement(x < 0 ? move_speed : -move_speed);
 		setVerticalMovement(0);
 		resize(container.getWidth(), container.getHeight(), 1.0f, 1.0f);

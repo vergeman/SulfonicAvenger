@@ -28,28 +28,34 @@ public class Centipede {
 	}
 
 	public Centipede(GameContainer container, Sprite sprite_centibody,
-			Sprite sprite_centihead, int size) {
+			Sprite sprite_centihead, int size, int speed) {
 		this.container = container;
 		this.sprite_centibody = sprite_centibody;
 		this.sprite_centihead = sprite_centihead;
-		makeCentipede(size);
+		makeCentipede(size, speed);
 		lives = size;
 		isAlive = true;
+		
 
 	}
 	
-	public void makeCentipede(int size) {
+	public void setSpeed(int speed) {
+		for (CentiBallEntity cb : centipede) {
+			cb.move_speed = speed;
+		}
+	}
+	public void makeCentipede(int size, int speed) {
 		centipede = new ArrayList<CentiBallEntity>();
 		// build centiPEDE
 		boolean start_left = r.nextBoolean();
 		
 		centipede.add(new CentiBallEntity(container, sprite_centihead, 
 				start_left ? -10 : container.getWidth() + 10, 0,
-				true));
+				true, speed));
 
 		for (int c = 1; c < size; c++) {
 			centipede.add(new CentiBallEntity(container, sprite_centibody, 
-					start_left ? -c * sprite_centibody.getWidth() - 10 : c * sprite_centibody.getWidth() + (container.getWidth() +  10), 0, false));
+					start_left ? -c * sprite_centibody.getWidth() - 10 : c * sprite_centibody.getWidth() + (container.getWidth() +  10), 0, false, speed));
 		}
 
 	}
