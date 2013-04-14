@@ -19,17 +19,17 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GamePlayState extends BasicGameState {
 
 	private int stateID;
-
-	private int CENTIPEDE_SIZE = 8;
-	private int MAX_CENTIPEDES = 3;
-	private int NUM_SHOTS = 10;
-	private int NUM_MOLECULES = 10;
-	private int NUM_NH3 = 2;
-	private int NH3SpawnInterval = 45000; // ms
-	private long CentipedeInterval = 10000; // ms
-	int NH3_SPEED = 170;
-	int CENTIPEDE_SPEED = 250;
 	
+	//values are denoted in init();
+	private int CENTIPEDE_SIZE;
+	private int MAX_CENTIPEDES;
+	private int NUM_SHOTS;
+	private int NUM_MOLECULES;
+	private int NUM_NH3;
+	private int NH3SpawnInterval; // ms
+	private long CentipedeInterval; // ms
+	int NH3_SPEED;
+	int CENTIPEDE_SPEED;
 	private int OLD_CENTIPEDE_SIZE = CENTIPEDE_SIZE;
 	private int OLD_MAX_CENTIPEDES = MAX_CENTIPEDES;
 	private int OLD_NUM_NH3 = NUM_NH3;
@@ -125,6 +125,8 @@ public class GamePlayState extends BasicGameState {
 		assetManager = new AssetManager();
 		assetManager.init();
 
+		r = new Random();
+		
 		textDrawManager = new TextDrawManager(container.getGraphics(),
 				windowManager, assetManager);
 		textDrawManager.build("state", STATE_SZ);
@@ -165,7 +167,6 @@ public class GamePlayState extends BasicGameState {
 		}
 		player.setShots(shots);
 
-		Random r = new Random();
 		/* NH3 -SPIDERS */
 		sprite_nh3 = new Sprite(assetManager.getImage("nh3"));
 		nh3s = new ArrayList<NH3Entity>();
@@ -438,7 +439,9 @@ public class GamePlayState extends BasicGameState {
 		// end shots
 
 		// spawn centipede
-		if ((centipedes.size() < MAX_CENTIPEDES && newCentipede) || (Sys.getTime() - lastCentipede > CentipedeInterval)) {
+		if ((centipedes.size() < MAX_CENTIPEDES && newCentipede) || 
+				(Sys.getTime() - lastCentipede > CentipedeInterval)) {
+			
 			centipedes.add(new Centipede(container, sprite_centihead,
 					sprite_centibody, CENTIPEDE_SIZE, CENTIPEDE_SPEED));
 			newCentipede = false;
@@ -571,6 +574,8 @@ public class GamePlayState extends BasicGameState {
 			}
 		}
 
+		
+		
 		// render bottom for z-index
 		textDrawManager.draw("state", STATE_MSG, Color.white,
 				(container.getWidth() / 2), (int) windowManager.getCenterY(),
@@ -635,11 +640,9 @@ public class GamePlayState extends BasicGameState {
 
 
 	public void LevelUp() {
-		System.out.println("LEVELUP");
 		//save old
 		if (level_count % 3 == 2) {
 			//we want a breather level every three...so we set these to zero
-			System.out.println("Breather");
 			MAX_CENTIPEDES = 0;
 			NH3SpawnInterval = NH3SpawnInterval * 2; // ms
 			NUM_NH3 = 2;
