@@ -1,7 +1,10 @@
 package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
+
+import org.newdawn.slick.GameContainer;
 
 public class MoleculeEntity extends Entity {
 
@@ -62,4 +65,46 @@ public class MoleculeEntity extends Entity {
 
 	}
 
+	
+	public static ArrayList<MoleculeEntity> initMolecules(GameContainer container, AssetManager assetManager, 
+			int NUM_MOLECULES, Sprite[] sprite_molecules) {
+		ArrayList<MoleculeEntity> molecules = new ArrayList<MoleculeEntity>();
+		Random r = new Random();
+		
+		Sprite sprite_molecule1 = new Sprite(assetManager.getImage("molecule1"));
+		Sprite sprite_molecule2 = new Sprite(assetManager.getImage("molecule2"));
+		Sprite sprite_molecule3 = new Sprite(assetManager.getImage("molecule3"));
+		sprite_molecules[0] = sprite_molecule1;
+		sprite_molecules[1] = sprite_molecule2;
+		sprite_molecules[2] = sprite_molecule3;
+
+		
+		int w, h;
+		int s_w = sprite_molecule3.getWidth();
+		int s_h = sprite_molecule3.getHeight();
+		HashMap<String, Boolean> molecule_pos = new HashMap<String, Boolean>();
+
+		// spawn evenly on sprite dimensions
+		while (molecule_pos.size() < NUM_MOLECULES) {
+			w = ((int) (r.nextDouble() * container.getWidth()) / s_w) * s_w;
+
+			h = ((int) (r.nextDouble() * (container.getHeight() - container
+					.getHeight() / 3)) / s_h) * s_h;
+
+			if (!(h == 0 && w < 5 * s_w)) {
+				molecule_pos.put(w + "-" + h, true);
+			}
+		}
+
+		int type;
+		for (String pos : molecule_pos.keySet()) {
+			type = (int) (r.nextDouble() * 3 - .1);
+			molecules.add(new MoleculeEntity(sprite_molecules[type], type + 1,
+					Integer.valueOf(pos.split("-")[0]), Integer.valueOf(pos
+							.split("-")[1])));
+		}
+
+		return molecules;
+	}
+	
 }

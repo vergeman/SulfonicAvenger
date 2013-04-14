@@ -2,6 +2,7 @@ package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
@@ -159,4 +160,57 @@ public class Centipede {
 		}
 		return centi_score;
 	}
+	
+	
+	public static ArrayList<Centipede> splice_update(GameContainer container, Sprite sprite_centihead, Sprite sprite_centibody, ArrayList<Centipede> centipedes) {
+		ArrayList<Centipede> new_centis = new ArrayList<Centipede>();
+		
+		for (int i = 0; i < centipedes.size(); i++) {
+
+			Centipede c = centipedes.get(i);
+			List<CentiBallEntity> CentipedeBallList = ((List<CentiBallEntity>) c.centipede);
+
+			boolean has_new = false;
+			ArrayList<CentiBallEntity> temp = new ArrayList<CentiBallEntity>();
+
+			int q = 0;
+			for (int j = 0; has_new == false
+					&& j < CentipedeBallList.size(); j++) {
+
+				CentiBallEntity cbe = CentipedeBallList.get(j);
+
+				if (!cbe.isDisplay()) {
+
+					List<CentiBallEntity> l = CentipedeBallList.subList(
+							q + 1, CentipedeBallList.size());
+
+					temp = new ArrayList<CentiBallEntity>(l);
+
+					l.clear();
+
+					CentipedeBallList.remove(j);
+
+					has_new = true;
+				}
+				q++;
+			}
+
+			if (temp.size() > 0) {
+				new_centis.add(new Centipede(container, sprite_centibody,
+						sprite_centihead, temp));
+			}
+		}
+
+		// clean ball-less centipedes
+		for (Iterator<Centipede> c = centipedes.iterator(); c.hasNext();) {
+			Centipede cs = c.next();
+
+			if (cs.centipede.size() <= 0 || cs.isAlive == false) {
+				c.remove();
+			}
+		}
+
+		return new_centis;
+	}
+
 }

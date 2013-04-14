@@ -2,7 +2,6 @@ package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -71,12 +70,9 @@ public class GamePlayState extends BasicGameState {
 
 	PlayerEntity player;
 	ArrayList<MoleculeEntity> molecules;
+	Sprite[] sprite_molecules;
 	ArrayList<NH3Entity> nh3s;
 	ShotEntity[] shots;
-	Sprite[] sprite_molecules;
-	Sprite sprite_molecule1;
-	Sprite sprite_molecule2;
-	Sprite sprite_molecule3;
 	Sprite sprite_damage;
 	Sprite sprite_centibody;
 	Sprite sprite_centihead;
@@ -155,45 +151,12 @@ public class GamePlayState extends BasicGameState {
 			
 		
 		/* // MOLECULES */
-		molecules = new ArrayList<MoleculeEntity>();
-		r = new Random();
-		
 		sprite_molecules = new Sprite[3];
-		sprite_molecule1 = new Sprite(assetManager.getImage("molecule1"));
-		sprite_molecule2 = new Sprite(assetManager.getImage("molecule2"));
-		sprite_molecule3 = new Sprite(assetManager.getImage("molecule3"));
-		sprite_molecules[0] = sprite_molecule1;
-		sprite_molecules[1] = sprite_molecule2;
-		sprite_molecules[2] = sprite_molecule3;
-
+		molecules = new ArrayList<MoleculeEntity>();
+		molecules = MoleculeEntity.initMolecules(container, assetManager, NUM_MOLECULES, sprite_molecules);
+		
 		sprite_damage = new Sprite(assetManager.getImage("damage"));
-
-		int w, h;
-		int s_w = sprite_molecule3.getWidth();
-		int s_h = sprite_molecule3.getHeight();
-		HashMap<String, Boolean> molecule_pos = new HashMap<String, Boolean>();
-
-		// spawn evenly on sprite dimensions
-		while (molecule_pos.size() < NUM_MOLECULES) {
-			w = ((int) (r.nextDouble() * container.getWidth()) / s_w) * s_w;
-
-			h = ((int) (r.nextDouble() * (container.getHeight() - container
-					.getHeight() / 3)) / s_h) * s_h;
-
-			if (!(h == 0 && w < 5 * s_w)) {
-				molecule_pos.put(w + "-" + h, true);
-			}
-		}
-
-		int type;
-		for (String pos : molecule_pos.keySet()) {
-			type = (int) (r.nextDouble() * 3 - .1);
-			molecules.add(new MoleculeEntity(sprite_molecules[type], type + 1,
-					Integer.valueOf(pos.split("-")[0]), Integer.valueOf(pos
-							.split("-")[1])));
-		}
-
-
+				
 		/* SHOTS */
 		sprite_shot = new Sprite(assetManager.getImage("shot"));
 		shots = new ShotEntity[NUM_SHOTS];
@@ -202,7 +165,7 @@ public class GamePlayState extends BasicGameState {
 		}
 		player.setShots(shots);
 
-
+		Random r = new Random();
 		/* NH3 -SPIDERS */
 		sprite_nh3 = new Sprite(assetManager.getImage("nh3"));
 		nh3s = new ArrayList<NH3Entity>();
@@ -411,7 +374,7 @@ public class GamePlayState extends BasicGameState {
 					updateScore(m.getScore());
 					
 					//agc molecule
-					if (m.sprite.equals(sprite_molecule3)) {
+					if (m.sprite.equals(sprite_molecules[2])) {
 						animators.add(new Animator(assetManager.getSpriteSheet("agc_explosion"), m.x, m.y,
 								0,0,3,3, true, 75, true));
 					}
@@ -458,55 +421,9 @@ public class GamePlayState extends BasicGameState {
 				}
 
 			}
-
+			// Verify hit, splice and update (new) Centipede objects
+			ArrayList<Centipede> new_centis = Centipede.splice_update(container, sprite_centihead, sprite_centibody, centipedes);
 			
-			// Verify hit and spawn new Centipede - TODO: refactor this monstrosity
-			ArrayList<Centipede> new_centis = new ArrayList<Centipede>();
-
-			for (int i = 0; i < centipedes.size(); i++) {
-
-				Centipede c = centipedes.get(i);
-				List<CentiBallEntity> CentipedeBallList = ((List<CentiBallEntity>) c.centipede);
-
-				boolean has_new = false;
-				ArrayList<CentiBallEntity> temp = new ArrayList<CentiBallEntity>();
-
-				int q = 0;
-				for (int j = 0; has_new == false
-						&& j < CentipedeBallList.size(); j++) {
-
-					CentiBallEntity cbe = CentipedeBallList.get(j);
-
-					if (!cbe.isDisplay()) {
-
-						List<CentiBallEntity> l = CentipedeBallList.subList(
-								q + 1, CentipedeBallList.size());
-
-						temp = new ArrayList<CentiBallEntity>(l);
-
-						l.clear();
-
-						CentipedeBallList.remove(j);
-
-						has_new = true;
-					}
-					q++;
-				}
-
-				if (temp.size() > 0) {
-					new_centis.add(new Centipede(container, sprite_centibody,
-							sprite_centihead, temp));
-				}
-			}
-
-			// clean ball-less centipedes
-			for (Iterator<Centipede> c = centipedes.iterator(); c.hasNext();) {
-				Centipede cs = c.next();
-
-				if (cs.centipede.size() <= 0 || cs.isAlive == false) {
-					c.remove();
-				}
-			}
 			// add new centipedes
 			if (new_centis.size() > 0) {
 				centipedes.addAll(new_centis);
