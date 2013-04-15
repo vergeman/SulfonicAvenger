@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.lwjgl.Sys;
+import org.lwjgl.input.Controllers;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -93,6 +94,7 @@ public class GamePlayState extends BasicGameState {
 	int last_life_score = 0;
 	int last_level_score = 0;
 
+	Gamepad gp;
 
 	ArrayList<Animator> animators;
 	
@@ -117,6 +119,7 @@ public class GamePlayState extends BasicGameState {
 		CENTIPEDE_SPEED = 250;
 		
 		input = container.getInput();
+		gp = new Gamepad(container);
 		
 		container.setShowFPS(false);
 		container.getGraphics().setBackground(Color.black);
@@ -191,7 +194,6 @@ public class GamePlayState extends BasicGameState {
 		theme.loop();
 
 		input.addKeyListener(player);
-		input.addControllerListener(player);
 	}
 
 	
@@ -204,13 +206,13 @@ public class GamePlayState extends BasicGameState {
 		/* GAME_STATE */
 		switch (currentState) {
 		case START_GAME_STATE:
-
+			
 			STATE_MSG = "PRESS     ENTER     TO     PLAY";
 			player.x = -2000;
 			player.y = -2000;
-		
-			if (input.isKeyPressed(Input.KEY_ENTER) 
-					|| input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER) || input.isButton3Pressed(Input.ANY_CONTROLLER)) {
+			
+			gp.poll();
+			if (input.isKeyPressed(Input.KEY_ENTER) || gp.isEventedButtonPressed() ){
 				init(container, game);
 		
 				player.alive = true;
@@ -224,13 +226,11 @@ public class GamePlayState extends BasicGameState {
 		case PLAY_GAME_STATE:
 			STATE_MSG = null;
 			input.addKeyListener(player);
-			input.addControllerListener(player);
 			break;
 
 			
 		case GAME_OVER_STATE:
 			input.removeKeyListener(player);
-			input.removeControllerListener(player);
 			player.x = -2000;
 			player.y = -2000;
 
@@ -242,9 +242,8 @@ public class GamePlayState extends BasicGameState {
 			
 			//on first game over, is_entering_score = false
 			if (!is_entering_score) {
-				
+				Controllers.clearEvents();
 				Collections.sort(high_scores);
-				
 				/* find our score on the high score list if it qualifies
 				 * and add it
 				 */
@@ -274,7 +273,9 @@ public class GamePlayState extends BasicGameState {
 			}
 
 			if (is_entering_score) {
-				if (input.isKeyPressed(Input.KEY_LEFT) || input.isControllerLeft(Input.ANY_CONTROLLER)) {
+				gp.poll();
+				
+				if (input.isKeyPressed(Input.KEY_LEFT) || gp.isEventedControllerLeft()) {
 					if (score_index <= 0) {
 						score_index = score_name.length-1;
 					}
@@ -282,15 +283,15 @@ public class GamePlayState extends BasicGameState {
 						score_index = (score_index-1) % score_name.length;
 					}
 				}
-				if (input.isKeyPressed(Input.KEY_RIGHT) || input.isControllerRight(Input.ANY_CONTROLLER)) {
+				if (input.isKeyPressed(Input.KEY_RIGHT) || gp.isEventedControllerRight()) {
 					score_index = (score_index+1) % score_name.length;
 				}
-				if (input.isKeyPressed(Input.KEY_DOWN) || input.isControllerDown(Input.ANY_CONTROLLER)) {
+				if (input.isKeyPressed(Input.KEY_DOWN) || gp.isEventedControllerDown()) {
 					if (score_name[score_index] < 'Z') {
 						score_name[score_index]++;
 					}
 				}
-				if (input.isKeyPressed(Input.KEY_UP) || input.isControllerUp(Input.ANY_CONTROLLER)) {
+				if (input.isKeyPressed(Input.KEY_UP) || gp.isEventedControllerUp()) {
 					if (score_name[score_index] > 'A') {
 						score_name[score_index]--;
 					}
@@ -298,7 +299,7 @@ public class GamePlayState extends BasicGameState {
 			}
 			
 			if (!is_entering_score && (pause_counter < 0 || (input.isKeyPressed(Input.KEY_ENTER) || 
-					input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER) || input.isButton3Pressed(Input.ANY_CONTROLLER)))) {
+					gp.isEventedButtonPressed()))) {
 				currentState = STATES.START_GAME_STATE;
 				is_entering_score =false;
 			}
@@ -472,8 +473,10 @@ public class GamePlayState extends BasicGameState {
 		for (MoleculeEntity molecule : molecules) {
 			molecule.draw();
 			for (String coord : molecule.damages) {
+				if (! (coord.split("-")[0].equals("") || coord.split("-")[1].equals(""))) {
 				sprite_damage.draw(Integer.parseInt(coord.split("-")[0]),
 						Integer.parseInt(coord.split("-")[1]));
+				}
 			}
 		}
 
@@ -561,8 +564,7 @@ public class GamePlayState extends BasicGameState {
 
 			}
 			//we'll allow input logic in the render space since it's not "mission critical"
-			if (input.isKeyPressed(Input.KEY_ENTER) || 
-					input.isButton1Pressed(Input.ANY_CONTROLLER) || input.isButton2Pressed(Input.ANY_CONTROLLER) || input.isButton3Pressed(Input.ANY_CONTROLLER)) {
+			if (input.isKeyPressed(Input.KEY_ENTER) || gp.isEventedButtonPressed()) {
 				
 				is_entering_score = false;
 				
