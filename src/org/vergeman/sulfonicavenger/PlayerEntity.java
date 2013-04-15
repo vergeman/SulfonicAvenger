@@ -216,7 +216,7 @@ public class PlayerEntity extends Entity implements KeyListener {
 
 	public void shoot() {
 		// if we are allowed to shoot (in between time)
-		if (Sys.getTime() - last_shot > SHOT_INTERVAL) {
+		if (!game_over && alive && (Sys.getTime() - last_shot > SHOT_INTERVAL)) {
 			if (!shots[shot_index].isDisplay()) {
 				shots[shot_index].reinitalize(x, y);
 				shot_index++;

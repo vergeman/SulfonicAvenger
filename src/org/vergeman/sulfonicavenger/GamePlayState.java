@@ -151,9 +151,11 @@ public class GamePlayState extends BasicGameState {
 		score_flash_time = Sys.getTime();
 		score_index = 0;
 		last_life_score = 0;
+		level_count = 0;
+		last_level_score = 0;
 		is_entering_score= false;
 		score_name = new Character[]{'A', 'A', 'A'};
-			
+
 		
 		/* // MOLECULES */
 		sprite_molecules = new Sprite[3];
@@ -208,14 +210,19 @@ public class GamePlayState extends BasicGameState {
 		case START_GAME_STATE:
 			
 			STATE_MSG = "PRESS     ENTER     TO     PLAY";
-			player.x = -2000;
-			player.y = -2000;
+			//player.x = -2000;
+			//player.y = -2000;
 			
 			gp.poll();
 			if (input.isKeyPressed(Input.KEY_ENTER) || gp.isEventedButtonPressed() ){
 				init(container, game);
 		
 				player.alive = true;
+				player.can_collide = true;
+				player.game_over = false;
+				player.x = windowManager.getCenterX();
+				player.y = windowManager.getCenterY() + windowManager.getCenterY() / 2;
+				
 				currentState = STATES.PLAY_GAME_STATE;
 				//pause_counter = 2000;
 
@@ -226,11 +233,13 @@ public class GamePlayState extends BasicGameState {
 		case PLAY_GAME_STATE:
 			STATE_MSG = null;
 			input.addKeyListener(player);
+			pause_counter = 2000;
 			break;
 
 			
 		case GAME_OVER_STATE:
 			input.removeKeyListener(player);
+			Input.disableControllers();
 			player.x = -2000;
 			player.y = -2000;
 
@@ -241,7 +250,8 @@ public class GamePlayState extends BasicGameState {
 			pause_counter -= delta;
 			
 			//on first game over, is_entering_score = false
-			if (!is_entering_score) {
+			if (!is_entering_score && pause_counter <= 0) {
+				input.initControllers();
 				Controllers.clearEvents();
 				Collections.sort(high_scores);
 				/* find our score on the high score list if it qualifies
@@ -415,7 +425,7 @@ public class GamePlayState extends BasicGameState {
 				
 				Centipede c = i.next();
 
-				updateScore(c.checkCollisions(s, molecules, sprite_molecules));
+				updateScore(c.checkCollisions(s, molecules, sprite_molecules, player));
 				// no centis, toggle spawn
 				if (!c.isAlive) {
 					i.remove();
@@ -643,10 +653,10 @@ public class GamePlayState extends BasicGameState {
 
 	public void LevelUp() {
 		//save old
-		if (level_count % 3 == 2) {
+		if (level_count % 5 == 2) {
 			//we want a breather level every three...so we set these to zero
 			MAX_CENTIPEDES = 0;
-			NH3SpawnInterval = NH3SpawnInterval * 2; // ms
+			NH3SpawnInterval = 45000; // ms
 			NUM_NH3 = 2;
 			NH3_SPEED = 170;
 			

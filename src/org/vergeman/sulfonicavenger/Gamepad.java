@@ -69,15 +69,20 @@ public class Gamepad {
 	public void poll() {
 
 		next = false;
+		button = false;
+		
 		if (Controllers.next()) {
 			next = true;
 			Controller c = Controllers.getEventSource();
 			x_value = c.getAxisValue(x_axis);
 			y_value = c.getAxisValue(y_axis);
-			button = c.isButtonPressed(0) || c.isButtonPressed(1) || c.isButtonPressed(2);
 			
+			for (int i = 0; i < c.getButtonCount(); i++) {
+				if (c.isButtonPressed(i) ) {
+					button = true;
+				}
+			}			
 		}
-		
 	}
 	
 	

@@ -123,7 +123,7 @@ public class Centipede {
 	//centipede is this centipede
 	//centipedes is our list of centipedes
 	public int checkCollisions(ShotEntity s,
-			ArrayList<MoleculeEntity> molecules, Sprite[] sprite_molecules) {
+			ArrayList<MoleculeEntity> molecules, Sprite[] sprite_molecules, PlayerEntity player) {
 		
 		int centi_score = 0;
 
@@ -138,8 +138,13 @@ public class Centipede {
 				// replace centibody w/ molecule
 				int type;
 				if (!c.isDisplay()) {
-					type =(int) (r.nextDouble() *3 -.01);
-					
+					//increase difficulty
+					//if (player.lives <= 5) {
+						type =(int) (r.nextDouble() *3 -.01);
+					//}
+					//else {
+					//	type =(int) (r.nextDouble() *2 -.01);
+					//}
 					molecules.add(new MoleculeEntity(sprite_molecules[type], type+1, c.getX(),
 							c.getY()));
 
