@@ -513,11 +513,19 @@ public class GamePlayState extends BasicGameState {
 		//Game Over, lets display / enter high scores and then refactor this beastie
 		if (is_entering_score) {
 
+			g.setColor(Color.lightGray);
+			g.fillRect(container.getWidth() / 4 -1, 
+					(int) windowManager.getCenterY() / 8 -1, 
+					container.getWidth() / 2 + 2, 
+					(int) windowManager.getCenterY() + (int) windowManager.getCenterY() / 4 + 2);
+		
 			g.setColor(Color.black);
 			g.fillRect(container.getWidth() / 4, 
 					(int) windowManager.getCenterY() / 8, 
 					container.getWidth() / 2, 
 					(int) windowManager.getCenterY() + (int) windowManager.getCenterY() / 4);
+			
+			
 			g.setColor(Color.white);
 		
 			textDrawManager.draw("state", "HIGH   SCORES", Color.white,
