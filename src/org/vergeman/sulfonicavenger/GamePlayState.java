@@ -215,8 +215,9 @@ public class GamePlayState extends BasicGameState {
 			
 			gp.poll();
 			if (input.isKeyPressed(Input.KEY_ENTER) || gp.isEventedButtonPressed() ){
+				
 				init(container, game);
-		
+				input.initControllers();
 				player.alive = true;
 				player.can_collide = true;
 				player.game_over = false;

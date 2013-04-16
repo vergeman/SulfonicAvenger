@@ -59,7 +59,7 @@ public class AssetManager {
 			
 			shot = new Image("data/shot.gif", false, Image.FILTER_NEAREST);
 			
-			inputStream	= ResourceLoader.getResourceAsStream("data/arcadeclassic.ttf");			 
+			inputStream	= ResourceLoader.getResourceAsStream("data/arcadefont.ttf");			 
 			awt_gameFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 			awt_gameFont = awt_gameFont.deriveFont(14f); // set font size
 			gameFont = new TrueTypeFont(awt_gameFont, false);

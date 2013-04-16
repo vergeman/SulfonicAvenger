@@ -2,7 +2,6 @@ package org.vergeman.sulfonicavenger;
 import org.lwjgl.input.Controller;
 import org.lwjgl.input.Controllers;
 import org.lwjgl.LWJGLUtil;
-import org.lwjgl.Sys;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -12,17 +11,15 @@ public class Gamepad {
 		WINDOWS, LINUX, MACOSX
 	}
 
-	int index;
-	float x_value, y_value;
-	boolean next, button;
 	
 	OS os;
 	GameContainer container;
 	Input input;
 	int count;
 	int x_axis, y_axis;
-	long PRESS_INTERVAL = 2;
-	long last_press;
+	float x_value, y_value;
+	boolean next, button;
+
 	
 	public Gamepad(GameContainer container) {
 		if (LWJGLUtil.getPlatformName().equals("windows")) {
@@ -56,7 +53,6 @@ public class Gamepad {
 		}
 		
 		this.count = input.getControllerCount();
-		this.last_press = Sys.getTime();
 	}
 	
 	public boolean detect() {

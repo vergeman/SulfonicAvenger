@@ -132,8 +132,8 @@ public class PlayerEntity extends Entity implements KeyListener {
 				y - this.sprite.getHeight());
 
 		// placement - TODO: fucked up needs wrk
-		this.x = Math.min(Math.abs(this.x * scale_rel), this.BOUNDS_RIGHT);
-		this.y = Math.min(Math.abs(this.y * scale_rel), this.BOUNDS_BOTTOM);
+		//this.x = Math.min(Math.abs(this.x * scale_rel), this.BOUNDS_RIGHT);
+		//this.y = Math.min(Math.abs(this.y * scale_rel), this.BOUNDS_BOTTOM);
 
 	}
 
