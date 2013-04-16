@@ -117,6 +117,14 @@ public class GamePlayState extends BasicGameState {
 		CentipedeInterval = 10000; // ms
 		NH3_SPEED = 170;
 		CENTIPEDE_SPEED = 250;
+		//reset old values
+		OLD_CENTIPEDE_SIZE = CENTIPEDE_SIZE;
+		OLD_MAX_CENTIPEDES = MAX_CENTIPEDES;
+		OLD_NUM_NH3 = NUM_NH3;
+		OLD_NH3SpawnInterval = NH3SpawnInterval; // ms
+		OLD_CentipedeInterval = CentipedeInterval; // ms
+		OLD_NH3_SPEED = NH3_SPEED;
+		OLD_CENTIPEDE_SPEED = CENTIPEDE_SPEED;
 		
 		input = container.getInput();
 		gp = new Gamepad(container);
