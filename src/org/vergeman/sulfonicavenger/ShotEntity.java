@@ -30,9 +30,9 @@ public class ShotEntity extends Entity {
 		super.move(delta);
 	}
 	
-	public void reinitalize(float x, float y) {
-		this.x = x + 10; 
-		this.y = y - 30;
+	public void reinitalize(PlayerEntity p, float x, float y) {
+		this.x = x + p.sprite.getWidth() / 3; 
+		this.y = y + 5;
 		dy=moveSpeed;
 		setDisplay(true);
 	}
