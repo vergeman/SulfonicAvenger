@@ -95,7 +95,7 @@ public class GamePlayState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 	
-		boolean run_once = false;
+		run_once = false;
 		//reinit game params
 		CENTIPEDE_SIZE = 8;
 		MAX_CENTIPEDES = 3;
