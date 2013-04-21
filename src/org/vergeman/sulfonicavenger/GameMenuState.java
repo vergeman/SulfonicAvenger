@@ -33,7 +33,7 @@ public class GameMenuState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		run_once = false;
 		gp = new Gamepad(container);
 		input = container.getInput();
 
@@ -61,18 +61,20 @@ public class GameMenuState extends BasicGameState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
-
+		run_once = false;
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 
-		if (run_once) {
-			textdrawManager.draw("state", STATE_MSG, Color.white,
-					(container.getWidth() / 2),
-					(int) windowManager.getCenterY(), -0.5, 0, 0, 0);
+		if (!run_once) {
+			return;
 		}
+
+		textdrawManager.draw("state", STATE_MSG, Color.white,
+				(container.getWidth() / 2), (int) windowManager.getCenterY(),
+				-0.5, 0, 0, 0);
 
 	}
 
@@ -82,7 +84,7 @@ public class GameMenuState extends BasicGameState {
 		run_once = true;
 
 		gp.poll();
-		
+
 		if (input.isKeyPressed(Input.KEY_ENTER) || gp.isEventedButtonPressed()) {
 			game.enterState(MyGame.GAMEPLAYSTATE);
 		}

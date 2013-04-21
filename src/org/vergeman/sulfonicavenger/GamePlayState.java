@@ -412,6 +412,7 @@ public class GamePlayState extends BasicGameState {
 		if (!run_once) {
 			return;
 		}
+		
 		for (Centipede c : centipedes) {
 			c.draw();
 		}
