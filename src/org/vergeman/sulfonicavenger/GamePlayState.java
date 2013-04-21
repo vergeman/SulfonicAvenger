@@ -1,13 +1,10 @@
 package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
 import org.lwjgl.Sys;
-import org.lwjgl.input.Controllers;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -42,7 +39,6 @@ public class GamePlayState extends BasicGameState {
 	long lastCentipede;
 	long lastNH3;
 
-	int NUM_HIGH_SCORES = 5;
 	int level_count = 0;
 	
 	private enum STATES {
@@ -50,7 +46,6 @@ public class GamePlayState extends BasicGameState {
 	}
 
 	private STATES currentState = null;
-	private int pause_counter = 0;
 
 	String TITLE_MSG = "SULFONIC          AVENGER";
 	float TITLE_SZ = 30f;
@@ -82,25 +77,16 @@ public class GamePlayState extends BasicGameState {
 	ArrayList<Centipede> centipedes;
 	boolean newCentipede = false;
 
-	int score;
-	Character[] score_name = {'A', 'A', 'A'};
-	int score_index;
-	boolean score_flash;
-	long score_flash_time;
-	long SCORE_FLASH_INTERVAL = 250;
-	int high_score = 0;
-	boolean is_entering_score;
-	List<Score> high_scores = new ArrayList<Score>();;
-	int last_life_score = 0;
-	int last_level_score = 0;
-
+	ScoreManager scoreManager;
+	List<Score> high_scores;
 	Gamepad gp;
 
 	ArrayList<Animator> animators;
 	
-	public GamePlayState(int id) {
+	public GamePlayState(int id, List<Score> high_scores) {
 		super();
 		this.stateID = id;
+		this.high_scores = high_scores;
 	}
 
 	@Override
@@ -135,7 +121,7 @@ public class GamePlayState extends BasicGameState {
 		windowManager = new WindowManager(container, game);
 		assetManager = new AssetManager();
 		assetManager.init();
-
+		
 		r = new Random();
 		
 		textDrawManager = new TextDrawManager(container.getGraphics(),
@@ -144,6 +130,8 @@ public class GamePlayState extends BasicGameState {
 		textDrawManager.build("title", TITLE_SZ);
 		textDrawManager.build("score", SCORE_SZ);
 		textDrawManager.build("high_score", SCORE_SZ);
+
+		scoreManager = new ScoreManager(windowManager, textDrawManager, high_scores);
 
 		animators = new ArrayList<Animator>();
 		
@@ -154,16 +142,14 @@ public class GamePlayState extends BasicGameState {
 				(int) windowManager.getCenterX(),
 				(int) (windowManager.getCenterY() + windowManager.getCenterY() / 2), animators);
 
-		score = 0;
-		score_flash=false;
-		score_flash_time = Sys.getTime();
-		score_index = 0;
-		last_life_score = 0;
-		level_count = 0;
-		last_level_score = 0;
-		is_entering_score= false;
-		score_name = new Character[]{'A', 'A', 'A'};
+		scoreManager.setScore(0);
+		scoreManager.setFlash(false);
+		scoreManager.setFlashTime(Sys.getTime());
 
+		scoreManager.setLastLifeScore(0);
+		scoreManager.setLastLevelScore(0);
+		level_count = 0;
+		
 		
 		/* // MOLECULES */
 		sprite_molecules = new Sprite[3];
@@ -206,7 +192,29 @@ public class GamePlayState extends BasicGameState {
 		input.addKeyListener(player);
 	}
 
-	
+	/**ENTER 
+	 * from Menu state**/
+	@Override
+	public void enter(GameContainer container, StateBasedGame game)
+			throws SlickException {
+
+		//super.enter(container, game);
+		init(container, game);
+
+		input.initControllers();
+		player.alive = true;
+		player.can_collide = true;
+		player.game_over = false;
+		player.x = windowManager.getCenterX();
+		player.y = windowManager.getCenterY() + windowManager.getCenterY() / 2;
+
+		scoreManager.init();
+		scoreManager.setInput(input, gp);
+		scoreManager.setScore(0);
+		
+		currentState = STATES.PLAY_GAME_STATE;
+	}
+
 	
 	/** UPDATE **/
 	@Override
@@ -215,34 +223,11 @@ public class GamePlayState extends BasicGameState {
 
 		/* GAME_STATE */
 		switch (currentState) {
-		case START_GAME_STATE:
-			
-			STATE_MSG = "PRESS     ENTER     TO     PLAY";
-			//player.x = -2000;
-			//player.y = -2000;
-			
-			gp.poll();
-			if (input.isKeyPressed(Input.KEY_ENTER) || gp.isEventedButtonPressed() ){
-				
-				init(container, game);
-				input.initControllers();
-				player.alive = true;
-				player.can_collide = true;
-				player.game_over = false;
-				player.x = windowManager.getCenterX();
-				player.y = windowManager.getCenterY() + windowManager.getCenterY() / 2;
-				
-				currentState = STATES.PLAY_GAME_STATE;
-				//pause_counter = 2000;
-
-			}
-			break;
-
 			
 		case PLAY_GAME_STATE:
 			STATE_MSG = null;
 			input.addKeyListener(player);
-			pause_counter = 2000;
+			scoreManager.setPauseCounter(2000);
 			break;
 
 			
@@ -252,77 +237,11 @@ public class GamePlayState extends BasicGameState {
 			player.x = -2000;
 			player.y = -2000;
 
-			if (pause_counter == 2000) {
+			if (scoreManager.getPauseCounter() == 2000) {
 				STATE_MSG = "GAME     OVER";
 			}
-			
-			pause_counter -= delta;
-			
-			//on first game over, is_entering_score = false
-			if (!is_entering_score && pause_counter <= 0) {
-				input.initControllers();
-				Controllers.clearEvents();
-				Collections.sort(high_scores);
-				/* find our score on the high score list if it qualifies
-				 * and add it
-				 */
-				for (int s = 0; !is_entering_score && s < high_scores.size(); s++) {
-			
-					if (score > high_scores.get(s).score) {
-						high_scores.add(s, new Score(score, null));
-						is_entering_score = true;
-					}
-				}
-				//make sure also add for size 0
-				if (!is_entering_score && high_scores.size() <= NUM_HIGH_SCORES ) {
-					high_scores.add(new Score(score, null));
-					is_entering_score = true;
-				}
-				//truncate list 
-				if (high_scores.size() > NUM_HIGH_SCORES ) {
-					high_scores.remove(high_scores.size()-1);
-				}
-				
-			}
-			
-			//flash render high score jesus we must refactor this beast
-			if (Sys.getTime() - score_flash_time > SCORE_FLASH_INTERVAL) {
-				score_flash = !score_flash;
-				score_flash_time = Sys.getTime();
-			}
 
-			if (is_entering_score) {
-				gp.poll();
-				
-				if (input.isKeyPressed(Input.KEY_LEFT) || gp.isEventedControllerLeft()) {
-					if (score_index <= 0) {
-						score_index = score_name.length-1;
-					}
-					else {
-						score_index = (score_index-1) % score_name.length;
-					}
-				}
-				if (input.isKeyPressed(Input.KEY_RIGHT) || gp.isEventedControllerRight()) {
-					score_index = (score_index+1) % score_name.length;
-				}
-				if (input.isKeyPressed(Input.KEY_DOWN) || gp.isEventedControllerDown()) {
-					if (score_name[score_index] < 'Z') {
-						score_name[score_index]++;
-					}
-				}
-				if (input.isKeyPressed(Input.KEY_UP) || gp.isEventedControllerUp()) {
-					if (score_name[score_index] > 'A') {
-						score_name[score_index]--;
-					}
-				}
-			}
-			
-			if (!is_entering_score && (pause_counter < 0 || (input.isKeyPressed(Input.KEY_ENTER) || 
-					gp.isEventedButtonPressed()))) {
-				currentState = STATES.START_GAME_STATE;
-				is_entering_score =false;
-			}
-
+			scoreManager.updateHighScore(container, game, delta);
 			break;
 		}
 
@@ -330,10 +249,10 @@ public class GamePlayState extends BasicGameState {
 			System.exit(0);
 		}
 
+		
+		
 		/* begin collision detects */
-
 		player.move(delta, molecules);
-
 		
 		/** spawn H3 */
 		if (Sys.getTime() - lastNH3 > NH3SpawnInterval) {
@@ -476,10 +395,10 @@ public class GamePlayState extends BasicGameState {
 			if (a.isStopped()) {
 				i.remove();
 			}
-		}
-
+		}		
 	}
 
+	
 	/** RENDER **/
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
@@ -519,103 +438,26 @@ public class GamePlayState extends BasicGameState {
 			a.draw();
 		}
 		
-		//Game Over, lets display / enter high scores and then refactor this beastie
-		if (is_entering_score) {
-
-			g.setColor(Color.lightGray);
-			g.fillRect(container.getWidth() / 4 -1, 
-					(int) windowManager.getCenterY() / 8 -1, 
-					container.getWidth() / 2 + 2, 
-					(int) windowManager.getCenterY() + (int) windowManager.getCenterY() / 4 + 2);
-		
-			g.setColor(Color.black);
-			g.fillRect(container.getWidth() / 4, 
-					(int) windowManager.getCenterY() / 8, 
-					container.getWidth() / 2, 
-					(int) windowManager.getCenterY() + (int) windowManager.getCenterY() / 4);
-			
-			
-			g.setColor(Color.white);
-		
-			textDrawManager.draw("state", "HIGH   SCORES", Color.white,
-					container.getWidth() / 2,
-					(int) windowManager.getCenterY() / 4, -0.5, 0.5, 0, 0);
-
-			/* FLASH LETTERS */
-			int q = 1;
-			int score_pos = high_scores.size();
-
-			//multiple scores are being edited
-			for (Score s : high_scores) {
-
-				if (s.name == null) {
-					score_pos = q-1;
-					textDrawManager.draw("score", "A", Color.white,
-							container.getWidth() + 200, 0, 0, 0, 0, 0);
-
-					int w = textDrawManager.getWidth("score");
-					
-					//For each letter
-					for (int x = 0; x < score_name.length; x++) {
-						// because our class sucks, we need to load a last message size of 1
-						
-						if (x == score_index && score_flash) {
-							// time is set in update()
-
-						} 
-						else {
-							textDrawManager
-									.draw("score",
-											score_name[x].toString(),
-											Color.white,
-											container.getWidth() / 2,
-											(int) windowManager.getCenterY() / 4,
-											0, 2 * q, -textDrawManager.getWidth("state") / 2 + x * w, 20);
-						}
-					}
-				}
-				else {
-					//drawn name
-					textDrawManager.draw("score", s.name, Color.white,
-							container.getWidth() / 2,
-							(int) windowManager.getCenterY() / 4, 0, 2 * q,
-							-textDrawManager.getWidth("state") / 2, 20);
-
-				}
-				//draw score
-				textDrawManager.draw("score", "" + s.score, Color.white,
-						container.getWidth() / 2,
-						(int) windowManager.getCenterY() / 4, 0, 2 * q, 0, 20);
-
-				q++; // vertical spacing of high scores increment
-
-			}
-			//we'll allow input logic in the render space since it's not "mission critical"
-			if (input.isKeyPressed(Input.KEY_ENTER) || gp.isEventedButtonPressed()) {
-				
-				is_entering_score = false;
-				
-				if (score_pos < high_scores.size() ) {
-					high_scores.get(score_pos).name = 
-							new String("" + score_name[0].charValue() + score_name[1].charValue() + score_name[2].charValue());
-				}
-				currentState = STATES.START_GAME_STATE;
-			}
+		/*
+		 * Game Over, lets pause for gameover msg to display,
+		 * then enter high scores
+		 */
+		if (currentState == STATES.GAME_OVER_STATE && scoreManager.getPauseCounter() <= 0) {
+			scoreManager.draw(container, game, g);
 		}
-
 		
 		
-		// render bottom for z-index
+		// render last for z-index
 		textDrawManager.draw("state", STATE_MSG, Color.white,
 				(container.getWidth() / 2), (int) windowManager.getCenterY(),
 				-0.5, 0, 0, 0);
 		textDrawManager.draw("title", TITLE_MSG, Color.white,
 				(container.getWidth() / 2), container.getHeight(), -0.5, -2, 0,
 				0);
-		textDrawManager.draw("score", SCORE_MSG + score, Color.red, 20,
+		textDrawManager.draw("score", SCORE_MSG + scoreManager.getScore(), Color.red, 20,
 				container.getHeight(), 0, -2, 0, 0);
 
-		textDrawManager.draw("high_score", HIGH_SCORE_MSG + high_score,
+		textDrawManager.draw("high_score", HIGH_SCORE_MSG + scoreManager.getHighScore(),
 				Color.blue, container.getWidth(), container.getHeight(), -1,
 				-2, -20, 0);
 
@@ -625,14 +467,6 @@ public class GamePlayState extends BasicGameState {
 
 	}
 
-	@Override
-	public void enter(GameContainer container, StateBasedGame game)
-			throws SlickException {
-		super.enter(container, game);
-		currentState = STATES.START_GAME_STATE;
-		score = 0;
-
-	}
 
 	@Override
 	public int getID() {
@@ -649,22 +483,22 @@ public class GamePlayState extends BasicGameState {
         super.controllerButtonPressed(controller, button);
     }
     
+	
+	
 	public void updateScore(int up) {
 
 		if (currentState == STATES.PLAY_GAME_STATE) {
-			score += up;
+			scoreManager.increaseScore(up);
 
-			if (score - last_life_score >= 1000) {
+			if (scoreManager.isNewLife()) {
 				player.lives += 1;
-				last_life_score += 1000;
 			}
 
-			if (score -  last_level_score >= 3000) {
+			if (scoreManager.isNewLevel()) {
 				LevelUp();
-				last_level_score += 3000;
 			}
 		}
-		high_score = Math.max(score, high_score);
+		scoreManager.setHighScore();
 	}
 
 

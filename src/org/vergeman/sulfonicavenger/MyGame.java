@@ -1,5 +1,8 @@
 package org.vergeman.sulfonicavenger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -10,10 +13,9 @@ public class MyGame extends StateBasedGame {
 	private final static int WIDTH = 1024;
 	private final static int HEIGHT = 768;
 
-	public final static int MAINMENUSTATE = 0;
+	public final static int GAMEMENUSTATE = 0;
 	public final static int GAMEPLAYSTATE = 1;
-	public final static int EXITSTATE = 2;
-
+	
 	public static void main(String[] args) throws SlickException {
 
 		try {
@@ -30,15 +32,17 @@ public class MyGame extends StateBasedGame {
 	}
 
 	public MyGame() {
-		super("Sulfonic Avenger -- PROTOTYPE");
+		super("Sulfonic Avenger");
 	}
 
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
-		// addState(new MainMenuGameState(MAINMENUSTATE));
-		GamePlayState state = new GamePlayState(1);
-		addState(state);
-
+		List<Score> high_scores = new ArrayList<Score>();
+		
+		addState(new GameMenuState(GAMEMENUSTATE));
+		
+		addState(new GamePlayState(GAMEPLAYSTATE, high_scores)); //test passing args
+		
 	}
 
 }

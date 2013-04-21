@@ -42,6 +42,14 @@ public class AssetManager {
 	
 	}
 	
+	public boolean menu_init() throws FontFormatException, IOException {
+		inputStream	= ResourceLoader.getResourceAsStream("data/arcadefont.ttf");			 
+		awt_gameFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awt_gameFont = awt_gameFont.deriveFont(14f); // set font size
+		gameFont = new TrueTypeFont(awt_gameFont, false);
+		return true;
+	}
+	
 	public boolean init() {
 		/*load static stuff*/		
 		try {

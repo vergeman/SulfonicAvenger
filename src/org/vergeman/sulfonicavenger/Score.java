@@ -1,5 +1,6 @@
 package org.vergeman.sulfonicavenger;
 
+/** basic tuple of name - score for highscores*/
 public class Score implements Comparable<Score> {
 	int score;
 	String name;
