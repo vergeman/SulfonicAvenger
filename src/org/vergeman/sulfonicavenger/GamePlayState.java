@@ -83,6 +83,8 @@ public class GamePlayState extends BasicGameState {
 
 	ArrayList<Animator> animators;
 	
+	boolean run_once;
+	
 	public GamePlayState(int id, List<Score> high_scores) {
 		super();
 		this.stateID = id;
@@ -93,6 +95,7 @@ public class GamePlayState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 	
+		boolean run_once = false;
 		//reinit game params
 		CENTIPEDE_SIZE = 8;
 		MAX_CENTIPEDES = 3;
@@ -220,7 +223,9 @@ public class GamePlayState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-
+		
+		run_once = true;
+		
 		/* GAME_STATE */
 		switch (currentState) {
 			
@@ -404,6 +409,9 @@ public class GamePlayState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 
+		if (!run_once) {
+			return;
+		}
 		for (Centipede c : centipedes) {
 			c.draw();
 		}
