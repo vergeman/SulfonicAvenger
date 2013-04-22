@@ -17,7 +17,7 @@ public class GameMenuState extends BasicGameState {
 
 	private int stateId;
 	
-	String STATE_MSG = "SELECT     DIFFICULTY";
+	String STATE_MSG = "SELECT   DIFFICULTY";
 	String TITLE_MSG = "SULFONIC     AVENGER";
 	String COMPANY_MSG = "PERMA  PURE";
 	String PRESENTS_MSG = "presents";
@@ -30,10 +30,10 @@ public class GameMenuState extends BasicGameState {
 	float COMPANY_SZ = 70f;
 	float PRESENTS_SZ = 20f;
 	float LEVELS_SZ = 26f;
-	float AVENGERS_SZ = 30f;
-	
+	float AVENGERS_SZ = 26f;	
 
 	List<Score> high_scores;
+	
 	Gamepad gp;
 	Input input;
 	WindowManager windowManager;
@@ -84,6 +84,8 @@ public class GameMenuState extends BasicGameState {
 		textdrawManager.build("state", STATE_SZ, true);
 		textdrawManager.build("title_menu", TITLE_SZ, true);
 		textdrawManager.build("levels", LEVELS_SZ, true);
+		textdrawManager.build("avengers", AVENGERS_SZ, true);
+		
 		textdrawManager.build("company", COMPANY_SZ, false);
 		textdrawManager.build("presents", PRESENTS_SZ, false);
 	}
@@ -92,7 +94,8 @@ public class GameMenuState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		run_once = false;
-		
+		Controllers.clearEvents();
+		level_manager.resetLevel();
 	}
 
 	@Override
@@ -116,7 +119,7 @@ public class GameMenuState extends BasicGameState {
 		textdrawManager.draw("presents", PRESENTS_MSG, Color.blue,
 				(container.getWidth() / 2 + 60), 
 				Math.max(20, (int) windowManager.getCenterY() - biglogo.getHeight() / 2 ) ,
-				-.85, 4, 0, 0);
+				-1.4, 4, -1, 0);
 
 		textdrawManager.draw("title_menu", TITLE_MSG, Color.red,
 				(container.getWidth() / 2) +75, 
@@ -126,9 +129,9 @@ public class GameMenuState extends BasicGameState {
 		textdrawManager.draw("state", STATE_MSG, Color.white,
 				(container.getWidth() / 2), 
 				Math.max(20, (int) windowManager.getCenterY()- biglogo.getHeight() / 2 ),
-				0, 18, -57, 50);
+				0, 15, -57, 50);
 
-		
+		/*draw menu*/
 		for (int i = 0; i < 3; i++ ) {
 			cursor = Color.white;
 			
@@ -139,29 +142,38 @@ public class GameMenuState extends BasicGameState {
 			textdrawManager.draw("levels", LEVELS_MSGS[i], cursor,
 					(container.getWidth() / 2) + 25, 
 					Math.max(20, (int) windowManager.getCenterY()- biglogo.getHeight() / 2 + 75),
-					0, 20+2*i, 0, 0);
-			
+					0, 17+2*i, 0, 0);
 		}
 		
-
 		
+		/*draw high scores if they exist*/
+		if (high_scores.size() > 0) {
 		
-		
-		
+			textdrawManager.draw("avengers", "TOP  AVENGERS", Color.blue,
+					(container.getWidth() / 2 ), 
+					Math.max(20, (int) windowManager.getCenterY()- biglogo.getHeight() / 2 ),
+					0, 21, 310, -35);
+	
+			for (int i = 0; i < high_scores.size(); i++) {
+				textdrawManager.draw("avengers", high_scores.get(i).name + "        " + high_scores.get(i).score, Color.blue,
+						(container.getWidth() / 2 ), 
+						Math.max(20, (int) windowManager.getCenterY()- biglogo.getHeight() / 2 ),
+						0, 23 + 2*i, 325, -35);		
+			}
+			
+		}
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
+
 		run_once = true;
 		
 		input.initControllers();
 		
-		Controllers.clearEvents();
-		
 		gp.poll();
 
-	
 		if (input.isKeyPressed(Input.KEY_UP) || gp.isEventedControllerUp()) {
 			level_manager.decreaseLevel();
 		}

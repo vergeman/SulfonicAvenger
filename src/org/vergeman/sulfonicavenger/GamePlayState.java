@@ -218,6 +218,12 @@ public class GamePlayState extends BasicGameState {
 		scoreManager.setInput(input, gp);
 		scoreManager.setScore(0);
 		
+		int lvl = level_manager.getLevel().ordinal();
+		
+		for (int i = 0; i < 2*lvl; i++) {
+			LevelUp();
+		}
+		
 		currentState = STATES.PLAY_GAME_STATE;
 	}
 

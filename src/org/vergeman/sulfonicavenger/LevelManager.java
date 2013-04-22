@@ -11,7 +11,6 @@ public class LevelManager {
 		public LEVELS decrease() {
 			return  ( ( (ordinal() - 1) % values().length) < 0 ? 
 					values()[2] : values()[((ordinal() - 1) % values().length)] );
-		
 		}
 	}
 	
@@ -30,5 +29,8 @@ public class LevelManager {
 	
 	public LEVELS getLevel() {
 		return level;
+	}
+	public void resetLevel() {
+		level = LEVELS.EASY;
 	}
 }
