@@ -1,7 +1,7 @@
 <html>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="http://java.com/js/deployJava.js"></script>
+<script type="text/javascript" src="./jquery-1.7.1.min.js"></script>
+<script src="./deployJava.js"></script>
 
 <script>
     var attributes = {codebase:'./gamelib/',
@@ -13,19 +13,13 @@
     var version = '1.6';
 
     $(document).ready(function(){
-    	alert("Maximize your browser");
     	var params = [
     	              'height='+screen.height,
     	              'width='+screen.width
     	          ].join(',');
-			
-        	//var popup = window.open("index2.html", 'Sulfonic Avenger',
-        	//		params);
-           //popup.moveTo(0,0);
-        	
-           
+    	
     	deployJava.runApplet(attributes, parameters, version);
-               
+    	
     });
     
 </script>
