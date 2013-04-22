@@ -21,11 +21,14 @@ public class TextDrawManager {
 		text_drawer_map = new HashMap<String, TextDrawer>();	
 	}
 	
-	public void build(String msg_name, float font_size) {
-		
-		text_drawer_map.put(msg_name, 
-				new TextDrawer(assetManager.getFont(),
-				assetManager.get_awtFont(), font_size, g, windowManager));
+	/* dirty: we'll just use true for default (arcarde-style), false for helvetica */
+	public void build(String msg_name, float font_size, boolean font_name) {
+
+		text_drawer_map.put(msg_name,
+				new TextDrawer(assetManager.getGameFont(),
+						font_name ? assetManager.getAwtGameFont()
+								: assetManager.getAwtHelveticaFont(),
+						font_size, g, windowManager));
 	}
 	
 	public TextDrawer get(String message) {
@@ -34,11 +37,11 @@ public class TextDrawManager {
 	
 	public int getWidth(String message) {
 		String last_message = text_drawer_map.get(message).last_message;
-		return text_drawer_map.get(message).gameFont.getWidth(last_message);
+		return text_drawer_map.get(message).ttfont.getWidth(last_message);
 	}
 	public int getHeight(String message) {
 		String last_message = text_drawer_map.get(message).last_message;
-		return text_drawer_map.get(message).gameFont.getHeight(last_message);
+		return text_drawer_map.get(message).ttfont.getHeight(last_message);
 	}
 	
 	public void draw(String key, String message, Color text_color,

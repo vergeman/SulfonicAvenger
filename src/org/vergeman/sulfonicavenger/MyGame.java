@@ -38,10 +38,11 @@ public class MyGame extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
 		List<Score> high_scores = new ArrayList<Score>();
+		LevelManager level_manager = new LevelManager();
 		
-		addState(new GameMenuState(GAMEMENUSTATE));
+		addState(new GameMenuState(GAMEMENUSTATE, high_scores, level_manager));
 		
-		addState(new GamePlayState(GAMEPLAYSTATE, high_scores)); //test passing args
+		addState(new GamePlayState(GAMEPLAYSTATE, high_scores, level_manager)); //test passing args
 		
 	}
 

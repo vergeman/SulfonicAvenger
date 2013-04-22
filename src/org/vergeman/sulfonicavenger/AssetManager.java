@@ -19,9 +19,9 @@ public class AssetManager {
 	HashMap<String, Sound> sound_map = new HashMap<String, Sound>();
 	HashMap<String, SpriteSheet> spritesheet_map = new HashMap<String, SpriteSheet>();
 	
-	InputStream inputStream;
-	TrueTypeFont gameFont;
-	Font awt_gameFont;
+	InputStream inputStream, inputStream2;
+	TrueTypeFont gameFont, helveticaFont;
+	Font awt_gameFont, awt_helveticaFont;
 	
 	Image ship;
 	Image molecule1;
@@ -33,6 +33,8 @@ public class AssetManager {
 	Image centibody;
 	Image centihead;
 	
+	Image biglogo;
+	
 	Sound hit, shoot;
 
 	SpriteSheet agc_explosion, gen_explosion, player_explosion;
@@ -42,11 +44,21 @@ public class AssetManager {
 	
 	}
 	
-	public boolean menu_init() throws FontFormatException, IOException {
+	public boolean menu_init() throws FontFormatException, IOException, SlickException {
 		inputStream	= ResourceLoader.getResourceAsStream("data/arcadefont.ttf");			 
 		awt_gameFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 		awt_gameFont = awt_gameFont.deriveFont(14f); // set font size
 		gameFont = new TrueTypeFont(awt_gameFont, false);
+		
+		inputStream2	= ResourceLoader.getResourceAsStream("data/Helvetica.ttf");			 
+		awt_helveticaFont = Font.createFont(Font.TRUETYPE_FONT, inputStream2);
+		awt_helveticaFont = awt_helveticaFont.deriveFont(14f); // set font size
+		helveticaFont = new TrueTypeFont(awt_helveticaFont, false);
+		
+		biglogo = new Image("data/biglogo.png", false, Image.FILTER_NEAREST);
+		image_map.put("biglogo", biglogo);
+		
+		
 		return true;
 	}
 	
@@ -127,12 +139,19 @@ public class AssetManager {
 		return;
 	}
 
-	public TrueTypeFont getFont() {
+	public TrueTypeFont getGameFont() {
 		return gameFont;
 
 	}
 
-	public Font get_awtFont() {
+	public Font getAwtGameFont() {
 		return awt_gameFont; 
+	}
+	
+	public Font getAwtHelveticaFont() {
+		return awt_helveticaFont;
+	}
+	public TrueTypeFont getHelveticaFont() {
+		return helveticaFont;
 	}
 }

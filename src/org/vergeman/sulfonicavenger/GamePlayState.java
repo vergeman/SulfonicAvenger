@@ -85,10 +85,13 @@ public class GamePlayState extends BasicGameState {
 	
 	boolean run_once;
 	
-	public GamePlayState(int id, List<Score> high_scores) {
+	LevelManager level_manager;
+	
+	public GamePlayState(int id, List<Score> high_scores, LevelManager level_manager) {
 		super();
 		this.stateID = id;
 		this.high_scores = high_scores;
+		this.level_manager = level_manager;
 	}
 
 	@Override
@@ -129,10 +132,10 @@ public class GamePlayState extends BasicGameState {
 		
 		textDrawManager = new TextDrawManager(container.getGraphics(),
 				windowManager, assetManager);
-		textDrawManager.build("state", STATE_SZ);
-		textDrawManager.build("title", TITLE_SZ);
-		textDrawManager.build("score", SCORE_SZ);
-		textDrawManager.build("high_score", SCORE_SZ);
+		textDrawManager.build("state", STATE_SZ, true);
+		textDrawManager.build("title", TITLE_SZ, true);
+		textDrawManager.build("score", SCORE_SZ, true);
+		textDrawManager.build("high_score", SCORE_SZ, true);
 
 		scoreManager = new ScoreManager(windowManager, textDrawManager, high_scores);
 
@@ -201,7 +204,7 @@ public class GamePlayState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
 
-		//super.enter(container, game);
+		super.enter(container, game);
 		init(container, game);
 
 		input.initControllers();
@@ -225,6 +228,7 @@ public class GamePlayState extends BasicGameState {
 			throws SlickException {
 		
 		run_once = true;
+		windowManager.isResized();
 		
 		/* GAME_STATE */
 		switch (currentState) {

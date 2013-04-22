@@ -7,8 +7,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
 
 public class TextDrawer {
-	TrueTypeFont gameFont;
-	Font awt_gameFont;
+	TrueTypeFont ttfont;
+	Font awt_Font;
 	Graphics g;
 	WindowManager windowManager;
 	int height;
@@ -23,16 +23,16 @@ public class TextDrawer {
 	double w_offset_coef,h_offset_coef,w_offset,h_offset;
 	boolean center;
 	
-	public TextDrawer(TrueTypeFont gameFont, Font awt_gameFont, 
+	public TextDrawer(TrueTypeFont ttfont, Font awt_Font, 
 			float font_size, Graphics g, WindowManager windowManager) {
 	
-		this.gameFont = gameFont;
-		this.awt_gameFont = awt_gameFont;
+		this.ttfont = ttfont;
+		this.awt_Font = awt_Font;
 		this.g = g;
 		this.windowManager = windowManager;
 		setFontSize(font_size);
 
-		this.height = gameFont.getHeight();
+		this.height = ttfont.getHeight();
 
 	}
 	
@@ -46,8 +46,8 @@ public class TextDrawer {
 	}
 	
 	public void setFontSize(float size) {
-		this.awt_gameFont = awt_gameFont.deriveFont(size);
-		gameFont = new TrueTypeFont(awt_gameFont, false);
+		this.awt_Font = awt_Font.deriveFont(size);
+		ttfont = new TrueTypeFont(awt_Font, false);
 	}
 	
 	public void draw(String message, Color text_color,
@@ -55,17 +55,17 @@ public class TextDrawer {
 
 		if (message != null) {
 			//move left to offset message
-			draw_x= (int) (x + w_offset_coef * gameFont.getWidth(message) + w_offset);
+			draw_x= (int) (x + w_offset_coef * ttfont.getWidth(message) + w_offset);
 			draw_y= (int) (y + h_offset_coef * height + h_offset);
 			
 			if (center) {
-				x= (int) (windowManager.getCenterX() - gameFont.getWidth(message)) / 2;
-				y= (int) (windowManager.getCenterY() - gameFont.getHeight() / 2);
+				x= (int) (windowManager.getCenterX() - ttfont.getWidth(message)) / 2;
+				y= (int) (windowManager.getCenterY() - ttfont.getHeight() / 2);
 			}
 				//g.fillRect(x,y, width, height);
 			last_message = message;
 			
-			gameFont.drawString(draw_x, draw_y, message, text_color);
+			ttfont.drawString(draw_x, draw_y, message, text_color);
 		}
 	}
 	

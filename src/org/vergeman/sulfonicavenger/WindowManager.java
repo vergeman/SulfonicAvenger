@@ -88,27 +88,3 @@ public class WindowManager {
 		return _HEIGHT;
 	}
 }
-
-
-/* old resize code didn't do anything
-isFirstLoad = false;
-scale_abs = windowManager.getScaleAbsFactor();
-scale_rel = windowManager.getScaleRelFactor();
-int x = container.getWidth();
-int y = container.getHeight();
-
-for (MoleculeEntity m : molecules) {
-	m.resize(x, y, scale_abs, scale_rel);
-}
-
-for (NH3Entity n : nh3s) {
-	n.resize(x, y, scale_abs, scale_rel);
-}
-
-for (Centipede c : centipedes) {
-	c.resize(x, y, scale_abs, scale_rel);
-}
-
-player.resize(x, y, scale_abs, scale_rel);
-
-*/
