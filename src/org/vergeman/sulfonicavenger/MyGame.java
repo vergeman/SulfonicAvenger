@@ -15,6 +15,7 @@ public class MyGame extends StateBasedGame {
 
 	public final static int GAMEMENUSTATE = 0;
 	public final static int GAMEPLAYSTATE = 1;
+	public final static int GAMEPADTESTSTATE = 2;
 	
 	public static void main(String[] args) throws SlickException {
 
@@ -42,7 +43,9 @@ public class MyGame extends StateBasedGame {
 		
 		addState(new GameMenuState(GAMEMENUSTATE, high_scores, level_manager));
 		
-		addState(new GamePlayState(GAMEPLAYSTATE, high_scores, level_manager)); //test passing args
+		addState(new GamePlayState(GAMEPLAYSTATE, high_scores, level_manager));
+	
+		addState(new GamepadTestState(GAMEPADTESTSTATE));
 		
 	}
 

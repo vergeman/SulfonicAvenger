@@ -173,6 +173,10 @@ public class GameMenuState extends BasicGameState {
 		input.initControllers();
 		
 		gp.poll();
+		
+		if (input.isKeyPressed(Input.KEY_C)) {
+			game.enterState(MyGame.GAMEPADTESTSTATE);			
+		}
 
 		if (input.isKeyPressed(Input.KEY_UP) || gp.isEventedControllerUp()) {
 			level_manager.decreaseLevel();
