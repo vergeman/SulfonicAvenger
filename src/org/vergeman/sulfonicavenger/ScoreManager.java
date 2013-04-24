@@ -24,7 +24,7 @@ public class ScoreManager {
 	int last_level_score = 0;
 	
 	private int NUM_HIGH_SCORES = 5;
-	private int LIFE_SCORE = 1000;
+	private int LIFE_SCORE = 5000;
 	private int LEVEL_SCORE = 3000;
 	
 	List<Score> high_scores;
