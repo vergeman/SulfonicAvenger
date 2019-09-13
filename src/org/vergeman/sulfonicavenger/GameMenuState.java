@@ -59,12 +59,15 @@ public class GameMenuState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		run_once = false;
+
+        assetManager = new AssetManager();
+
 		gp = new Gamepad(container);
+
 		input = container.getInput();
 
 		windowManager = new WindowManager(container, game);
 
-		assetManager = new AssetManager();
 
 		try {
 			assetManager.menu_init();
