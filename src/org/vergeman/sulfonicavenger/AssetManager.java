@@ -33,7 +33,7 @@ public class AssetManager {
 	Image centibody;
 	Image centihead;
 	
-	Image biglogo;
+	protected Image biglogo;
 	
 	Sound hit, shoot;
 
