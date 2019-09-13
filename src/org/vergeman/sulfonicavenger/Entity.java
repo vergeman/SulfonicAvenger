@@ -1,6 +1,4 @@
-package org.vergeman.sulfonicavenger.entities;
-
-import org.vergeman.sulfonicavenger.Sprite;
+package org.vergeman.sulfonicavenger;
 
 import java.awt.Rectangle;
 
@@ -19,26 +17,26 @@ import java.awt.Rectangle;
 public abstract class Entity {
 
 	/** The current x location of this entity */
-	public float	x;
+	protected float	x;
 
 	/** The current y location of this entity */
-	public float	y;
+	protected float	y;
 
-	public float old_x;
-	public float old_y;
+	protected float old_x;
+	protected float old_y;
 	/** The sprite that represents this entity */
-	public Sprite sprite;
+	protected Sprite	sprite;
 
 	/** The current speed of this entity horizontally (pixels/sec) */
-	public float	dx;
+	protected float	dx;
 
 	/** The current speed of this entity vertically (pixels/sec) */
-	public float	dy;
+	protected float	dy;
 
-	public int BOUNDS_LEFT;
-	public int BOUNDS_RIGHT;
-	public int BOUNDS_TOP;
-	public int BOUNDS_BOTTOM;
+	protected int BOUNDS_LEFT;
+	protected int BOUNDS_RIGHT;
+	protected int BOUNDS_TOP;
+	protected int BOUNDS_BOTTOM;
 	
 	/** The rectangle used for this entity during collisions  resolution */
 	private Rectangle	me	= new Rectangle();

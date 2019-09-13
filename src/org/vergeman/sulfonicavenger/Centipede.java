@@ -1,4 +1,4 @@
-package org.vergeman.sulfonicavenger.entities;
+package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
-import org.vergeman.sulfonicavenger.Sprite;
 
 public class Centipede {
 	ArrayList<CentiBallEntity> centipede;
@@ -14,8 +13,8 @@ public class Centipede {
 	Sprite sprite_centibody;
 	Sprite sprite_centihead;
 	Random r = new Random();
-
-	public boolean isAlive;
+	
+	boolean isAlive;
 	int lives;
 	int start_pos;
 

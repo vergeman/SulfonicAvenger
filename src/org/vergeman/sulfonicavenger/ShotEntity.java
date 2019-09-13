@@ -1,6 +1,4 @@
-package org.vergeman.sulfonicavenger.entities;
-
-import org.vergeman.sulfonicavenger.Sprite;
+package org.vergeman.sulfonicavenger;
 
 public class ShotEntity extends Entity {
 
@@ -12,7 +10,7 @@ public class ShotEntity extends Entity {
 
 	private boolean display;
 
-	public ShotEntity(Sprite sprite, int x, int y) {
+	protected ShotEntity(Sprite sprite, int x, int y) {
 		super(sprite, x, y);
 		TOP_BORDER = -sprite.getHeight() - 10;
 		dy = moveSpeed;

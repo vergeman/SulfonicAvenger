@@ -1,16 +1,15 @@
-package org.vergeman.sulfonicavenger.entities;
+package org.vergeman.sulfonicavenger;
 
 import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
-import org.vergeman.sulfonicavenger.Sprite;
 
 public class CentiBallEntity extends Entity {
 	protected GameContainer container;
 	
 	protected boolean isHead;
 	
-	public int move_speed = 250;
+	protected int move_speed = 250;
 
 	protected int goal_x;
 	protected int goal_y;
@@ -18,7 +17,7 @@ public class CentiBallEntity extends Entity {
 
 	protected boolean display;
 	
-	public CentiBallEntity(GameContainer container, Sprite sprite,
+	protected CentiBallEntity(GameContainer container, Sprite sprite, 
 				int x, int y, boolean isHead, int move_speed) {
 		super(sprite, x, y);
 		this.isHead = isHead;
