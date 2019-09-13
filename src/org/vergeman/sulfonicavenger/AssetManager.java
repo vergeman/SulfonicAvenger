@@ -55,7 +55,7 @@ public class AssetManager {
 		awt_helveticaFont = awt_helveticaFont.deriveFont(14f); // set font size
 		helveticaFont = new TrueTypeFont(awt_helveticaFont, false);
 		
-		biglogo = new Image("data/biglogo.png", false, Image.FILTER_NEAREST);
+		biglogo = new Image("data/images/biglogo.png", false, Image.FILTER_NEAREST);
 		image_map.put("biglogo", biglogo);
 		
 		
@@ -65,19 +65,19 @@ public class AssetManager {
 	public boolean init() {
 		/*load static stuff*/		
 		try {
-			ship = new Image("data/logo.png", false, Image.FILTER_NEAREST);
-			nh3 = new Image("data/nh3.png", false, Image.FILTER_NEAREST);
+			ship = new Image("data/images/logo.png", false, Image.FILTER_NEAREST);
+			nh3 = new Image("data/images/nh3.png", false, Image.FILTER_NEAREST);
 			
-			molecule1 = new Image("data/molecule_b.png", false, Image.FILTER_NEAREST);
-			molecule2 = new Image("data/molecule_m+c.png", false, Image.FILTER_NEAREST);
-			molecule3 = new Image("data/molecule_agc.png", false, Image.FILTER_NEAREST);
+			molecule1 = new Image("data/images/molecule_b.png", false, Image.FILTER_NEAREST);
+			molecule2 = new Image("data/images/molecule_m+c.png", false, Image.FILTER_NEAREST);
+			molecule3 = new Image("data/images/molecule_agc.png", false, Image.FILTER_NEAREST);
 			
-			damage = new Image("data/damage.png");
+			damage = new Image("data/images/damage.png");
 			
-			centihead  = new Image("data/centi.png", false, Image.FILTER_NEAREST);
-			centibody = new Image("data/centi.png", false, Image.FILTER_NEAREST);
+			centihead  = new Image("data/images/centi.png", false, Image.FILTER_NEAREST);
+			centibody = new Image("data/images/centi.png", false, Image.FILTER_NEAREST);
 			
-			shot = new Image("data/shot.gif", false, Image.FILTER_NEAREST);
+			shot = new Image("data/images/shot.gif", false, Image.FILTER_NEAREST);
 			
 			inputStream	= ResourceLoader.getResourceAsStream("data/fonts/arcadefont.ttf");
 			awt_gameFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
@@ -101,13 +101,13 @@ public class AssetManager {
 			sound_map.put("shoot", shoot);
 
 			
-			agc_explosion = new SpriteSheet("data/explosion_molecule_agc.png", 64, 64);
+			agc_explosion = new SpriteSheet("data/images/explosion_molecule_agc.png", 64, 64);
 			spritesheet_map.put("agc_explosion", agc_explosion);
 			
-			gen_explosion = new SpriteSheet("data/explosion_generic.png", 32, 32);
+			gen_explosion = new SpriteSheet("data/images/explosion_generic.png", 32, 32);
 			spritesheet_map.put("gen_explosion", gen_explosion);
 			
-			player_explosion = new SpriteSheet("data/explosion.png", 64, 64);
+			player_explosion = new SpriteSheet("data/images/explosion.png", 64, 64);
 			spritesheet_map.put("player_explosion", player_explosion);
 			
 			
