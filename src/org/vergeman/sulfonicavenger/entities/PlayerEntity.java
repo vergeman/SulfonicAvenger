@@ -1,4 +1,4 @@
-package org.vergeman.sulfonicavenger;
+package org.vergeman.sulfonicavenger.entities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,11 +7,12 @@ import org.lwjgl.Sys;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
+import org.vergeman.sulfonicavenger.*;
 
 public class PlayerEntity extends Entity implements KeyListener {
-	boolean alive, can_collide;
-	boolean game_over;
-	int lives = 3;
+	public boolean alive, can_collide;
+	public boolean game_over;
+	public int lives = 3;
 	int spawn_x, spawn_y;
 
 	protected int move_speed = 300;
@@ -28,8 +29,8 @@ public class PlayerEntity extends Entity implements KeyListener {
 
 	Gamepad gp;
 	
-	protected PlayerEntity(GameContainer container, AssetManager assetManager,
-			Sprite sprite, int x, int y, ArrayList<Animator> animators) {
+	public PlayerEntity(GameContainer container, AssetManager assetManager,
+						   Sprite sprite, int x, int y, ArrayList<Animator> animators) {
 		super(sprite, x, y);
 		this.spawn_x = x;
 		this.spawn_y = y;

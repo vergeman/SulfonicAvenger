@@ -1,21 +1,22 @@
-package org.vergeman.sulfonicavenger;
+package org.vergeman.sulfonicavenger.entities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
+import org.vergeman.sulfonicavenger.AssetManager;
+import org.vergeman.sulfonicavenger.Sprite;
 
 public class MoleculeEntity extends Entity {
 
 	int lives;
-	boolean remove = false;
 	int score;
-	
-	ArrayList<String> damages;
+	public boolean remove = false;
+	public ArrayList<String> damages;
 	Random r;
 	
-	protected MoleculeEntity(Sprite sprite,  int type, int x, int y) {
+	public MoleculeEntity(Sprite sprite, int type, int x, int y) {
 		super(sprite, x, y);
 		
 		//Molecule Type M+C / B / AGC
@@ -66,7 +67,7 @@ public class MoleculeEntity extends Entity {
 	}
 
 	
-	public static ArrayList<MoleculeEntity> initMolecules(GameContainer container, AssetManager assetManager, 
+	public static ArrayList<MoleculeEntity> initMolecules(GameContainer container, AssetManager assetManager,
 			int NUM_MOLECULES, Sprite[] sprite_molecules) {
 		ArrayList<MoleculeEntity> molecules = new ArrayList<MoleculeEntity>();
 		Random r = new Random();

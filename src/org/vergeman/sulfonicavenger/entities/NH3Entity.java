@@ -1,17 +1,18 @@
-package org.vergeman.sulfonicavenger;
+package org.vergeman.sulfonicavenger.entities;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import org.lwjgl.Sys;
 import org.newdawn.slick.GameContainer;
+import org.vergeman.sulfonicavenger.Sprite;
 
 public class NH3Entity extends Entity {
 	protected GameContainer container;
 
 	protected int move_speed = 170;
 
-	protected boolean display;
+	public boolean display;
 
 	protected Random r = new Random();
 	protected boolean move_bool = true;
@@ -20,9 +21,9 @@ public class NH3Entity extends Entity {
 
 	int NH3LifeInterval = 20000;
 	long spawn_time;
-	boolean remove_me;
+	public boolean remove_me;
 
-	protected NH3Entity(GameContainer container, Sprite sprite, int x, int y, int move_speed) {
+	public NH3Entity(GameContainer container, Sprite sprite, int x, int y, int move_speed) {
 		super(sprite, x, y);
 		this.container = container;
 		setHorizontalMovement(0);

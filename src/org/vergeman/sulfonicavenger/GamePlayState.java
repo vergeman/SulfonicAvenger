@@ -13,6 +13,7 @@ import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.vergeman.sulfonicavenger.entities.*;
 
 public class GamePlayState extends BasicGameState {
 
@@ -64,7 +65,7 @@ public class GamePlayState extends BasicGameState {
 
 	Random r;
 
-	PlayerEntity player;
+	public PlayerEntity player;
 	ArrayList<MoleculeEntity> molecules;
 	Sprite[] sprite_molecules;
 	ArrayList<NH3Entity> nh3s;
