@@ -192,7 +192,7 @@ public class GamePlayState extends BasicGameState {
 				sprite_centibody, CENTIPEDE_SIZE, CENTIPEDE_SPEED));
 		lastCentipede = Sys.getTime();
 		
-		Music theme = new Music("data/theme.ogg");
+		Music theme = new Music("data/audio/theme.ogg");
 		theme.loop();
 
 		input.addKeyListener(player);

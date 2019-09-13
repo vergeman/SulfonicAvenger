@@ -45,12 +45,12 @@ public class AssetManager {
 	}
 	
 	public boolean menu_init() throws FontFormatException, IOException, SlickException {
-		inputStream	= ResourceLoader.getResourceAsStream("data/arcadefont.ttf");			 
+		inputStream	= ResourceLoader.getResourceAsStream("data/fonts/arcadefont.ttf");
 		awt_gameFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 		awt_gameFont = awt_gameFont.deriveFont(14f); // set font size
 		gameFont = new TrueTypeFont(awt_gameFont, false);
 		
-		inputStream2	= ResourceLoader.getResourceAsStream("data/Helvetica.ttf");			 
+		inputStream2	= ResourceLoader.getResourceAsStream("data/fonts/Helvetica.ttf");
 		awt_helveticaFont = Font.createFont(Font.TRUETYPE_FONT, inputStream2);
 		awt_helveticaFont = awt_helveticaFont.deriveFont(14f); // set font size
 		helveticaFont = new TrueTypeFont(awt_helveticaFont, false);
@@ -79,7 +79,7 @@ public class AssetManager {
 			
 			shot = new Image("data/shot.gif", false, Image.FILTER_NEAREST);
 			
-			inputStream	= ResourceLoader.getResourceAsStream("data/arcadefont.ttf");			 
+			inputStream	= ResourceLoader.getResourceAsStream("data/fonts/arcadefont.ttf");
 			awt_gameFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 			awt_gameFont = awt_gameFont.deriveFont(14f); // set font size
 			gameFont = new TrueTypeFont(awt_gameFont, false);
@@ -94,9 +94,9 @@ public class AssetManager {
 			image_map.put("centihead", centihead);
 			image_map.put("centibody", centibody);
 				
-			hit = new Sound("data/hit.wav");
+			hit = new Sound("data/audio/hit.wav");
 	
-			shoot = new Sound("data/shot.wav");
+			shoot = new Sound("data/audio/shot.wav");
 			sound_map.put("hit", hit);
 			sound_map.put("shoot", shoot);
 
