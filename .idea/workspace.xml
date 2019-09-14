@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="SulfonicAvenger:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4d851a82-d504-456d-8d7c-5d774daea93c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/SulfonicAvenger.iml" afterPath="$PROJECT_DIR$/SulfonicAvenger.iml" />
+    </list>
+    <ignored path="$PROJECT_DIR$/bin/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Entity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/Entity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="594">
+              <caret line="33" column="23" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameMenuState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/GameMenuState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="990">
+              <caret line="66" column="8" lean-forward="false" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CompositeIOException.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/gamelib/slick.jar!/org/newdawn/slick/opengl/CompositeIOException.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+              <folding>
+                <marker date="1568349259648" expanded="false" signature="0:104" ph="/.../" />
+                <marker date="1568349259648" expanded="false" signature="148:196" ph="..." />
+                <marker date="1568349259648" expanded="true" signature="341:348" ph="{}" />
+                <marker date="1568349259648" expanded="false" signature="391:402" ph=" { " />
+                <marker date="1568349259648" expanded="false" signature="425:431" ph=" }" />
+                <marker date="1568349259648" expanded="true" signature="464:699" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="run.sh" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/run.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="9" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="version" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/gamelib/slick.jar!/version">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="2" column="9" lean-forward="false" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MANIFEST.MF" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/gamelib/slick.jar!/META-INF/MANIFEST.MF">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MANIFEST.MF" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manifest.mf" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manifest.mf">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MANIFEST.MF" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/gamelib/lwjgl.jar!/META-INF/MANIFEST.MF">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/org/vergeman/sulfonicavenger/AssetManager.java" />
+        <option value="$PROJECT_DIR$/src/org/vergeman/sulfonicavenger/GameMenuState.java" />
+        <option value="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+        <option value="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/run.sh" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="66" />
+    <option name="y" value="31" />
+    <option name="width" value="1785" />
+    <option name="height" value="818" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="SulfonicAvenger" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SulfonicAvenger" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SulfonicAvenger" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SulfonicAvenger" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SulfonicAvenger" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/manifest.mf" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="sulfonicavenger" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.MyGame">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+    </configuration>
+    <configuration name="MyGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="org.vergeman.sulfonicavenger.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="org.vergeman.sulfonicavenger.MyGame" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="SulfonicAvenger" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="org.vergeman.sulfonicavenger.MyGame" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="SulfonicAvenger.jar" type="JarApplication" factoryName="JAR Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/SulfonicAvenger_jar/SulfonicAvenger.jar" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Application.MyGame" />
+      <item index="1" class="java.lang.String" itemvalue="JAR Application.SulfonicAvenger.jar" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Application.MyGame" />
+        <item index="1" class="java.lang.String" itemvalue="JAR Application.SulfonicAvenger.jar" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4d851a82-d504-456d-8d7c-5d774daea93c" name="Default" comment="" />
+      <created>1568358406237</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1568358406237</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25262576" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="SulfonicAvenger" type="b2602c69:ProjectViewProjectNode" />
+        <item name="SulfonicAvenger" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.classpath">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="145" lean-forward="false" selection-start-line="3" selection-start-column="145" selection-end-line="3" selection-end-column="145" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/MyGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/gamelib/slick.jar!/org/newdawn/slick/Image.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1890">
+          <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+          <folding>
+            <marker date="1568349259648" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1568349259648" expanded="false" signature="141:707" ph="..." />
+            <marker date="1568349259648" expanded="true" signature="1762:1898" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2002:2187" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2279:2344" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2379:2947" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2971:3062" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3098:3289" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3342:3375" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3441:3487" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3552:3593" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3663:3704" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3786:3842" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3938:4641" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="4676:4845" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="4909:4951" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5022:5094" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5180:5225" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5323:5472" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5504:5584" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5628:5708" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="5742:5753" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="5781:5787" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="5829:6175" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="6203:6214" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="6233:6239" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="6281:6292" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="6308:6314" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="6382:6541" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="6600:6747" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="6822:7200" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="7266:7608" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="7641:7926" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="7964:7975" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="7992:7998" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="8027:8038" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="8055:8061" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="8119:8184" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="8301:8852" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="8876:8887" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="8907:8913" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="8943:9031" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="9065:9665" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="9697:9704" ph="{}" />
+            <marker date="1568349259648" expanded="false" signature="9728:9739" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="9761:9767" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="9816:9913" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="9954:10046" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="10101:10201" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="10293:12718" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="12767:12856" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="12932:14280" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="14399:14486" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="14619:15741" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="15780:15844" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="15883:15947" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="15984:16046" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16084:16147" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16201:16322" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16390:16506" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16574:16655" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16731:16799" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16889:18390" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="18472:19545" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19618:19683" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19739:19819" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19861:19918" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19960:20017" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="20101:21253" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="21298:21309" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21379:21385" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21427:21438" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21466:21472" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21504:21515" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21533:21539" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21568:21579" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21597:21603" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21642:21653" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21672:21678" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="21716:21782" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="21873:21978" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="22089:22168" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="22293:23353" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="23462:24661" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="24689:24744" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="24773:24829" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="24855:24943" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="25011:25936" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="25982:26114" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="26170:26802" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="26837:27026" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="27106:27532" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="27559:27764" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="27793:28135" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="28166:28386" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="28419:28430" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="28450:28456" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="28502:28650" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="28685:28696" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="28723:28729" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="28771:29769" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="29803:29814" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="29836:29842" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="29892:30109" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="30143:30154" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="30176:30182" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="30274:32144" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/AssetManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="828">
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="33" column="23" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/GameMenuState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="66" column="8" lean-forward="false" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/gamelib/slick.jar!/org/newdawn/slick/opengl/CompositeIOException.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="23" column="13" lean-forward="true" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding>
+            <marker date="1568349259648" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1568349259648" expanded="false" signature="148:196" ph="..." />
+            <marker date="1568349259648" expanded="true" signature="341:348" ph="{}" />
+            <marker date="1568349259648" expanded="false" signature="391:402" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="425:431" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="464:699" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/vergeman/sulfonicavenger/entities/MoleculeEntity.java" />
+    <entry file="file://$PROJECT_DIR$/SulfonicAvenger.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.classpath">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="145" lean-forward="false" selection-start-line="3" selection-start-column="145" selection-end-line="3" selection-end-column="145" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/MyGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/gamelib/slick.jar!/org/newdawn/slick/Image.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+          <folding>
+            <marker date="1568349259648" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1568349259648" expanded="false" signature="141:707" ph="..." />
+            <marker date="1568349259648" expanded="true" signature="1762:1898" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2002:2187" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2279:2344" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2379:2947" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2971:3062" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3098:3289" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3342:3375" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3441:3487" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3552:3593" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3663:3704" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3786:3842" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3938:4641" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="4676:4845" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="4909:4951" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5022:5094" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5180:5225" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5323:5472" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5504:5584" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5628:5708" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="5742:5753" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="5781:5787" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="5829:6175" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="6203:6214" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="6233:6239" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="6281:6292" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="6308:6314" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="6382:6541" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="6600:6747" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="6822:7200" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="7266:7608" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="7641:7926" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="7964:7975" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="7992:7998" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="8027:8038" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="8055:8061" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="8119:8184" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="8301:8852" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="8876:8887" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="8907:8913" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="8943:9031" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="9065:9665" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="9697:9704" ph="{}" />
+            <marker date="1568349259648" expanded="false" signature="9728:9739" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="9761:9767" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="9816:9913" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="9954:10046" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="10101:10201" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="10293:12718" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="12767:12856" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="12932:14280" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="14399:14486" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="14619:15741" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="15780:15844" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="15883:15947" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="15984:16046" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16084:16147" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16201:16322" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16390:16506" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16574:16655" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16731:16799" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16889:18390" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="18472:19545" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19618:19683" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19739:19819" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19861:19918" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19960:20017" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="20101:21253" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="21298:21309" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21379:21385" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21427:21438" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21466:21472" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21504:21515" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21533:21539" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21568:21579" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21597:21603" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21642:21653" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21672:21678" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="21716:21782" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="21873:21978" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="22089:22168" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="22293:23353" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="23462:24661" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="24689:24744" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="24773:24829" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="24855:24943" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="25011:25936" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="25982:26114" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="26170:26802" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="26837:27026" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="27106:27532" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="27559:27764" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="27793:28135" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="28166:28386" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="28419:28430" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="28450:28456" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="28502:28650" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="28685:28696" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="28723:28729" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="28771:29769" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="29803:29814" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="29836:29842" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="29892:30109" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="30143:30154" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="30176:30182" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="30274:32144" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/AssetManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="681">
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-355">
+          <caret line="33" column="23" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/GameMenuState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="62" column="8" lean-forward="false" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/gamelib/slick.jar!/org/newdawn/slick/opengl/CompositeIOException.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <marker date="1568349259648" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1568349259648" expanded="false" signature="148:196" ph="..." />
+            <marker date="1568349259648" expanded="true" signature="341:348" ph="{}" />
+            <marker date="1568349259648" expanded="false" signature="391:402" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="425:431" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="464:699" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/vergeman/sulfonicavenger/entities/MoleculeEntity.java" />
+    <entry file="file://$PROJECT_DIR$/SulfonicAvenger.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.classpath">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="3" column="73" lean-forward="false" selection-start-line="3" selection-start-column="73" selection-end-line="3" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/MyGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/gamelib/slick.jar!/org/newdawn/slick/Image.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1890">
+          <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+          <folding>
+            <marker date="1568349259648" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1568349259648" expanded="false" signature="141:707" ph="..." />
+            <marker date="1568349259648" expanded="true" signature="1762:1898" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2002:2187" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2279:2344" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2379:2947" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="2971:3062" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3098:3289" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3342:3375" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3441:3487" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3552:3593" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3663:3704" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3786:3842" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="3938:4641" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="4676:4845" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="4909:4951" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5022:5094" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5180:5225" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5323:5472" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5504:5584" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="5628:5708" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="5742:5753" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="5781:5787" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="5829:6175" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="6203:6214" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="6233:6239" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="6281:6292" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="6308:6314" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="6382:6541" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="6600:6747" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="6822:7200" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="7266:7608" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="7641:7926" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="7964:7975" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="7992:7998" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="8027:8038" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="8055:8061" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="8119:8184" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="8301:8852" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="8876:8887" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="8907:8913" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="8943:9031" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="9065:9665" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="9697:9704" ph="{}" />
+            <marker date="1568349259648" expanded="false" signature="9728:9739" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="9761:9767" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="9816:9913" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="9954:10046" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="10101:10201" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="10293:12718" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="12767:12856" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="12932:14280" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="14399:14486" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="14619:15741" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="15780:15844" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="15883:15947" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="15984:16046" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16084:16147" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16201:16322" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16390:16506" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16574:16655" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16731:16799" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="16889:18390" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="18472:19545" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19618:19683" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19739:19819" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19861:19918" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="19960:20017" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="20101:21253" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="21298:21309" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21379:21385" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21427:21438" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21466:21472" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21504:21515" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21533:21539" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21568:21579" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21597:21603" ph=" }" />
+            <marker date="1568349259648" expanded="false" signature="21642:21653" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="21672:21678" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="21716:21782" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="21873:21978" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="22089:22168" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="22293:23353" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="23462:24661" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="24689:24744" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="24773:24829" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="24855:24943" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="25011:25936" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="25982:26114" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="26170:26802" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="26837:27026" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="27106:27532" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="27559:27764" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="27793:28135" ph="{...}" />
+            <marker date="1568349259648" expanded="true" signature="28166:28386" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="28419:28430" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="28450:28456" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="28502:28650" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="28685:28696" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="28723:28729" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="28771:29769" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="29803:29814" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="29836:29842" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="29892:30109" ph="{...}" />
+            <marker date="1568349259648" expanded="false" signature="30143:30154" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="30176:30182" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="30274:32144" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/AssetManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="828">
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="33" column="23" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vergeman/sulfonicavenger/GameMenuState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="66" column="8" lean-forward="false" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+    <entry file="jar://$PROJECT_DIR$/gamelib/slick.jar!/org/newdawn/slick/opengl/CompositeIOException.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding>
+            <marker date="1568349259648" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1568349259648" expanded="false" signature="148:196" ph="..." />
+            <marker date="1568349259648" expanded="true" signature="341:348" ph="{}" />
+            <marker date="1568349259648" expanded="false" signature="391:402" ph=" { " />
+            <marker date="1568349259648" expanded="false" signature="425:431" ph=" }" />
+            <marker date="1568349259648" expanded="true" signature="464:699" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/gamelib/lwjgl.jar!/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifest.mf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/gamelib/slick.jar!/version">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="9" lean-forward="false" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/gamelib/slick.jar!/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="9" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>SulfonicAvenger:jar</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>SulfonicAvenger</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>jinput</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

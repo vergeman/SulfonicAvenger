@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="jinput">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/gamelib/jinput.jar!/" />
+      <root url="jar://$PROJECT_DIR$/gamelib/jorbis-0.0.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/gamelib/lwjgl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/gamelib/slick.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="gamelib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/gamelib" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/gamelib" />
+    </NATIVE>
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/gamelib" recursive="false" />
+  </library>
+</component>
